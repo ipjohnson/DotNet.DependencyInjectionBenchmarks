@@ -33,7 +33,7 @@ namespace DotNet.DependencyInjectionBenchmarks.Benchmarks.Scoped
         }
 
         [Benchmark]
-        public void DryIoC()
+        public void DryIoc()
         {
             ExecuteBenchmark(DryIocScope);
         }

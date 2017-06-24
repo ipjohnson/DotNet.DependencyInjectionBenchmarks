@@ -40,12 +40,13 @@ namespace DotNet.DependencyInjectionBenchmarks.Benchmarks
         {
             return SimpleInjectorScope = new SimpleInjectorContainerScope();
         }
-        
+
         /// <summary>
         /// Registers definitions and dummy classes for scope
         /// </summary>
         /// <param name="scope"></param>
         /// <param name="definitions"></param>
+        /// <param name="resolveStatements"></param>
         protected void SetupScopeForTest(IContainerScope scope, IEnumerable<RegistrationDefinition> definitions, params Action<IResolveScope>[] resolveStatements)
         {
             var dummyTypes = DummyClasses.GetTypes(200).ToArray();

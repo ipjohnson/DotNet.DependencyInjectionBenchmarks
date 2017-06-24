@@ -3,3 +3,6 @@
 ################################################################################
 
 /src/DotNet.DependencyInjectionBenchmarks/BenchmarkDotNet.Artifacts
+/src/DotNet.DependencyInjectionBenchmarks/bin
+/src/DotNet.DependencyInjectionBenchmarks/obj
+/.vs

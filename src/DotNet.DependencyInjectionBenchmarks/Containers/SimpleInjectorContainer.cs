@@ -47,7 +47,7 @@ namespace DotNet.DependencyInjectionBenchmarks.Containers
 
         public void RegisterFactory<TResult>(Func<TResult> factory, RegistrationMode mode, RegistrationLifestyle lifestyle)
         {
-            throw new NotImplementedException();
+
         }
 
         public void RegisterFactory<T1, TResult>(Func<T1, TResult> factory, RegistrationMode mode, RegistrationLifestyle lifestyle)
