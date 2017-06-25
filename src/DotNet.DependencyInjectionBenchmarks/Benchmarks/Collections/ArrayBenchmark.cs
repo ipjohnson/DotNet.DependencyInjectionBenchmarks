@@ -30,18 +30,21 @@ namespace DotNet.DependencyInjectionBenchmarks.Benchmarks.Collections
         #region Benchmarks
 
         [Benchmark]
+        [BenchmarkCategory("Autofac")]
         public void Autofac()
         {
             ExecuteBenchmark(AutofacScope);
         }
         
         [Benchmark]
+        [BenchmarkCategory("Grace")]
         public void Grace()
         {
             ExecuteBenchmark(GraceScope);
         }
 
         [Benchmark]
+        [BenchmarkCategory("LightInject")]
         public void LightInject()
         {
             ExecuteBenchmark(LightInjectScope);

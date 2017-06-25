@@ -65,6 +65,7 @@ namespace DotNet.DependencyInjectionBenchmarks.Benchmarks.Metadata
         #region Benchmarks
 
         [Benchmark]
+        [BenchmarkCategory("Autofac")]
         public void Autofac()
         {
             AutofacScope.Resolve<AF.Features.Metadata.Meta<ISmallObjectGraphService1, MetadataClass>>();
@@ -73,6 +74,7 @@ namespace DotNet.DependencyInjectionBenchmarks.Benchmarks.Metadata
         }
 
         [Benchmark]
+        [BenchmarkCategory("Autofac")]
         public void Grace()
         {
             GraceScope.Resolve<G.DependencyInjection.Meta<ISmallObjectGraphService1, MetadataClass>>();

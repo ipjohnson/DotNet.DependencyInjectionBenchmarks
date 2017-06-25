@@ -44,12 +44,14 @@ namespace DotNet.DependencyInjectionBenchmarks.Benchmarks.Func
         #region Benchmark
         
         [Benchmark]
+        [BenchmarkCategory("DryIoc")]
         public void DryIoc()
         {
             ExecuteBenchmark(DryIocScope);
         }
 
         [Benchmark]
+        [BenchmarkCategory("Grace")]
         public void Grace()
         {
             ExecuteBenchmark(GraceScope);

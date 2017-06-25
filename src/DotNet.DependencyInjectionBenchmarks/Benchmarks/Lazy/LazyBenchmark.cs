@@ -26,30 +26,35 @@ namespace DotNet.DependencyInjectionBenchmarks.Benchmarks.Lazy
         }
 
         [Benchmark]
+        [BenchmarkCategory("Autofac")]
         public void Autofac()
         {
             ExecuteBenchmark(AutofacScope);
         }
 
         //[Benchmark]
+        //[BenchmarkCategory("DryIoc")]
         //public void DryIoc()
         //{
         //    ExecuteBenchmark(DryIocScope);
         //}
 
         [Benchmark]
+        [BenchmarkCategory("Grace")]
         public void Grace()
         {
             ExecuteBenchmark(GraceScope);
         }
 
         [Benchmark]
+        [BenchmarkCategory("LightInject")]
         public void LightInject()
         {
             ExecuteBenchmark(LightInjectScope);
         }
         
         [Benchmark]
+        [BenchmarkCategory("SimpleInjector")]
         public void SimpleInjector()
         {
             ExecuteBenchmark(LightInjectScope);
