@@ -27,6 +27,8 @@ namespace DotNet.DependencyInjectionBenchmarks.Benchmarks.Factory
         private void SetupContainer(IContainerScope container, RegistrationDefinition[] definitions)
         {
             container.RegisterFactory<ITransientService1>(() => new TransientService1(), RegistrationMode.Single, RegistrationLifestyle.Transient);
+            container.RegisterFactory<ITransientService2>(() => new TransientService2(), RegistrationMode.Single, RegistrationLifestyle.Transient);
+            container.RegisterFactory<ITransientService3>(() => new TransientService3(), RegistrationMode.Single, RegistrationLifestyle.Transient);
 
             SetupScopeForTest(container,definitions,
                 scope => scope.Resolve<ISmallObjectGraphService1>(),
@@ -38,7 +40,7 @@ namespace DotNet.DependencyInjectionBenchmarks.Benchmarks.Factory
         private IEnumerable<RegistrationDefinition> Definitions()
         {
             yield return new RegistrationDefinition { ExportType = typeof(ISmallObjectGraphService1), ActivationType = typeof(SmallObjectGraphService1)};
-            yield return new RegistrationDefinition { ExportType = typeof(ISmallObjectGraphService2), ActivationType = typeof(SmallObjectGraphService3) };
+            yield return new RegistrationDefinition { ExportType = typeof(ISmallObjectGraphService2), ActivationType = typeof(SmallObjectGraphService2) };
             yield return new RegistrationDefinition { ExportType = typeof(ISmallObjectGraphService3), ActivationType = typeof(SmallObjectGraphService3) };
 
             foreach (var definition in SingletonBenchmark.Definitions())
