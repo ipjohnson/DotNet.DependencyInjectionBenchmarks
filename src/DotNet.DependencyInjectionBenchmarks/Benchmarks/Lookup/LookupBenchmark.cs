@@ -20,7 +20,7 @@ namespace DotNet.DependencyInjectionBenchmarks.Benchmarks.Lookup
     [BenchmarkCategory("Lookup")]
     public class LookupBenchmark : BaseBenchmark
     {
-        [Params(0, 100)]
+        [Params(0, 100, 500, 1000)]
         public int ExtraRegistrations { get; set; }
 
         [Params(ScenarioType.BestCase, ScenarioType.AverageCase, ScenarioType.WorstCase)]
