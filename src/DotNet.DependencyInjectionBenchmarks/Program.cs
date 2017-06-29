@@ -18,7 +18,7 @@ namespace DotNet.DependencyInjectionBenchmarks
 
             var switcher = new BenchmarkSwitcher(benchmarks.ToArray());
 
-            switcher.Run(args); //, new BenchmarkConfig());
+            switcher.Run(args, new BenchmarkConfig());
         }
     }
 }

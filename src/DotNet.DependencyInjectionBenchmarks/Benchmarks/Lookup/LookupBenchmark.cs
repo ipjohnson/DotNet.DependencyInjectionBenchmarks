@@ -10,14 +10,21 @@ using System.Threading.Tasks;
 
 namespace DotNet.DependencyInjectionBenchmarks.Benchmarks.Lookup
 {
+    public enum ScenarioType
+    {
+        BestCase,
+        AverageCase,
+        WorstCase
+    }
+
     [BenchmarkCategory("Lookup")]
     public class LookupBenchmark : BaseBenchmark
     {
-        [Params(0, 100, 500, 1000, 2000, 5000)]
+        [Params(0, 100)]
         public int ExtraRegistrations { get; set; }
 
-        [Params(false, true)]
-        public bool WorstCase { get; set; }
+        [Params(ScenarioType.BestCase, ScenarioType.AverageCase, ScenarioType.WorstCase)]
+        public ScenarioType Scenario { get; set; }
 
         [GlobalSetup]
         public void Setup()
@@ -76,16 +83,17 @@ namespace DotNet.DependencyInjectionBenchmarks.Benchmarks.Lookup
         #endregion
 
         #region Setup Container 
+
         public void SetupContainer(IContainerScope scope)
         {
             var allTypes = DummyClasses.GetTypes(ExtraRegistrations)
                 .Select(t => new RegistrationDefinition { ExportType = t, ActivationType = t }).ToList();
 
-            if (WorstCase)
+            if (Scenario == ScenarioType.WorstCase)
             {
                 allTypes.InsertRange(0, SmallObjectBenchmark.Definitions());
             }
-            else
+            else if (Scenario == ScenarioType.AverageCase)
             {
                 var definitions = SmallObjectBenchmark.Definitions().ToArray();
                 var index = 0;
@@ -97,6 +105,10 @@ namespace DotNet.DependencyInjectionBenchmarks.Benchmarks.Lookup
 
                     index += gap + 1;
                 }
+            }
+            else
+            {
+                allTypes.AddRange(SmallObjectBenchmark.Definitions());
             }
 
             scope.Registration(allTypes);
