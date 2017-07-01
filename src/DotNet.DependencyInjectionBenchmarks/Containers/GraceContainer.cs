@@ -8,7 +8,7 @@ using Grace.Dynamic;
 
 namespace DotNet.DependencyInjectionBenchmarks.Containers
 {
-    public class GraceContainer : IContainerScope
+    public class GraceContainer : IContainer
     {
         private readonly DependencyInjectionContainer _container = new DependencyInjectionContainer(GraceDynamicMethod.Configuration());
 

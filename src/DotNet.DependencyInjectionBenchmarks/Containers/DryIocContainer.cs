@@ -7,7 +7,7 @@ using DryIoc;
 
 namespace DotNet.DependencyInjectionBenchmarks.Containers
 {
-    public class DryIocContainer : IContainerScope
+    public class DryIocContainer : IContainer
     {
         private readonly Container _container = new Container();
 
@@ -19,9 +19,9 @@ namespace DotNet.DependencyInjectionBenchmarks.Containers
 
         public class DryIocScope : IResolveScope
         {
-            private readonly IContainer _scope;
+            private readonly DryIoc.IContainer _scope;
 
-            public DryIocScope(IContainer scope)
+            public DryIocScope(DryIoc.IContainer scope)
             {
                 _scope = scope;
             }

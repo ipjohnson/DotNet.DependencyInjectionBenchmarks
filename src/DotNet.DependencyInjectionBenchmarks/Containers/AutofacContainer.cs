@@ -8,7 +8,7 @@ using Autofac.Core;
 
 namespace DotNet.DependencyInjectionBenchmarks.Containers
 {
-    public class AutofacContainer : IContainerScope
+    public class AutofacContainer : IContainer
     {
         private Autofac.IContainer _container;
         private readonly ContainerBuilder _builder = new ContainerBuilder();

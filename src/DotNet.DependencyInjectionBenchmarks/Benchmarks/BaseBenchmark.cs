@@ -10,35 +10,41 @@ namespace DotNet.DependencyInjectionBenchmarks.Benchmarks
 {
     public abstract class BaseBenchmark
     {
-        protected IContainerScope AutofacScope;
-        protected IContainerScope DryIocScope;
-        protected IContainerScope GraceScope;
-        protected IContainerScope LightInjectScope;
-        protected IContainerScope SimpleInjectorScope;
+        protected IContainer AutofacScope;
+        protected IContainer DryIocScope;
+        protected IContainer GraceScope;
+        protected IContainer LightInjectScope;
+        protected IContainer SimpleInjectorScope;
+        protected IContainer StructureMapContainer;
 
-        protected IContainerScope CreateAutofacScope()
+        protected IContainer CreateAutofacScope()
         {
             return AutofacScope = new AutofacContainer();
         }
         
-        protected IContainerScope CreateDryIocScope()
+        protected IContainer CreateDryIocScope()
         {
             return DryIocScope = new DryIocContainer();
         }
 
-        protected IContainerScope CreateGraceScope()
+        protected IContainer CreateGraceScope()
         {
             return GraceScope = new GraceContainer();
         }
         
-        protected IContainerScope CreateLightInjectScope()
+        protected IContainer CreateLightInjectScope()
         {
             return LightInjectScope = new LightInjectContainer();
         }
 
-        protected IContainerScope CreateSimpleInjectorContainerScope()
+        protected IContainer CreateSimpleInjectorContainerScope()
         {
             return SimpleInjectorScope = new SimpleInjectorContainerScope();
+        }
+
+        protected IContainer CreateStructureMapContainer()
+        {
+            return StructureMapContainer = new StructureMapContainer();
         }
 
         /// <summary>
@@ -47,7 +53,7 @@ namespace DotNet.DependencyInjectionBenchmarks.Benchmarks
         /// <param name="scope"></param>
         /// <param name="definitions"></param>
         /// <param name="resolveStatements"></param>
-        protected void SetupScopeForTest(IContainerScope scope, IEnumerable<RegistrationDefinition> definitions, params Action<IResolveScope>[] resolveStatements)
+        protected void SetupScopeForTest(IContainer scope, IEnumerable<RegistrationDefinition> definitions, params Action<IResolveScope>[] resolveStatements)
         {
             var dummyTypes = DummyClasses.GetTypes(200).ToArray();
             

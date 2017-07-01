@@ -22,7 +22,6 @@ namespace DotNet.DependencyInjectionBenchmarks.Benchmarks.Func
             SetupScopeForTest(CreateDryIocScope(), definitions);
             SetupScopeForTest(CreateGraceScope(), definitions);
             SetupScopeForTest(CreateLightInjectScope(), definitions);
-            SetupScopeForTest(CreateSimpleInjectorContainerScope(), definitions);
         }
 
         #region Benchmark
@@ -54,14 +53,7 @@ namespace DotNet.DependencyInjectionBenchmarks.Benchmarks.Func
         {
             ExecuteBenchmark(LightInjectScope);
         }
-
-        [Benchmark]
-        [BenchmarkCategory("SimpleInjector")]
-        public void SimpleInjector()
-        {
-            ExecuteBenchmark(SimpleInjectorScope);
-        }
-
+        
         private void ExecuteBenchmark(IResolveScope scope)
         {
             scope.Resolve<Func<ISmallObjectGraphService1>>()();

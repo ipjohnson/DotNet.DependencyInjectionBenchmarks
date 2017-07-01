@@ -12,7 +12,6 @@ namespace DotNet.DependencyInjectionBenchmarks.Benchmarks.Collections
     [BenchmarkCategory("Collections")]
     public class ImmutableCollectionBenchmark : BaseBenchmark
     {
-
         [GlobalSetup]
         public void Setup()
         {
@@ -23,27 +22,10 @@ namespace DotNet.DependencyInjectionBenchmarks.Benchmarks.Collections
                 scope => scope.Resolve<ImmutableList<IEnumerableService>>()
             };
 
-            //SetupScopeForTest(CreateAutofacScope(), definitions, warmup);
-            //SetupScopeForTest(CreateDryIocScope(), definitions, warmup);
             SetupScopeForTest(CreateGraceScope(), definitions, warmup);
-            //SetupScopeForTest(CreateLightInjectScope(), definitions, warmup);
         }
 
         #region Benchmarks
-
-        //[Benchmark]
-        //[BenchmarkCategory("Autofac")]
-        //public void Autofac()
-        //{
-        //    ExecuteBenchmark(AutofacScope);
-        //}
-
-        //[Benchmark]
-        //[BenchmarkCategory("DryIoc")]
-        //public void DryIoc()
-        //{
-        //    ExecuteBenchmark(DryIocScope);
-        //}
 
         [Benchmark]
         [BenchmarkCategory("Grace")]
@@ -51,14 +33,7 @@ namespace DotNet.DependencyInjectionBenchmarks.Benchmarks.Collections
         {
             ExecuteBenchmark(GraceScope);
         }
-
-        //[Benchmark]
-        //[BenchmarkCategory("LightInject")]
-        //public void LightInject()
-        //{
-        //    ExecuteBenchmark(LightInjectScope);
-        //}
-
+        
         private void ExecuteBenchmark(IResolveScope scope)
         {
             if (scope.Resolve<ImmutableList<IEnumerableService>>().Count() != 5)

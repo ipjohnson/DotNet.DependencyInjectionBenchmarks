@@ -26,6 +26,7 @@ namespace DotNet.DependencyInjectionBenchmarks.Benchmarks.Standard
             SetupScopeForTest(CreateDryIocScope(), definitions);
             SetupScopeForTest(CreateLightInjectScope(), definitions);
             SetupScopeForTest(CreateSimpleInjectorContainerScope(), definitions);
+            SetupScopeForTest(CreateStructureMapContainer(), definitions);
         }
         #endregion
 
@@ -37,7 +38,7 @@ namespace DotNet.DependencyInjectionBenchmarks.Benchmarks.Standard
         {
             ExecuteBenchmark(AutofacScope);
         }
-        
+
         [Benchmark]
         [BenchmarkCategory("DryIoc")]
         public void DryIoc()
@@ -51,7 +52,7 @@ namespace DotNet.DependencyInjectionBenchmarks.Benchmarks.Standard
         {
             ExecuteBenchmark(GraceScope);
         }
-        
+
         [Benchmark]
         [BenchmarkCategory("LightInject")]
         public void LightInject()
@@ -64,6 +65,13 @@ namespace DotNet.DependencyInjectionBenchmarks.Benchmarks.Standard
         public void SimpleInjector()
         {
             ExecuteBenchmark(SimpleInjectorScope);
+        }
+
+        [Benchmark]
+        [BenchmarkCategory("StructureMap")]
+        public void StructureMap()
+        {
+            ExecuteBenchmark(StructureMapContainer);
         }
 
         private void ExecuteBenchmark(IResolveScope scope)

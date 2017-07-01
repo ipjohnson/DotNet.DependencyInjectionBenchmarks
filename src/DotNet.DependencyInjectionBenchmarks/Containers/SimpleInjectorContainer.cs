@@ -7,7 +7,7 @@ using SimpleInjector;
 
 namespace DotNet.DependencyInjectionBenchmarks.Containers
 {
-    public class SimpleInjectorContainerScope : IContainerScope
+    public class SimpleInjectorContainerScope : IContainer
     {
         private SimpleInjector.Container _container = new Container();
 

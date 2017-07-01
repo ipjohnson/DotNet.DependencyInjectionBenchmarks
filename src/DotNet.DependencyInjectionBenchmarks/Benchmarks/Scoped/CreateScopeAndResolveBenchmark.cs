@@ -22,6 +22,7 @@ namespace DotNet.DependencyInjectionBenchmarks.Benchmarks.Scoped
             SetupScopeForTest(CreateDryIocScope(), definitions);
             SetupScopeForTest(CreateGraceScope(), definitions);
             SetupScopeForTest(CreateLightInjectScope(), definitions);
+            SetupScopeForTest(CreateStructureMapContainer(), definitions);
         }
 
         #region Benchmarks
@@ -52,6 +53,13 @@ namespace DotNet.DependencyInjectionBenchmarks.Benchmarks.Scoped
         public void LightInject()
         {
             ExecuteBenchmark(LightInjectScope);
+        }
+
+        [Benchmark]
+        [BenchmarkCategory("StructureMap")]
+        public void StructureMap()
+        {
+            ExecuteBenchmark(StructureMapContainer);
         }
 
         private void ExecuteBenchmark(IResolveScope scope)

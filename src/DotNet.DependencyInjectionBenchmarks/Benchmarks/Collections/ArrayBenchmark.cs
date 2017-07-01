@@ -15,18 +15,20 @@ namespace DotNet.DependencyInjectionBenchmarks.Benchmarks.Collections
         [GlobalSetup]
         public void Setup()
         {
-            var definitions =IEnumerableBenchmark.Definitions().ToArray();
+            var definitions = IEnumerableBenchmark.Definitions().ToArray();
 
             var warmup = new Action<IResolveScope>[]
             {
                 scope => scope.Resolve<IEnumerableService[]>()
             };
 
-            SetupScopeForTest(CreateAutofacScope(), definitions, warmup);;
+            SetupScopeForTest(CreateAutofacScope(), definitions, warmup);
             SetupScopeForTest(CreateGraceScope(), definitions, warmup);
             SetupScopeForTest(CreateLightInjectScope(), definitions, warmup);
+            SetupScopeForTest(CreateSimpleInjectorContainerScope(), definitions, warmup);
+            SetupScopeForTest(CreateStructureMapContainer(), definitions, warmup);
         }
-        
+
         #region Benchmarks
 
         [Benchmark]
@@ -35,7 +37,7 @@ namespace DotNet.DependencyInjectionBenchmarks.Benchmarks.Collections
         {
             ExecuteBenchmark(AutofacScope);
         }
-        
+
         [Benchmark]
         [BenchmarkCategory("Grace")]
         public void Grace()
@@ -48,6 +50,13 @@ namespace DotNet.DependencyInjectionBenchmarks.Benchmarks.Collections
         public void LightInject()
         {
             ExecuteBenchmark(LightInjectScope);
+        }
+
+        [Benchmark]
+        [BenchmarkCategory("StructureMap")]
+        public void StructureMap()
+        {
+            ExecuteBenchmark(StructureMapContainer);
         }
 
         private void ExecuteBenchmark(IResolveScope scope)

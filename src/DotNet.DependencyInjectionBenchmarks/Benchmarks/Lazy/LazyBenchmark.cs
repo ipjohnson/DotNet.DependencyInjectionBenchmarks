@@ -18,11 +18,12 @@ namespace DotNet.DependencyInjectionBenchmarks.Benchmarks.Lazy
         {
             var definitions = SmallObjectBenchmark.Definitions().ToArray();
 
-            SetupScopeForTest(CreateAutofacScope(),definitions);
-            //SetupScopeForTest(CreateDryIocScope(), definitions);
-            SetupScopeForTest(CreateGraceScope(),definitions);
+            SetupScopeForTest(CreateAutofacScope(), definitions);
+            SetupScopeForTest(CreateDryIocScope(), definitions);
+            SetupScopeForTest(CreateGraceScope(), definitions);
             SetupScopeForTest(CreateLightInjectScope(), definitions);
             SetupScopeForTest(CreateSimpleInjectorContainerScope(), definitions);
+            SetupScopeForTest(CreateStructureMapContainer(), definitions);
         }
 
         [Benchmark]
@@ -32,12 +33,12 @@ namespace DotNet.DependencyInjectionBenchmarks.Benchmarks.Lazy
             ExecuteBenchmark(AutofacScope);
         }
 
-        //[Benchmark]
-        //[BenchmarkCategory("DryIoc")]
-        //public void DryIoc()
-        //{
-        //    ExecuteBenchmark(DryIocScope);
-        //}
+        [Benchmark]
+        [BenchmarkCategory("DryIoc")]
+        public void DryIoc()
+        {
+            ExecuteBenchmark(DryIocScope);
+        }
 
         [Benchmark]
         [BenchmarkCategory("Grace")]
@@ -52,12 +53,19 @@ namespace DotNet.DependencyInjectionBenchmarks.Benchmarks.Lazy
         {
             ExecuteBenchmark(LightInjectScope);
         }
-        
+
         [Benchmark]
         [BenchmarkCategory("SimpleInjector")]
         public void SimpleInjector()
         {
             ExecuteBenchmark(LightInjectScope);
+        }
+
+        [Benchmark]
+        [BenchmarkCategory("StructureMap")]
+        public void StructureMap()
+        {
+            ExecuteBenchmark(StructureMapContainer);
         }
 
         private void ExecuteBenchmark(IResolveScope scope)

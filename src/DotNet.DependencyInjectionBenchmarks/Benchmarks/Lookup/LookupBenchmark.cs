@@ -34,6 +34,7 @@ namespace DotNet.DependencyInjectionBenchmarks.Benchmarks.Lookup
             SetupContainer(CreateDryIocScope());
             SetupContainer(CreateLightInjectScope());
             SetupContainer(CreateSimpleInjectorContainerScope());
+            SetupContainer(CreateStructureMapContainer());
         }
 
         #region Benchmarks
@@ -72,6 +73,13 @@ namespace DotNet.DependencyInjectionBenchmarks.Benchmarks.Lookup
         {
             ExecuteBenchmark(SimpleInjectorScope);
         }
+        
+        [Benchmark]
+        [BenchmarkCategory("StructureMap")]
+        public void StructureMap()
+        {
+            ExecuteBenchmark(StructureMapContainer);
+        }
 
         private void ExecuteBenchmark(IResolveScope scope)
         {
@@ -84,7 +92,7 @@ namespace DotNet.DependencyInjectionBenchmarks.Benchmarks.Lookup
 
         #region Setup Container 
 
-        public void SetupContainer(IContainerScope scope)
+        public void SetupContainer(IContainer scope)
         {
             var allTypes = DummyClasses.GetTypes(ExtraRegistrations)
                 .Select(t => new RegistrationDefinition { ExportType = t, ActivationType = t }).ToList();

@@ -12,7 +12,6 @@ namespace DotNet.DependencyInjectionBenchmarks.Benchmarks.Collections
     [BenchmarkCategory("Collections")]
     public class IReadOnlyListBenchmark : BaseBenchmark
     {
-
         [GlobalSetup]
         public void Setup()
         {
@@ -58,7 +57,7 @@ namespace DotNet.DependencyInjectionBenchmarks.Benchmarks.Collections
         {
             ExecuteBenchmark(LightInjectScope);
         }
-
+        
         private void ExecuteBenchmark(IResolveScope scope)
         {
             if (scope.Resolve<IReadOnlyList<IEnumerableService>>().Count() != 5)

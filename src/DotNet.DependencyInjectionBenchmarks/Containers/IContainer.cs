@@ -59,7 +59,7 @@ namespace DotNet.DependencyInjectionBenchmarks.Containers
         }
     }
 
-    public interface IContainerScope : IResolveScope
+    public interface IContainer : IResolveScope
     {
         void BuildContainer();
 
@@ -74,7 +74,7 @@ namespace DotNet.DependencyInjectionBenchmarks.Containers
 
     public static class ContainerScopeExtensions
     {
-        public static void Register<TInterface, TImplementation>(this IContainerScope scope,
+        public static void Register<TInterface, TImplementation>(this IContainer scope,
             RegistrationLifestyle lifestyle = RegistrationLifestyle.Transient) where TImplementation : TInterface
         {
             scope.Registration(new[] { new RegistrationDefinition { ExportType = typeof(TInterface), ActivationType = typeof(TImplementation) } });

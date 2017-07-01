@@ -11,7 +11,9 @@
     <PackageReference Include="DryIoc.dll" Version="2.11.3" />
     <PackageReference Include="Grace.Dynamic" Version="6.2.1" />
     <PackageReference Include="LightInject" Version="5.0.3" />
+    <PackageReference Include="Ninject" Version="4.0.0-beta-0134" />
     <PackageReference Include="SimpleInjector" Version="4.0.8" />
+    <PackageReference Include="StructureMap" Version="4.5.1" />
   </ItemGroup>
 
 </Project>

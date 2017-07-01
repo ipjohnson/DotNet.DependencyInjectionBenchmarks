@@ -22,9 +22,10 @@ namespace DotNet.DependencyInjectionBenchmarks.Benchmarks.Factory
             SetupContainer(CreateDryIocScope(), definitions);
             SetupContainer(CreateGraceScope(), definitions);
             SetupContainer(CreateLightInjectScope(), definitions);
+            SetupContainer(CreateStructureMapContainer(), definitions);
         }
 
-        private void SetupContainer(IContainerScope container, RegistrationDefinition[] definitions)
+        private void SetupContainer(IContainer container, RegistrationDefinition[] definitions)
         {
             container.RegisterFactory<ITransientService1>(() => new TransientService1(), RegistrationMode.Single, RegistrationLifestyle.Transient);
             container.RegisterFactory<ITransientService2>(() => new TransientService2(), RegistrationMode.Single, RegistrationLifestyle.Transient);
@@ -77,6 +78,13 @@ namespace DotNet.DependencyInjectionBenchmarks.Benchmarks.Factory
         public void LightInject()
         {
             ExecuteBenchmark(LightInjectScope);
+        }
+
+        [Benchmark]
+        [BenchmarkCategory("StructureMap")]
+        public void StructureMap()
+        {
+            ExecuteBenchmark(StructureMapContainer);
         }
 
         private void ExecuteBenchmark(IResolveScope scope)

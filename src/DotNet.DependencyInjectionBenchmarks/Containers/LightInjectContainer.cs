@@ -7,7 +7,7 @@ using LightInject;
 
 namespace DotNet.DependencyInjectionBenchmarks.Containers
 {
-    public class LightInjectContainer : IContainerScope
+    public class LightInjectContainer : IContainer
     {
         private readonly ServiceContainer _container = new ServiceContainer();
 
