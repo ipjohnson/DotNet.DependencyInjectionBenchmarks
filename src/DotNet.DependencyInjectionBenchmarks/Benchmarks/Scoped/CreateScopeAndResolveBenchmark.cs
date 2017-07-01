@@ -31,28 +31,28 @@ namespace DotNet.DependencyInjectionBenchmarks.Benchmarks.Scoped
         [BenchmarkCategory("Autofac")]
         public void Autofac()
         {
-            ExecuteBenchmark(AutofacScope);
+            ExecuteBenchmark(AutofacContainer);
         }
 
         [Benchmark]
         [BenchmarkCategory("DryIoc")]
         public void DryIoc()
         {
-            ExecuteBenchmark(DryIocScope);
+            ExecuteBenchmark(DryIocContainer);
         }
 
         [Benchmark]
         [BenchmarkCategory("Grace")]
         public void Grace()
         {
-            ExecuteBenchmark(GraceScope);
+            ExecuteBenchmark(GraceContainer);
         }
 
         [Benchmark]
         [BenchmarkCategory("LightInject")]
         public void LightInject()
         {
-            ExecuteBenchmark(LightInjectScope);
+            ExecuteBenchmark(LightInjectContainer);
         }
 
         [Benchmark]

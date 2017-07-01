@@ -10,36 +10,36 @@ namespace DotNet.DependencyInjectionBenchmarks.Benchmarks
 {
     public abstract class BaseBenchmark
     {
-        protected IContainer AutofacScope;
-        protected IContainer DryIocScope;
-        protected IContainer GraceScope;
-        protected IContainer LightInjectScope;
-        protected IContainer SimpleInjectorScope;
+        protected IContainer AutofacContainer;
+        protected IContainer DryIocContainer;
+        protected IContainer GraceContainer;
+        protected IContainer LightInjectContainer;
+        protected IContainer SimpleInjectorContainer;
         protected IContainer StructureMapContainer;
 
         protected IContainer CreateAutofacScope()
         {
-            return AutofacScope = new AutofacContainer();
+            return AutofacContainer = new AutofacContainer();
         }
         
         protected IContainer CreateDryIocScope()
         {
-            return DryIocScope = new DryIocContainer();
+            return DryIocContainer = new DryIocContainer();
         }
 
         protected IContainer CreateGraceScope()
         {
-            return GraceScope = new GraceContainer();
+            return GraceContainer = new GraceContainer();
         }
         
         protected IContainer CreateLightInjectScope()
         {
-            return LightInjectScope = new LightInjectContainer();
+            return LightInjectContainer = new LightInjectContainer();
         }
 
         protected IContainer CreateSimpleInjectorContainerScope()
         {
-            return SimpleInjectorScope = new SimpleInjectorContainerScope();
+            return SimpleInjectorContainer = new SimpleInjectorContainerScope();
         }
 
         protected IContainer CreateStructureMapContainer()

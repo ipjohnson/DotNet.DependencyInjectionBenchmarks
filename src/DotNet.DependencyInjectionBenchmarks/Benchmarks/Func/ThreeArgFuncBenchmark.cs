@@ -56,14 +56,14 @@ namespace DotNet.DependencyInjectionBenchmarks.Benchmarks.Func
         [BenchmarkCategory("DryIoc")]
         public void DryIoc()
         {
-            ExecuteBenchmark(DryIocScope);
+            ExecuteBenchmark(DryIocContainer);
         }
 
         [Benchmark]
         [BenchmarkCategory("Grace")]
         public void Grace()
         {
-            ExecuteBenchmark(GraceScope);
+            ExecuteBenchmark(GraceContainer);
         }
 
         private void ExecuteBenchmark(IResolveScope scope)

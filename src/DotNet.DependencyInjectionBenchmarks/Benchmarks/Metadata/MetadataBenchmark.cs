@@ -69,18 +69,18 @@ namespace DotNet.DependencyInjectionBenchmarks.Benchmarks.Metadata
         [BenchmarkCategory("Autofac")]
         public void Autofac()
         {
-            AutofacScope.Resolve<AF.Features.Metadata.Meta<ISmallObjectGraphService1>>();
-            AutofacScope.Resolve<AF.Features.Metadata.Meta<ISmallObjectGraphService2>>();
-            AutofacScope.Resolve<AF.Features.Metadata.Meta<ISmallObjectGraphService3>>();
+            AutofacContainer.Resolve<AF.Features.Metadata.Meta<ISmallObjectGraphService1>>();
+            AutofacContainer.Resolve<AF.Features.Metadata.Meta<ISmallObjectGraphService2>>();
+            AutofacContainer.Resolve<AF.Features.Metadata.Meta<ISmallObjectGraphService3>>();
         }
 
         [Benchmark]
         [BenchmarkCategory("Grace")]
         public void Grace()
         {
-            GraceScope.Resolve<G.DependencyInjection.Meta<ISmallObjectGraphService1>>();
-            GraceScope.Resolve<G.DependencyInjection.Meta<ISmallObjectGraphService2>>();
-            GraceScope.Resolve<G.DependencyInjection.Meta<ISmallObjectGraphService3>>();
+            GraceContainer.Resolve<G.DependencyInjection.Meta<ISmallObjectGraphService1>>();
+            GraceContainer.Resolve<G.DependencyInjection.Meta<ISmallObjectGraphService2>>();
+            GraceContainer.Resolve<G.DependencyInjection.Meta<ISmallObjectGraphService3>>();
         }
 
         #endregion

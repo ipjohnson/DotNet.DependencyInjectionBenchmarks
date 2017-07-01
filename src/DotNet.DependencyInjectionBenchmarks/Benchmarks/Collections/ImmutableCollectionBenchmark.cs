@@ -31,7 +31,7 @@ namespace DotNet.DependencyInjectionBenchmarks.Benchmarks.Collections
         [BenchmarkCategory("Grace")]
         public void Grace()
         {
-            ExecuteBenchmark(GraceScope);
+            ExecuteBenchmark(GraceContainer);
         }
         
         private void ExecuteBenchmark(IResolveScope scope)
