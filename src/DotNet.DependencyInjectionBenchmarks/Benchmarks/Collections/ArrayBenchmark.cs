@@ -22,11 +22,11 @@ namespace DotNet.DependencyInjectionBenchmarks.Benchmarks.Collections
                 scope => scope.Resolve<IEnumerableService[]>()
             };
 
-            SetupScopeForTest(CreateAutofacScope(), definitions, warmup);
-            SetupScopeForTest(CreateGraceScope(), definitions, warmup);
-            SetupScopeForTest(CreateLightInjectScope(), definitions, warmup);
-            SetupScopeForTest(CreateSimpleInjectorContainerScope(), definitions, warmup);
-            SetupScopeForTest(CreateStructureMapContainer(), definitions, warmup);
+            SetupContainerForTest(CreateAutofacContainer(), definitions, warmup);
+            SetupContainerForTest(CreateGraceContainer(), definitions, warmup);
+            SetupContainerForTest(CreateLightInjectContainer(), definitions, warmup);
+            SetupContainerForTest(CreateSimpleInjectorContainer(), definitions, warmup);
+            SetupContainerForTest(CreateStructureMapContainer(), definitions, warmup);
         }
 
         #region Benchmarks

@@ -22,7 +22,7 @@ namespace DotNet.DependencyInjectionBenchmarks.Benchmarks.Collections
                 scope => scope.Resolve<ImmutableList<IEnumerableService>>()
             };
 
-            SetupScopeForTest(CreateGraceScope(), definitions, warmup);
+            SetupContainerForTest(CreateGraceContainer(), definitions, warmup);
         }
 
         #region Benchmarks

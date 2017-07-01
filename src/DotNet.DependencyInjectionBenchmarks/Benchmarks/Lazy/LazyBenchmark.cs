@@ -18,12 +18,12 @@ namespace DotNet.DependencyInjectionBenchmarks.Benchmarks.Lazy
         {
             var definitions = SmallObjectBenchmark.Definitions().ToArray();
 
-            SetupScopeForTest(CreateAutofacScope(), definitions);
-            SetupScopeForTest(CreateDryIocScope(), definitions);
-            SetupScopeForTest(CreateGraceScope(), definitions);
-            SetupScopeForTest(CreateLightInjectScope(), definitions);
-            SetupScopeForTest(CreateSimpleInjectorContainerScope(), definitions);
-            SetupScopeForTest(CreateStructureMapContainer(), definitions);
+            SetupContainerForTest(CreateAutofacContainer(), definitions);
+            SetupContainerForTest(CreateDryIocContainer(), definitions);
+            SetupContainerForTest(CreateGraceContainer(), definitions);
+            SetupContainerForTest(CreateLightInjectContainer(), definitions);
+            SetupContainerForTest(CreateSimpleInjectorContainer(), definitions);
+            SetupContainerForTest(CreateStructureMapContainer(), definitions);
         }
 
         [Benchmark]

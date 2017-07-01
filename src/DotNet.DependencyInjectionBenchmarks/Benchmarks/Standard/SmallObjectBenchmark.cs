@@ -21,12 +21,14 @@ namespace DotNet.DependencyInjectionBenchmarks.Benchmarks.Standard
         {
             var definitions = Definitions().ToArray();
 
-            SetupScopeForTest(CreateAutofacScope(), definitions);
-            SetupScopeForTest(CreateGraceScope(), definitions);
-            SetupScopeForTest(CreateDryIocScope(), definitions);
-            SetupScopeForTest(CreateLightInjectScope(), definitions);
-            SetupScopeForTest(CreateSimpleInjectorContainerScope(), definitions);
-            SetupScopeForTest(CreateStructureMapContainer(), definitions);
+            SetupContainerForTest(CreateAutofacContainer(), definitions);
+            SetupContainerForTest(CreateGraceContainer(), definitions);
+            SetupContainerForTest(CreateDryIocContainer(), definitions);
+            SetupContainerForTest(CreateLightInjectContainer(), definitions);
+            SetupContainerForTest(CreateMicrosoftDependencyInjectionContainer(), definitions);
+            SetupContainerForTest(CreateMicrosoftDependencyInjectionContainer(), definitions);
+            SetupContainerForTest(CreateSimpleInjectorContainer(), definitions);
+            SetupContainerForTest(CreateStructureMapContainer(), definitions);
         }
         #endregion
 
@@ -58,6 +60,20 @@ namespace DotNet.DependencyInjectionBenchmarks.Benchmarks.Standard
         public void LightInject()
         {
             ExecuteBenchmark(LightInjectContainer);
+        }
+
+        [Benchmark]
+        [BenchmarkCategory("MicrosoftDependencyInjection")]
+        public void MicrosoftDependencyInjection()
+        {
+            ExecuteBenchmark(MicrosoftDependencyInjectionContainer);
+        }
+
+        [Benchmark]
+        [BenchmarkCategory("NInject")]
+        public void NInject()
+        {
+            ExecuteBenchmark(NInjectContainer);
         }
 
         [Benchmark]

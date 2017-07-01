@@ -82,21 +82,21 @@ namespace DotNet.DependencyInjectionBenchmarks.Containers
             _container.Dispose();
         }
 
-        public void RegisterFactory<TResult>(Func<TResult> factory, RegistrationMode mode, RegistrationLifestyle lifestyle)
+        public void RegisterFactory<TResult>(Func<TResult> factory, RegistrationMode mode, RegistrationLifestyle lifestyle) where TResult : class
         {
             var lifecycle = GetLifecycle(lifestyle);
 
             _container.Configure(r => r.For<TResult>(lifecycle).Use(() => factory()));
         }
 
-        public void RegisterFactory<T1, TResult>(Func<T1, TResult> factory, RegistrationMode mode, RegistrationLifestyle lifestyle)
+        public void RegisterFactory<T1, TResult>(Func<T1, TResult> factory, RegistrationMode mode, RegistrationLifestyle lifestyle) where TResult : class
         {
             var lifecycle = GetLifecycle(lifestyle);
 
             _container.Configure(r => r.For<TResult>(lifecycle).Use(context => factory(context.GetInstance<T1>())));
         }
 
-        public void RegisterFactory<T1, T2, T3, TResult>(Func<T1, T2, T3, TResult> factory, RegistrationMode mode, RegistrationLifestyle lifestyle)
+        public void RegisterFactory<T1, T2, T3, TResult>(Func<T1, T2, T3, TResult> factory, RegistrationMode mode, RegistrationLifestyle lifestyle) where TResult : class
         {
             var lifecycle = GetLifecycle(lifestyle);
 

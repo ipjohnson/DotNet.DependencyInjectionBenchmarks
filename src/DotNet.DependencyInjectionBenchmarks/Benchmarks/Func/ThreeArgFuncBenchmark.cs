@@ -25,8 +25,8 @@ namespace DotNet.DependencyInjectionBenchmarks.Benchmarks.Func
                 scope => scope.Resolve<Func<int,string,ITransientService3,IThreeArgService3>>()(15, "Bye", new TransientService3())
             };
 
-            SetupScopeForTest(CreateDryIocScope(), definitions, warmupStatements);
-            SetupScopeForTest(CreateGraceScope(), definitions, warmupStatements);
+            SetupContainerForTest(CreateDryIocContainer(), definitions, warmupStatements);
+            SetupContainerForTest(CreateGraceContainer(), definitions, warmupStatements);
         }
 
         private IEnumerable<RegistrationDefinition> Definitions()

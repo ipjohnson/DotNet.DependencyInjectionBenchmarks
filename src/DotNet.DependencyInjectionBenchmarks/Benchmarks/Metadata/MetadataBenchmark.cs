@@ -21,8 +21,8 @@ namespace DotNet.DependencyInjectionBenchmarks.Benchmarks.Metadata
         {
             var definitions = Definitions().ToArray();
 
-            SetupScopeForTest(CreateAutofacScope(), definitions);
-            SetupScopeForTest(CreateGraceScope(), definitions);
+            SetupContainerForTest(CreateAutofacContainer(), definitions);
+            SetupContainerForTest(CreateGraceContainer(), definitions);
         }
 
         public static IEnumerable<RegistrationDefinition> Definitions()

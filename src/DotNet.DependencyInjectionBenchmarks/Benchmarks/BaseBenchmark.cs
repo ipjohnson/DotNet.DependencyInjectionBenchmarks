@@ -14,30 +14,42 @@ namespace DotNet.DependencyInjectionBenchmarks.Benchmarks
         protected IContainer DryIocContainer;
         protected IContainer GraceContainer;
         protected IContainer LightInjectContainer;
+        protected IContainer MicrosoftDependencyInjectionContainer;
+        protected IContainer NInjectContainer;
         protected IContainer SimpleInjectorContainer;
         protected IContainer StructureMapContainer;
 
-        protected IContainer CreateAutofacScope()
+        protected IContainer CreateAutofacContainer()
         {
             return AutofacContainer = new AutofacContainer();
         }
         
-        protected IContainer CreateDryIocScope()
+        protected IContainer CreateDryIocContainer()
         {
             return DryIocContainer = new DryIocContainer();
         }
 
-        protected IContainer CreateGraceScope()
+        protected IContainer CreateGraceContainer()
         {
             return GraceContainer = new GraceContainer();
         }
         
-        protected IContainer CreateLightInjectScope()
+        protected IContainer CreateLightInjectContainer()
         {
             return LightInjectContainer = new LightInjectContainer();
         }
 
-        protected IContainer CreateSimpleInjectorContainerScope()
+        protected IContainer CreateMicrosoftDependencyInjectionContainer()
+        {
+            return MicrosoftDependencyInjectionContainer = new MicrosoftDependencyInjectionContainer();
+        }
+
+        protected IContainer CreateNInjectContainer()
+        {
+            return NInjectContainer = new NInjectContainer();
+        }
+
+        protected IContainer CreateSimpleInjectorContainer()
         {
             return SimpleInjectorContainer = new SimpleInjectorContainerScope();
         }
@@ -50,20 +62,20 @@ namespace DotNet.DependencyInjectionBenchmarks.Benchmarks
         /// <summary>
         /// Registers definitions and dummy classes for scope
         /// </summary>
-        /// <param name="scope"></param>
+        /// <param name="container"></param>
         /// <param name="definitions"></param>
         /// <param name="resolveStatements"></param>
-        protected void SetupScopeForTest(IContainer scope, IEnumerable<RegistrationDefinition> definitions, params Action<IResolveScope>[] resolveStatements)
+        protected void SetupContainerForTest(IContainer container, IEnumerable<RegistrationDefinition> definitions, params Action<IResolveScope>[] resolveStatements)
         {
             var dummyTypes = DummyClasses.GetTypes(200).ToArray();
             
-            scope.Registration(dummyTypes.Select(t => new RegistrationDefinition{ ExportType = t, ActivationType = t}));
+            container.Registration(dummyTypes.Select(t => new RegistrationDefinition{ ExportType = t, ActivationType = t}));
 
             var definitionArray = definitions.ToArray();
 
-            scope.Registration(definitionArray);
+            container.Registration(definitionArray);
 
-            scope.BuildContainer();
+            container.BuildContainer();
 
             if (resolveStatements != null && resolveStatements.Length > 0)
             {
@@ -77,11 +89,11 @@ namespace DotNet.DependencyInjectionBenchmarks.Benchmarks
                 {
                     if (index < resolveStatements.Length && i == index * gap)
                     {
-                        resolveStatements[index](scope);
+                        resolveStatements[index](container);
                         index++;
                     }
                     
-                    scope.Resolve(resolveTypes[i]);
+                    container.Resolve(resolveTypes[i]);
                 }
             }
             else
@@ -101,7 +113,7 @@ namespace DotNet.DependencyInjectionBenchmarks.Benchmarks
 
                 foreach (var resolveType in resolveTypes)
                 {
-                    scope.Resolve(resolveType);
+                    container.Resolve(resolveType);
                 }
             }
         }

@@ -22,10 +22,10 @@ namespace DotNet.DependencyInjectionBenchmarks.Benchmarks.Collections
                 scope => scope.Resolve<IReadOnlyList<IEnumerableService>>()
             };
 
-            SetupScopeForTest(CreateAutofacScope(), definitions, warmup);
-            SetupScopeForTest(CreateDryIocScope(), definitions, warmup);
-            SetupScopeForTest(CreateGraceScope(), definitions, warmup);
-            SetupScopeForTest(CreateLightInjectScope(), definitions, warmup);
+            SetupContainerForTest(CreateAutofacContainer(), definitions, warmup);
+            SetupContainerForTest(CreateDryIocContainer(), definitions, warmup);
+            SetupContainerForTest(CreateGraceContainer(), definitions, warmup);
+            SetupContainerForTest(CreateLightInjectContainer(), definitions, warmup);
         }
 
         #region Benchmarks

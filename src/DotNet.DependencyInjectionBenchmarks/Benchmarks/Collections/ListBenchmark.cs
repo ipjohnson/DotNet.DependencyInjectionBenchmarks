@@ -23,9 +23,9 @@ namespace DotNet.DependencyInjectionBenchmarks.Benchmarks.Collections
 
             //SetupScopeForTest(CreateAutofacScope(), definitions, warmup);
             //SetupScopeForTest(CreateDryIocScope(), definitions, warmup);
-            SetupScopeForTest(CreateGraceScope(), definitions, warmup);
+            SetupContainerForTest(CreateGraceContainer(), definitions, warmup);
             //SetupScopeForTest(CreateLightInjectScope(), definitions, warmup);
-            SetupScopeForTest(CreateStructureMapContainer(), definitions, warmup);
+            SetupContainerForTest(CreateStructureMapContainer(), definitions, warmup);
         }
 
         #region Benchmarks

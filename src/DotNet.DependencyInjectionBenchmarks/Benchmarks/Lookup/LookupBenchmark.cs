@@ -20,7 +20,7 @@ namespace DotNet.DependencyInjectionBenchmarks.Benchmarks.Lookup
     [BenchmarkCategory("Lookup")]
     public class LookupBenchmark : BaseBenchmark
     {
-        [Params(0, 100, 500, 1000)]
+        [Params(0, 100)]
         public int ExtraRegistrations { get; set; }
 
         [Params(ScenarioType.BestCase, ScenarioType.AverageCase, ScenarioType.WorstCase)]
@@ -29,11 +29,13 @@ namespace DotNet.DependencyInjectionBenchmarks.Benchmarks.Lookup
         [GlobalSetup]
         public void Setup()
         {
-            SetupContainer(CreateAutofacScope());
-            SetupContainer(CreateGraceScope());
-            SetupContainer(CreateDryIocScope());
-            SetupContainer(CreateLightInjectScope());
-            SetupContainer(CreateSimpleInjectorContainerScope());
+            SetupContainer(CreateAutofacContainer());
+            SetupContainer(CreateGraceContainer());
+            SetupContainer(CreateDryIocContainer());
+            SetupContainer(CreateLightInjectContainer());
+            SetupContainer(CreateMicrosoftDependencyInjectionContainer());
+            SetupContainer(CreateNInjectContainer());
+            SetupContainer(CreateSimpleInjectorContainer());
             SetupContainer(CreateStructureMapContainer());
         }
 
@@ -66,6 +68,20 @@ namespace DotNet.DependencyInjectionBenchmarks.Benchmarks.Lookup
         {
             ExecuteBenchmark(LightInjectContainer);
         }
+        
+        [Benchmark]
+        [BenchmarkCategory("MicrosoftDependencyInjection")]
+        public void MicrosoftDependencyInjection()
+        {
+            ExecuteBenchmark(MicrosoftDependencyInjectionContainer);
+        }
+
+        [Benchmark]
+        [BenchmarkCategory("NInject")]
+        public void NInject()
+        {
+            ExecuteBenchmark(NInjectContainer);
+        }
 
         [Benchmark]
         [BenchmarkCategory("SimpleInjector")]
@@ -73,7 +89,7 @@ namespace DotNet.DependencyInjectionBenchmarks.Benchmarks.Lookup
         {
             ExecuteBenchmark(SimpleInjectorContainer);
         }
-        
+
         [Benchmark]
         [BenchmarkCategory("StructureMap")]
         public void StructureMap()

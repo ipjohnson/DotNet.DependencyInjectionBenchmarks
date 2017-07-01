@@ -18,10 +18,10 @@ namespace DotNet.DependencyInjectionBenchmarks.Benchmarks.Factory
         {
             var definitions = Definitions().ToArray();
 
-            SetupContainer(CreateAutofacScope(), definitions);
-            SetupContainer(CreateDryIocScope(), definitions);
-            SetupContainer(CreateGraceScope(), definitions);
-            SetupContainer(CreateLightInjectScope(), definitions);
+            SetupContainer(CreateAutofacContainer(), definitions);
+            SetupContainer(CreateDryIocContainer(), definitions);
+            SetupContainer(CreateGraceContainer(), definitions);
+            SetupContainer(CreateLightInjectContainer(), definitions);
             SetupContainer(CreateStructureMapContainer(), definitions);
         }
 
@@ -31,7 +31,7 @@ namespace DotNet.DependencyInjectionBenchmarks.Benchmarks.Factory
             container.RegisterFactory<ITransientService2>(() => new TransientService2(), RegistrationMode.Single, RegistrationLifestyle.Transient);
             container.RegisterFactory<ITransientService3>(() => new TransientService3(), RegistrationMode.Single, RegistrationLifestyle.Transient);
 
-            SetupScopeForTest(container,definitions,
+            SetupContainerForTest(container,definitions,
                 scope => scope.Resolve<ISmallObjectGraphService1>(),
                 scope => scope.Resolve<ISmallObjectGraphService2>(),
                 scope => scope.Resolve<ISmallObjectGraphService3>()

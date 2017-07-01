@@ -106,7 +106,7 @@ namespace DotNet.DependencyInjectionBenchmarks.Containers
             }
         }
 
-        public void RegisterFactory<TResult>(Func<TResult> factory, RegistrationMode mode, RegistrationLifestyle lifestyle)
+        public void RegisterFactory<TResult>(Func<TResult> factory, RegistrationMode mode, RegistrationLifestyle lifestyle) where TResult : class
         {
             IReuse reuse = null;
 
@@ -125,7 +125,7 @@ namespace DotNet.DependencyInjectionBenchmarks.Containers
             _container.RegisterDelegate(r => factory(), reuse);
         }
 
-        public void RegisterFactory<T1, TResult>(Func<T1, TResult> factory, RegistrationMode mode, RegistrationLifestyle lifestyle)
+        public void RegisterFactory<T1, TResult>(Func<T1, TResult> factory, RegistrationMode mode, RegistrationLifestyle lifestyle) where TResult : class
         {
             IReuse reuse = null;
 
@@ -144,7 +144,7 @@ namespace DotNet.DependencyInjectionBenchmarks.Containers
             _container.RegisterDelegate(r => factory(r.Resolve<T1>()), reuse);
         }
 
-        public void RegisterFactory<T1, T2, T3, TResult>(Func<T1, T2, T3, TResult> factory, RegistrationMode mode, RegistrationLifestyle lifestyle)
+        public void RegisterFactory<T1, T2, T3, TResult>(Func<T1, T2, T3, TResult> factory, RegistrationMode mode, RegistrationLifestyle lifestyle) where TResult : class
         {
             IReuse reuse = null;
 

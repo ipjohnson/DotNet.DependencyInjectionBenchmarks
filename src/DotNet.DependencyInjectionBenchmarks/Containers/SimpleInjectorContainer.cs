@@ -9,7 +9,7 @@ namespace DotNet.DependencyInjectionBenchmarks.Containers
 {
     public class SimpleInjectorContainerScope : IContainer
     {
-        private SimpleInjector.Container _container = new Container();
+        private Container _container = new Container();
 
         public void BuildContainer()
         {
@@ -45,19 +45,29 @@ namespace DotNet.DependencyInjectionBenchmarks.Containers
             return value != null;
         }
 
-        public void RegisterFactory<TResult>(Func<TResult> factory, RegistrationMode mode, RegistrationLifestyle lifestyle)
+        public void RegisterFactory<TResult>(Func<TResult> factory, RegistrationMode mode, RegistrationLifestyle lifestyle) where TResult : class
         {
-
+            switch (lifestyle)
+            {
+                case RegistrationLifestyle.Singleton:
+                    _container.RegisterSingleton(factory);
+                    break;
+                case RegistrationLifestyle.Transient:
+                    _container.Register(factory);
+                    break;
+            }
         }
 
-        public void RegisterFactory<T1, TResult>(Func<T1, TResult> factory, RegistrationMode mode, RegistrationLifestyle lifestyle)
+        public void RegisterFactory<T1, TResult>(Func<T1, TResult> factory, RegistrationMode mode, RegistrationLifestyle lifestyle) where TResult : class
         {
-            throw new NotImplementedException();
+            // requires t1 to be a reference type where no other containers require this
+            throw new NotSupportedException();
         }
 
-        public void RegisterFactory<T1, T2, T3, TResult>(Func<T1, T2, T3, TResult> factory, RegistrationMode mode, RegistrationLifestyle lifestyle)
+        public void RegisterFactory<T1, T2, T3, TResult>(Func<T1, T2, T3, TResult> factory, RegistrationMode mode, RegistrationLifestyle lifestyle) where TResult : class
         {
-            throw new NotImplementedException();
+            // requires t1, t2, t3 to be a reference type where no other containers require this
+            throw new NotSupportedException();
         }
 
         public void Registration(IEnumerable<RegistrationDefinition> definitions)

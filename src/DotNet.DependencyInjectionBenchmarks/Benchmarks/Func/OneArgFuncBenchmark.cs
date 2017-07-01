@@ -25,8 +25,8 @@ namespace DotNet.DependencyInjectionBenchmarks.Benchmarks.Func
                 r =>  r.Resolve<Func<ITransientService3,ISmallObjectGraphService3>>()(new TransientService3())
             };
             
-            SetupScopeForTest(CreateDryIocScope(), definitions, warmups);
-            SetupScopeForTest(CreateGraceScope(), definitions, warmups);
+            SetupContainerForTest(CreateDryIocContainer(), definitions, warmups);
+            SetupContainerForTest(CreateGraceContainer(), definitions, warmups);
         }
 
         private IEnumerable<RegistrationDefinition> Definitions()

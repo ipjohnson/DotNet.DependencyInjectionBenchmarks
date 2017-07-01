@@ -18,11 +18,11 @@ namespace DotNet.DependencyInjectionBenchmarks.Benchmarks.Scoped
         {
             var definitions = SmallObjectBenchmark.Definitions().ToArray();
 
-            SetupScopeForTest(CreateAutofacScope(), definitions);
-            SetupScopeForTest(CreateDryIocScope(), definitions);
-            SetupScopeForTest(CreateGraceScope(), definitions);
-            SetupScopeForTest(CreateLightInjectScope(), definitions);
-            SetupScopeForTest(CreateStructureMapContainer(), definitions);
+            SetupContainerForTest(CreateAutofacContainer(), definitions);
+            SetupContainerForTest(CreateDryIocContainer(), definitions);
+            SetupContainerForTest(CreateGraceContainer(), definitions);
+            SetupContainerForTest(CreateLightInjectContainer(), definitions);
+            SetupContainerForTest(CreateStructureMapContainer(), definitions);
         }
 
         #region Benchmarks

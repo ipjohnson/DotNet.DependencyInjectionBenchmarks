@@ -125,7 +125,7 @@ namespace DotNet.DependencyInjectionBenchmarks.Containers
             });
         }
 
-        public void RegisterFactory<TResult>(Func<TResult> factory, RegistrationMode mode, RegistrationLifestyle lifestyle)
+        public void RegisterFactory<TResult>(Func<TResult> factory, RegistrationMode mode, RegistrationLifestyle lifestyle) where TResult : class
         {
             _container.Configure(c =>
             {
@@ -146,7 +146,7 @@ namespace DotNet.DependencyInjectionBenchmarks.Containers
             });
         }
 
-        public void RegisterFactory<T1, TResult>(Func<T1, TResult> factory, RegistrationMode mode, RegistrationLifestyle lifestyle)
+        public void RegisterFactory<T1, TResult>(Func<T1, TResult> factory, RegistrationMode mode, RegistrationLifestyle lifestyle) where TResult : class
         {
             _container.Configure(c =>
             {
@@ -167,7 +167,7 @@ namespace DotNet.DependencyInjectionBenchmarks.Containers
             });
         }
 
-        public void RegisterFactory<T1, T2, T3, TResult>(Func<T1, T2, T3, TResult> factory, RegistrationMode mode, RegistrationLifestyle lifestyle)
+        public void RegisterFactory<T1, T2, T3, TResult>(Func<T1, T2, T3, TResult> factory, RegistrationMode mode, RegistrationLifestyle lifestyle) where TResult : class
         {
             _container.Configure(c =>
             {

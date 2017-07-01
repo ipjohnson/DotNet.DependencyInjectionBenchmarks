@@ -146,7 +146,7 @@ namespace DotNet.DependencyInjectionBenchmarks.Containers
             }
         }
 
-        public void RegisterFactory<TResult>(Func<TResult> factory, RegistrationMode mode, RegistrationLifestyle lifestyle)
+        public void RegisterFactory<TResult>(Func<TResult> factory, RegistrationMode mode, RegistrationLifestyle lifestyle) where TResult : class
         {
             var register = _builder.Register(c => factory());
 
@@ -161,7 +161,7 @@ namespace DotNet.DependencyInjectionBenchmarks.Containers
             }
         }
 
-        public void RegisterFactory<T1, TResult>(Func<T1, TResult> factory, RegistrationMode mode, RegistrationLifestyle lifestyle)
+        public void RegisterFactory<T1, TResult>(Func<T1, TResult> factory, RegistrationMode mode, RegistrationLifestyle lifestyle) where TResult : class
         {
             var register = _builder.Register(c => factory(c.Resolve<T1>()));
 
@@ -176,7 +176,7 @@ namespace DotNet.DependencyInjectionBenchmarks.Containers
             }
         }
 
-        public void RegisterFactory<T1, T2, T3, TResult>(Func<T1, T2, T3, TResult> factory, RegistrationMode mode, RegistrationLifestyle lifestyle)
+        public void RegisterFactory<T1, T2, T3, TResult>(Func<T1, T2, T3, TResult> factory, RegistrationMode mode, RegistrationLifestyle lifestyle) where TResult : class
         {
             var register = _builder.Register(c => factory(c.Resolve<T1>(), c.Resolve<T2>(), c.Resolve<T3>()));
 
