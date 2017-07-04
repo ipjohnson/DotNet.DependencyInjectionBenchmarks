@@ -51,7 +51,7 @@ namespace DotNet.DependencyInjectionBenchmarks.Benchmarks
 
         protected IContainer CreateSimpleInjectorContainer()
         {
-            return SimpleInjectorContainer = new SimpleInjectorContainerScope();
+            return SimpleInjectorContainer = new SimpleInjectorContainer();
         }
 
         protected IContainer CreateStructureMapContainer()
@@ -81,10 +81,12 @@ namespace DotNet.DependencyInjectionBenchmarks.Benchmarks
             {
                 var resolveTypes = new List<Type>(dummyTypes.Take(50));
 
-                var gap = resolveTypes.Count / resolveStatements.Length;
+                var length = resolveStatements.Length > 1 ? resolveStatements.Length : 2;
 
-                var index = 0;
+                var gap = resolveTypes.Count / length;
 
+                var index = gap / 2;
+                
                 for (var i = 0; i < resolveTypes.Count; i++)
                 {
                     if (index < resolveStatements.Length && i == index * gap)
@@ -102,8 +104,8 @@ namespace DotNet.DependencyInjectionBenchmarks.Benchmarks
 
                 var gap = resolveTypes.Count / definitionArray.Length;
 
-                var index = 0;
-
+                var index = gap / 2;
+                
                 foreach (var definition in definitionArray)
                 {
                     resolveTypes.Insert(index, definition.ExportType);

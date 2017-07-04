@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using DryIoc;
@@ -9,7 +10,14 @@ namespace DotNet.DependencyInjectionBenchmarks.Containers
 {
     public class DryIocContainer : IContainer
     {
-        private readonly Container _container = new Container();
+        private readonly Container _container = new Container(rules => rules.WithImplicitRootOpenScope());
+
+        public string DisplayName => "DryIoc";
+
+        public string Version => typeof(Container).GetTypeInfo().Assembly.GetCustomAttribute<AssemblyInformationalVersionAttribute>()?.InformationalVersion ?? "1.0.0";
+
+        public string WebSite => "https://bitbucket.org/dadhi/dryioc";
+
 
         /// <summary>Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.</summary>
         public void Dispose()
@@ -59,7 +67,7 @@ namespace DotNet.DependencyInjectionBenchmarks.Containers
 
         public IResolveScope CreateScope(string scopeName = "")
         {
-            var scope = _container.OpenScope(scopeName);
+            var scope = _container.OpenScope();
 
             return new DryIocScope(scope);
         }

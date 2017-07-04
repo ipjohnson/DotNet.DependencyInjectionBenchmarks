@@ -26,7 +26,7 @@ namespace DotNet.DependencyInjectionBenchmarks.Benchmarks.Standard
             SetupContainerForTest(CreateDryIocContainer(), definitions);
             SetupContainerForTest(CreateLightInjectContainer(), definitions);
             SetupContainerForTest(CreateMicrosoftDependencyInjectionContainer(), definitions);
-            SetupContainerForTest(CreateMicrosoftDependencyInjectionContainer(), definitions);
+            SetupContainerForTest(CreateNInjectContainer(), definitions);
             SetupContainerForTest(CreateSimpleInjectorContainer(), definitions);
             SetupContainerForTest(CreateStructureMapContainer(), definitions);
         }
@@ -101,21 +101,27 @@ namespace DotNet.DependencyInjectionBenchmarks.Benchmarks.Standard
 
         #region Test definition
 
-        public static IEnumerable<RegistrationDefinition> Definitions()
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="lifestyle">default lifestyle for the Small object graph</param>
+        /// <returns></returns>
+        public static IEnumerable<RegistrationDefinition> Definitions(RegistrationLifestyle lifestyle = RegistrationLifestyle.Transient)
         {
-            yield return new RegistrationDefinition { ExportType = typeof(ISmallObjectGraphService1), ActivationType = typeof(SmallObjectGraphService1) };
+            var singletons = SingletonBenchmark.Definitions().ToArray();
+
+            yield return singletons[0];
+            yield return new RegistrationDefinition { ExportType = typeof(ISmallObjectGraphService1), ActivationType = typeof(SmallObjectGraphService1), RegistrationLifestyle = lifestyle};
             yield return new RegistrationDefinition { ExportType = typeof(ITransientService1), ActivationType = typeof(TransientService1) };
 
-            yield return new RegistrationDefinition { ExportType = typeof(ISmallObjectGraphService2), ActivationType = typeof(SmallObjectGraphService2) };
+            yield return singletons[1];
+            yield return new RegistrationDefinition { ExportType = typeof(ISmallObjectGraphService2), ActivationType = typeof(SmallObjectGraphService2), RegistrationLifestyle = lifestyle };
             yield return new RegistrationDefinition { ExportType = typeof(ITransientService2), ActivationType = typeof(TransientService2) };
 
-            yield return new RegistrationDefinition { ExportType = typeof(ISmallObjectGraphService3), ActivationType = typeof(SmallObjectGraphService3) };
+            yield return singletons[2];
+            yield return new RegistrationDefinition { ExportType = typeof(ISmallObjectGraphService3), ActivationType = typeof(SmallObjectGraphService3), RegistrationLifestyle = lifestyle };
             yield return new RegistrationDefinition { ExportType = typeof(ITransientService3), ActivationType = typeof(TransientService3) };
-
-            foreach (var definition in SingletonBenchmark.Definitions())
-            {
-                yield return definition;
-            }
+            
         }
 
         #endregion

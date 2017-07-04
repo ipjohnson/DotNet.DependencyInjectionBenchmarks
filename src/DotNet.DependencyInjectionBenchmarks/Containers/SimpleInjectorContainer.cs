@@ -1,19 +1,45 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Text;
 using SimpleInjector;
 
 namespace DotNet.DependencyInjectionBenchmarks.Containers
 {
-    public class SimpleInjectorContainerScope : IContainer
+    public class SimpleInjectorContainer : IContainer
     {
         private Container _container = new Container();
+        private List<RegistrationDefinition> _multipleRegistrationDefinitions = new List<RegistrationDefinition>();
+
+        public string DisplayName => "Simple Injector";
+
+        public string Version => typeof(Container).GetTypeInfo().Assembly.GetCustomAttribute<AssemblyInformationalVersionAttribute>()?.InformationalVersion ?? "1.0.0";
+
+        public string WebSite => "https://simpleinjector.org/index.html";
+
 
         public void BuildContainer()
         {
+            var definitions = new Dictionary<Type, List<RegistrationDefinition>>();
 
+            foreach (var definition in _multipleRegistrationDefinitions)
+            {
+                if (!definitions.TryGetValue(definition.ExportType, out List<RegistrationDefinition> list))
+                {
+                    list = new List<RegistrationDefinition>();
+
+                    definitions[definition.ExportType] = list;
+                }
+
+                list.Add(definition);
+            }
+
+            foreach (var pair in definitions)
+            {
+                _container.RegisterCollection(pair.Key, pair.Value.Select(r => r.ActivationType));
+            }
         }
 
         public IResolveScope CreateScope(string scopeName = "")
@@ -74,14 +100,21 @@ namespace DotNet.DependencyInjectionBenchmarks.Containers
         {
             foreach (var definition in definitions)
             {
-                switch (definition.RegistrationLifestyle)
+                if (definition.RegistrationMode == RegistrationMode.Multiple)
                 {
-                    case RegistrationLifestyle.Singleton:
-                        _container.RegisterSingleton(definition.ExportType, definition.ActivationType);
-                        break;
-                    case RegistrationLifestyle.Transient:
-                        _container.Register(definition.ExportType, definition.ActivationType);
-                        break;
+                    _multipleRegistrationDefinitions.Add(definition);
+                }
+                else
+                {
+                    switch (definition.RegistrationLifestyle)
+                    {
+                        case RegistrationLifestyle.Singleton:
+                            _container.RegisterSingleton(definition.ExportType, definition.ActivationType);
+                            break;
+                        case RegistrationLifestyle.Transient:
+                            _container.Register(definition.ExportType, definition.ActivationType);
+                            break;
+                    }
                 }
             }
         }

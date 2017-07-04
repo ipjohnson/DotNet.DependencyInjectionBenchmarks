@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Reflection;
 using System.Text;
 using Microsoft.Extensions.DependencyInjection;
 using Ninject;
@@ -10,6 +11,12 @@ namespace DotNet.DependencyInjectionBenchmarks.Containers
     {
         private IReadOnlyKernel _kernel;
         private readonly KernelConfiguration _configuration = new KernelConfiguration();
+
+        public string DisplayName => "NInject";
+
+        public string Version => typeof(IReadOnlyKernel).GetTypeInfo().Assembly.GetCustomAttribute<AssemblyInformationalVersionAttribute>()?.InformationalVersion ?? "1.0.0";
+
+        public string WebSite => "http://www.ninject.org/";
 
         public void Dispose()
         {

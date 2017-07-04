@@ -10,33 +10,26 @@ using System.Threading.Tasks;
 
 namespace DotNet.DependencyInjectionBenchmarks.Benchmarks.Lookup
 {
-    public enum ScenarioType
-    {
-        BestCase,
-        AverageCase,
-        WorstCase
-    }
-
     [BenchmarkCategory("Lookup")]
     public class LookupBenchmark : BaseBenchmark
     {
-        [Params(0, 100)]
-        public int ExtraRegistrations { get; set; }
+        public static string Description =>
+            @"This benchmark is designed to test the lookup performance of each container. Three small objects are resolved from the container along with {ExtraRegistrations} dummy registrations that are located at warmup time.";
 
-        [Params(ScenarioType.BestCase, ScenarioType.AverageCase, ScenarioType.WorstCase)]
-        public ScenarioType Scenario { get; set; }
+        [Params(0)]
+        public int ExtraRegistrations { get; set; }
 
         [GlobalSetup]
         public void Setup()
         {
-            SetupContainer(CreateAutofacContainer());
-            SetupContainer(CreateGraceContainer());
-            SetupContainer(CreateDryIocContainer());
-            SetupContainer(CreateLightInjectContainer());
-            SetupContainer(CreateMicrosoftDependencyInjectionContainer());
-            SetupContainer(CreateNInjectContainer());
-            SetupContainer(CreateSimpleInjectorContainer());
-            SetupContainer(CreateStructureMapContainer());
+            SetupContainerForLookup(CreateAutofacContainer());
+            SetupContainerForLookup(CreateGraceContainer());
+            SetupContainerForLookup(CreateDryIocContainer());
+            SetupContainerForLookup(CreateLightInjectContainer());
+            SetupContainerForLookup(CreateMicrosoftDependencyInjectionContainer());
+            SetupContainerForLookup(CreateNInjectContainer());
+            SetupContainerForLookup(CreateSimpleInjectorContainer());
+            SetupContainerForLookup(CreateStructureMapContainer());
         }
 
         #region Benchmarks
@@ -68,7 +61,7 @@ namespace DotNet.DependencyInjectionBenchmarks.Benchmarks.Lookup
         {
             ExecuteBenchmark(LightInjectContainer);
         }
-        
+
         [Benchmark]
         [BenchmarkCategory("MicrosoftDependencyInjection")]
         public void MicrosoftDependencyInjection()
@@ -108,31 +101,22 @@ namespace DotNet.DependencyInjectionBenchmarks.Benchmarks.Lookup
 
         #region Setup Container 
 
-        public void SetupContainer(IContainer scope)
+        public void SetupContainerForLookup(IContainer scope)
         {
             var allTypes = DummyClasses.GetTypes(ExtraRegistrations)
                 .Select(t => new RegistrationDefinition { ExportType = t, ActivationType = t }).ToList();
 
-            if (Scenario == ScenarioType.WorstCase)
-            {
-                allTypes.InsertRange(0, SmallObjectBenchmark.Definitions());
-            }
-            else if (Scenario == ScenarioType.AverageCase)
-            {
-                var definitions = SmallObjectBenchmark.Definitions().ToArray();
-                var index = 0;
-                var gap = allTypes.Count / definitions.Length;
+            var definitions = SmallObjectBenchmark.Definitions().ToArray();
 
-                foreach (var definition in definitions)
-                {
-                    allTypes.Insert(index, definition);
+            var gap = allTypes.Count / definitions.Length;
 
-                    index += gap + 1;
-                }
-            }
-            else
+            var index = gap / 2;
+
+            foreach (var definition in definitions)
             {
-                allTypes.AddRange(SmallObjectBenchmark.Definitions());
+                allTypes.Insert(index, definition);
+
+                index += gap + 1;
             }
 
             scope.Registration(allTypes);

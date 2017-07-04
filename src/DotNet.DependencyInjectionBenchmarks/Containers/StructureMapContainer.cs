@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO.Compression;
+using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Text;
 using StructureMap;
@@ -11,6 +12,13 @@ namespace DotNet.DependencyInjectionBenchmarks.Containers
     public class StructureMapContainer : IContainer
     {
         private StructureMap.Container _container = new Container();
+
+        public string DisplayName => "StructureMap";
+
+        public string Version => typeof(Container).GetTypeInfo().Assembly.GetCustomAttribute<AssemblyInformationalVersionAttribute>()?.InformationalVersion ?? "1.0.0";
+
+        public string WebSite => "http://structuremap.github.io/";
+
 
         public void BuildContainer()
         {

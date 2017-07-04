@@ -13,7 +13,9 @@ namespace DotNet.DependencyInjectionBenchmarks.Benchmarks.Lifestyles
     //    [GlobalSetup]
     //    public void Setup()
     //    {
-            
+
     //    }
+
+
     //}
 }

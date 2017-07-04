@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using LightInject;
@@ -11,6 +12,12 @@ namespace DotNet.DependencyInjectionBenchmarks.Containers
     {
         private readonly ServiceContainer _container = new ServiceContainer();
 
+        public string DisplayName => "LightInject";
+
+        public string Version => typeof(ServiceContainer).GetTypeInfo().Assembly.GetCustomAttribute<AssemblyInformationalVersionAttribute>()?.InformationalVersion ?? "1.0.0";
+
+        public string WebSite => "http://www.lightinject.net/";
+        
         /// <summary>Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.</summary>
         public void Dispose()
         {

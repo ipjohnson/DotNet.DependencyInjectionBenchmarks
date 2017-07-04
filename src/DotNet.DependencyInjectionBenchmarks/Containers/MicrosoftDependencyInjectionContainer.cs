@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
+using System.Reflection;
 using System.Text;
 
 namespace DotNet.DependencyInjectionBenchmarks.Containers
@@ -9,6 +10,13 @@ namespace DotNet.DependencyInjectionBenchmarks.Containers
     {
         private IServiceProvider _serviceProvider;
         private readonly IServiceCollection _serviceCollection = new ServiceCollection();
+
+        public string DisplayName => "Microsoft Dependency Injection";
+
+        public string Version => typeof(IServiceCollection).GetTypeInfo().Assembly.GetCustomAttribute<AssemblyInformationalVersionAttribute>()?.InformationalVersion ?? "1.0.0";
+
+        public string WebSite => "https://github.com/aspnet/DependencyInjection";
+
 
         public void BuildContainer()
         {

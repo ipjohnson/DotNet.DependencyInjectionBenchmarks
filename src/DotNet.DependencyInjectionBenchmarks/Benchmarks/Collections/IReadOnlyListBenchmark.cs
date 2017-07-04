@@ -26,6 +26,8 @@ namespace DotNet.DependencyInjectionBenchmarks.Benchmarks.Collections
             SetupContainerForTest(CreateDryIocContainer(), definitions, warmup);
             SetupContainerForTest(CreateGraceContainer(), definitions, warmup);
             SetupContainerForTest(CreateLightInjectContainer(), definitions, warmup);
+            SetupContainerForTest(CreateSimpleInjectorContainer(), definitions, warmup);
+
         }
 
         #region Benchmarks
@@ -56,6 +58,13 @@ namespace DotNet.DependencyInjectionBenchmarks.Benchmarks.Collections
         public void LightInject()
         {
             ExecuteBenchmark(LightInjectContainer);
+        }
+        
+        [Benchmark]
+        [BenchmarkCategory("SimpleInjector")]
+        public void SimpleInjector()
+        {
+            ExecuteBenchmark(SimpleInjectorContainer);
         }
         
         private void ExecuteBenchmark(IResolveScope scope)

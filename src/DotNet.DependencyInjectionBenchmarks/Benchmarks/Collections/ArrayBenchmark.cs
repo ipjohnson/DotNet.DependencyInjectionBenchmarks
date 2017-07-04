@@ -12,6 +12,8 @@ namespace DotNet.DependencyInjectionBenchmarks.Benchmarks.Collections
     [BenchmarkCategory("Collections")]
     public class ArrayBenchmark : BaseBenchmark
     {
+
+
         [GlobalSetup]
         public void Setup()
         {
@@ -23,6 +25,7 @@ namespace DotNet.DependencyInjectionBenchmarks.Benchmarks.Collections
             };
 
             SetupContainerForTest(CreateAutofacContainer(), definitions, warmup);
+            SetupContainerForTest(CreateDryIocContainer(), definitions, warmup);
             SetupContainerForTest(CreateGraceContainer(), definitions, warmup);
             SetupContainerForTest(CreateLightInjectContainer(), definitions, warmup);
             SetupContainerForTest(CreateSimpleInjectorContainer(), definitions, warmup);
@@ -38,18 +41,33 @@ namespace DotNet.DependencyInjectionBenchmarks.Benchmarks.Collections
             ExecuteBenchmark(AutofacContainer);
         }
 
+
+        [Benchmark]
+        [BenchmarkCategory("DryIoc")]
+        public void DryIoc()
+        {
+            ExecuteBenchmark(DryIocContainer);
+        }
+
         [Benchmark]
         [BenchmarkCategory("Grace")]
         public void Grace()
         {
             ExecuteBenchmark(GraceContainer);
         }
-
+        
         [Benchmark]
         [BenchmarkCategory("LightInject")]
-        public void LightInject()
+        public void LightInjec()
         {
             ExecuteBenchmark(LightInjectContainer);
+        }
+        
+        [Benchmark]
+        [BenchmarkCategory("SimpleInjector")]
+        public void SimpleInjector()
+        {
+            ExecuteBenchmark(SimpleInjectorContainer);
         }
 
         [Benchmark]

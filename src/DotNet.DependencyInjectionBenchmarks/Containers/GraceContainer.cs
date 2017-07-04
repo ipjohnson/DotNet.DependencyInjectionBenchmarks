@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using Grace.DependencyInjection;
@@ -11,6 +12,12 @@ namespace DotNet.DependencyInjectionBenchmarks.Containers
     public class GraceContainer : IContainer
     {
         private readonly DependencyInjectionContainer _container = new DependencyInjectionContainer(GraceDynamicMethod.Configuration());
+
+        public string DisplayName => "Grace";
+
+        public string Version => typeof(DependencyInjectionContainer).GetTypeInfo().Assembly.GetCustomAttribute<AssemblyInformationalVersionAttribute>()?.InformationalVersion ?? "1.0.0";
+
+        public string WebSite => "https://github.com/ipjohnson/Grace";
 
         public void Dispose()
         {

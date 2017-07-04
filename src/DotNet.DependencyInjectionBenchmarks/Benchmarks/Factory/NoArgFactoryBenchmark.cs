@@ -22,6 +22,7 @@ namespace DotNet.DependencyInjectionBenchmarks.Benchmarks.Factory
             SetupContainer(CreateDryIocContainer(), definitions);
             SetupContainer(CreateGraceContainer(), definitions);
             SetupContainer(CreateLightInjectContainer(), definitions);
+            SetupContainer(CreateSimpleInjectorContainer(), definitions);
             SetupContainer(CreateStructureMapContainer(), definitions);
         }
 
@@ -78,6 +79,13 @@ namespace DotNet.DependencyInjectionBenchmarks.Benchmarks.Factory
         public void LightInject()
         {
             ExecuteBenchmark(LightInjectContainer);
+        }
+
+        [Benchmark]
+        [BenchmarkCategory("SimpleInjector")]
+        public void SimpleInjector()
+        {
+            ExecuteBenchmark(SimpleInjectorContainer);            
         }
 
         [Benchmark]

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using Autofac;
@@ -102,6 +103,12 @@ namespace DotNet.DependencyInjectionBenchmarks.Containers
         {
             return _container.TryResolve(type, out value);
         }
+
+        public string DisplayName => "Autofac";
+
+        public string Version => typeof(Autofac.IContainer).GetTypeInfo().Assembly.GetCustomAttribute<AssemblyInformationalVersionAttribute>()?.InformationalVersion ?? "1.0.0";
+
+        public string WebSite => "https://github.com/autofac/Autofac";
 
         public void BuildContainer()
         {

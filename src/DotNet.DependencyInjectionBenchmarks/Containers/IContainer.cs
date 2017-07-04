@@ -61,6 +61,12 @@ namespace DotNet.DependencyInjectionBenchmarks.Containers
 
     public interface IContainer : IResolveScope
     {
+        string DisplayName { get; }
+
+        string Version { get; }
+
+        string WebSite { get; }
+
         void BuildContainer();
 
         void Registration(IEnumerable<RegistrationDefinition> definitions);

@@ -20,11 +20,8 @@ namespace DotNet.DependencyInjectionBenchmarks.Benchmarks.Collections
             {
                 scope => scope.Resolve<List<IEnumerableService>>()
             };
-
-            //SetupScopeForTest(CreateAutofacScope(), definitions, warmup);
-            //SetupScopeForTest(CreateDryIocScope(), definitions, warmup);
+            
             SetupContainerForTest(CreateGraceContainer(), definitions, warmup);
-            //SetupScopeForTest(CreateLightInjectScope(), definitions, warmup);
             SetupContainerForTest(CreateStructureMapContainer(), definitions, warmup);
         }
 
@@ -36,14 +33,7 @@ namespace DotNet.DependencyInjectionBenchmarks.Benchmarks.Collections
         //{
         //    ExecuteBenchmark(AutofacScope);
         //}
-
-        //[Benchmark]
-        //[BenchmarkCategory("DryIoc")]
-        //public void DryIoc()
-        //{
-        //    ExecuteBenchmark(DryIocScope);
-        //}
-
+        
         [Benchmark]
         [BenchmarkCategory("Grace")]
         public void Grace()
