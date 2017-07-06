@@ -13,6 +13,9 @@ namespace DotNet.DependencyInjectionBenchmarks.Benchmarks.Scoped
     [BenchmarkCategory("Scoped")]
     public class CreateScopeAndResolveBenchmark : BaseBenchmark
     {
+        public static string Description =>
+            "This benchmark creates a child scope and then resolves 3 small objects from the child scope.";
+
         [GlobalSetup]
         public void Setup()
         {

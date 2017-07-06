@@ -13,6 +13,9 @@ namespace DotNet.DependencyInjectionBenchmarks.Benchmarks.Lifestyles
     [BenchmarkCategory("Lifestyles")]
     public class SingletonPerScopeBenchmark : BaseBenchmark
     {
+        public static string Description =>
+            @"This benchmark registers 3 small objects as Singleton Per Scope then creates a scope and resolves the 3 small objects.";
+
         [GlobalSetup]
         public void Setup()
         {

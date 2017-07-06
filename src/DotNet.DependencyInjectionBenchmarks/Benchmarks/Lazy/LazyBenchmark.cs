@@ -13,6 +13,9 @@ namespace DotNet.DependencyInjectionBenchmarks.Benchmarks.Lazy
     [BenchmarkCategory("Lazy")]
     public class LazyBenchmark : BaseBenchmark
     {
+        public static string Description =>
+            "This benchmark registers 3 small objects then resolves the objects using Lazy(T).";
+
         [GlobalSetup]
         public void Setup()
         {

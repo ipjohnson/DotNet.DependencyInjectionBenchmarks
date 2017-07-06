@@ -21,6 +21,7 @@ namespace DotNet.DependencyInjectionBenchmarks.Benchmarks.Registration
         ResolveAll
     }
 
+    [BenchmarkCategory("Registration")]
     public class RegistrationBenchmark
     {
         private Type[] _types;
@@ -30,6 +31,9 @@ namespace DotNet.DependencyInjectionBenchmarks.Benchmarks.Registration
 
         [Params(ResolveScenario.ResolveNone, ResolveScenario.ResolveOne, ResolveScenario.ResolveHalf, ResolveScenario.ResolveAll)]
         public ResolveScenario Scenario { get; set; }
+        
+        public static string Description =>
+            "This benchmark tests registering {Registrations} then {Scenario} from the container";
 
         [GlobalSetup]
         public void Setup()

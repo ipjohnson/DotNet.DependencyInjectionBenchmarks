@@ -13,6 +13,9 @@ namespace DotNet.DependencyInjectionBenchmarks.Benchmarks.Func
     [BenchmarkCategory("Func")]
     public class NoArgFuncBenchmark : BaseBenchmark
     {
+        public static string Description =>
+            "This benchmark registers 3 small objects then resolves a no argument function for each object";
+
         [GlobalSetup]
         public void Setup()
         {

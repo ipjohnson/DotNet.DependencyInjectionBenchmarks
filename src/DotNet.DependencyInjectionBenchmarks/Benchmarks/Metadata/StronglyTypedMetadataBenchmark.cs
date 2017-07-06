@@ -15,6 +15,9 @@ namespace DotNet.DependencyInjectionBenchmarks.Benchmarks.Metadata
     [BenchmarkCategory("Metadata")]
     public class StronglyTypedMetadataBenchmark : BaseBenchmark
     {
+        public static string Description =>
+            "This benchmark registers types with metadata then resolves a strongly type metadata model along side the desired service.";
+
         [GlobalSetup]
         public void Setup()
         {

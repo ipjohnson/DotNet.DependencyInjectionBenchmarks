@@ -16,6 +16,9 @@ namespace DotNet.DependencyInjectionBenchmarks.Benchmarks.Metadata
     [BenchmarkCategory("Metadata")]
     public class MetadataBenchmark : BaseBenchmark
     {
+        public static string Description =>
+            "This benchmark registers types with metadata then resolves a untyped metadata model along side the desired service.";
+
         [GlobalSetup]
         public void Setup()
         {

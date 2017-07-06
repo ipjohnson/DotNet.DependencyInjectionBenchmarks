@@ -12,7 +12,8 @@ namespace DotNet.DependencyInjectionBenchmarks.Benchmarks.Collections
     [BenchmarkCategory("Collections")]
     public class ArrayBenchmark : BaseBenchmark
     {
-
+        public static string Description =>
+            "This benchmark registers 5 small objects then resolves them as an Array.";
 
         [GlobalSetup]
         public void Setup()
