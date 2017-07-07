@@ -59,7 +59,7 @@ namespace DotNet.DependencyInjectionBenchmarks.Benchmarks.Collections
         
         [Benchmark]
         [BenchmarkCategory("LightInject")]
-        public void LightInjec()
+        public void LightInject()
         {
             ExecuteBenchmark(LightInjectContainer);
         }

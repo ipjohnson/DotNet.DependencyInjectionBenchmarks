@@ -12,7 +12,7 @@ namespace DotNet.DependencyInjectionBenchmarks.Benchmarks.Collections
     public class ListBenchmark : BaseBenchmark
     {
         public static string Description =>
-            "This benchmark registers 5 small objects then resolves them as an List(T).";
+            "This benchmark registers 5 small objects then resolves them as a List(T).";
 
         [GlobalSetup]
         public void Setup()
