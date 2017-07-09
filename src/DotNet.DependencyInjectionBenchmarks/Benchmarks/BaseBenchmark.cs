@@ -81,9 +81,7 @@ namespace DotNet.DependencyInjectionBenchmarks.Benchmarks
             {
                 var resolveTypes = new List<Type>(dummyTypes.Take(50));
 
-                var length = resolveStatements.Length > 1 ? resolveStatements.Length : 2;
-
-                var gap = resolveTypes.Count / length;
+                var gap = resolveTypes.Count / resolveStatements.Length;
 
                 var index = gap / 2;
                 

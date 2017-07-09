@@ -14,7 +14,7 @@ namespace DotNet.DependencyInjectionBenchmarks.Benchmarks.Lazy
     public class LazyBenchmark : BaseBenchmark
     {
         public static string Description =>
-            "This benchmark registers 3 small objects then resolves the objects using Lazy(T).";
+            "This benchmark registers a small object then resolves the object using Lazy(T).";
 
         [GlobalSetup]
         public void Setup()
@@ -77,17 +77,6 @@ namespace DotNet.DependencyInjectionBenchmarks.Benchmarks.Lazy
             {
                 throw new Exception("Null lazy value");
             }
-
-            if (scope.Resolve<Lazy<ISmallObjectGraphService2>>().Value == null)
-            {
-                throw new Exception("Null lazy value");
-            }
-
-            if (scope.Resolve<Lazy<ISmallObjectGraphService3>>().Value == null)
-            {
-                throw new Exception("Null lazy value");
-            }
         }
-
     }
 }

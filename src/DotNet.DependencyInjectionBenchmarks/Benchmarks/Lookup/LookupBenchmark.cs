@@ -14,9 +14,9 @@ namespace DotNet.DependencyInjectionBenchmarks.Benchmarks.Lookup
     public class LookupBenchmark : BaseBenchmark
     {
         public static string Description =>
-            @"This benchmark is designed to test the lookup performance of each container. Three small objects are resolved from the container along with {ExtraRegistrations} dummy registrations that are located at warmup time.";
+            @"This benchmark is designed to test the lookup performance of each container. One small object is resolved from the container along with {ExtraRegistrations} dummy registrations that are located at warmup time.";
 
-        [Params(0)]
+        [Params(0, 50, 100, 500, 2000)]
         public int ExtraRegistrations { get; set; }
 
         [GlobalSetup]
@@ -93,8 +93,6 @@ namespace DotNet.DependencyInjectionBenchmarks.Benchmarks.Lookup
         private void ExecuteBenchmark(IResolveScope scope)
         {
             scope.Resolve(typeof(ISmallObjectGraphService1));
-            scope.Resolve(typeof(ISmallObjectGraphService2));
-            scope.Resolve(typeof(ISmallObjectGraphService3));
         }
 
         #endregion

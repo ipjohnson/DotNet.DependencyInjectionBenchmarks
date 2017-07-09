@@ -38,27 +38,7 @@ namespace DotNet.DependencyInjectionBenchmarks.Benchmarks.Metadata
 
             yield return new RegistrationDefinition { ExportType = typeof(ISmallObjectGraphService1), ActivationType = typeof(SmallObjectGraphService1), Metadata = metadata };
             yield return new RegistrationDefinition { ExportType = typeof(ITransientService1), ActivationType = typeof(TransientService1) };
-
-            metadata = new Dictionary<object, object>
-            {
-                { "IntProp", 10 },
-                { "DoubleProp", 10.0 },
-                { "StringProp", "StringValue2" }
-            };
-
-            yield return new RegistrationDefinition { ExportType = typeof(ISmallObjectGraphService2), ActivationType = typeof(SmallObjectGraphService2), Metadata = metadata };
-            yield return new RegistrationDefinition { ExportType = typeof(ITransientService2), ActivationType = typeof(TransientService2) };
-
-            metadata = new Dictionary<object, object>
-            {
-                { "IntProp", 15 },
-                { "DoubleProp", 15.0 },
-                { "StringProp", "StringValue3" }
-            };
-
-            yield return new RegistrationDefinition { ExportType = typeof(ISmallObjectGraphService3), ActivationType = typeof(SmallObjectGraphService3), Metadata = metadata };
-            yield return new RegistrationDefinition { ExportType = typeof(ITransientService3), ActivationType = typeof(TransientService3) };
-
+            
             foreach (var definition in SingletonBenchmark.Definitions())
             {
                 yield return definition;
@@ -72,8 +52,6 @@ namespace DotNet.DependencyInjectionBenchmarks.Benchmarks.Metadata
         public void Autofac()
         {
             AutofacContainer.Resolve<AF.Features.Metadata.Meta<ISmallObjectGraphService1, MetadataClass>>();
-            AutofacContainer.Resolve<AF.Features.Metadata.Meta<ISmallObjectGraphService2, MetadataClass>>();
-            AutofacContainer.Resolve<AF.Features.Metadata.Meta<ISmallObjectGraphService3, MetadataClass>>();
         }
 
         [Benchmark]
@@ -81,8 +59,6 @@ namespace DotNet.DependencyInjectionBenchmarks.Benchmarks.Metadata
         public void Grace()
         {
             GraceContainer.Resolve<G.DependencyInjection.Meta<ISmallObjectGraphService1, MetadataClass>>();
-            GraceContainer.Resolve<G.DependencyInjection.Meta<ISmallObjectGraphService2, MetadataClass>>();
-            GraceContainer.Resolve<G.DependencyInjection.Meta<ISmallObjectGraphService3, MetadataClass>>();
         }
 
         #endregion

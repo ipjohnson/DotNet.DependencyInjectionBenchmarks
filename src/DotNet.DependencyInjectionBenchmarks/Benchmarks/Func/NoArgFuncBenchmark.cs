@@ -14,7 +14,7 @@ namespace DotNet.DependencyInjectionBenchmarks.Benchmarks.Func
     public class NoArgFuncBenchmark : BaseBenchmark
     {
         public static string Description =>
-            "This benchmark registers 3 small objects then resolves a no argument function for each object";
+            "This benchmark registers a small objects then resolves a no argument function for each object";
 
         [GlobalSetup]
         public void Setup()
@@ -60,8 +60,6 @@ namespace DotNet.DependencyInjectionBenchmarks.Benchmarks.Func
         private void ExecuteBenchmark(IResolveScope scope)
         {
             scope.Resolve<Func<ISmallObjectGraphService1>>()();
-            scope.Resolve<Func<ISmallObjectGraphService2>>()();
-            scope.Resolve<Func<ISmallObjectGraphService3>>()();
         }
         #endregion
     }

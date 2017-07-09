@@ -14,7 +14,7 @@ namespace DotNet.DependencyInjectionBenchmarks.Benchmarks.Scoped
     public class CreateScopeAndResolveBenchmark : BaseBenchmark
     {
         public static string Description =>
-            "This benchmark creates a child scope and then resolves 3 small objects from the child scope.";
+            "This benchmark creates a child scope and then resolves a small object from the child scope.";
 
         [GlobalSetup]
         public void Setup()
@@ -70,8 +70,6 @@ namespace DotNet.DependencyInjectionBenchmarks.Benchmarks.Scoped
             using (var childScope = scope.CreateScope())
             {
                 childScope.Resolve(typeof(ISmallObjectGraphService1));
-                childScope.Resolve(typeof(ISmallObjectGraphService2));
-                childScope.Resolve(typeof(ISmallObjectGraphService3));
             }
         }
 

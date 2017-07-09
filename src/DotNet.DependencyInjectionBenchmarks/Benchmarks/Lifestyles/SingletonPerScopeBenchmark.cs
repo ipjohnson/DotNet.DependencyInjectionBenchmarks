@@ -14,7 +14,7 @@ namespace DotNet.DependencyInjectionBenchmarks.Benchmarks.Lifestyles
     public class SingletonPerScopeBenchmark : BaseBenchmark
     {
         public static string Description =>
-            @"This benchmark registers 3 small objects as Singleton Per Scope then creates a scope and resolves the 3 small objects.";
+            @"This benchmark registers a small object as Singleton Per Scope then creates a scope and resolves the small object.";
 
         [GlobalSetup]
         public void Setup()
@@ -28,20 +28,6 @@ namespace DotNet.DependencyInjectionBenchmarks.Benchmarks.Lifestyles
                     using (var childScope = scope.CreateScope())
                     {
                         childScope.Resolve(typeof(ISmallObjectGraphService1));
-                    }
-                },
-                scope =>
-                {
-                    using (var childScope = scope.CreateScope())
-                    {
-                        childScope.Resolve(typeof(ISmallObjectGraphService2));
-                    }
-                },
-                scope =>
-                {
-                    using (var childScope = scope.CreateScope())
-                    {
-                        childScope.Resolve(typeof(ISmallObjectGraphService3));
                     }
                 }
             };
@@ -95,8 +81,6 @@ namespace DotNet.DependencyInjectionBenchmarks.Benchmarks.Lifestyles
             using (var childScope = scope.CreateScope())
             {
                 childScope.Resolve(typeof(ISmallObjectGraphService1));
-                childScope.Resolve(typeof(ISmallObjectGraphService2));
-                childScope.Resolve(typeof(ISmallObjectGraphService3));
             }
         }
 

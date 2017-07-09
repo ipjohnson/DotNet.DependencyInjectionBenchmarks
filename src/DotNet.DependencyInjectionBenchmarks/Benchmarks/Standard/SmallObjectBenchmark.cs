@@ -13,7 +13,7 @@ namespace DotNet.DependencyInjectionBenchmarks.Benchmarks.Standard
     public class SmallObjectBenchmark : BaseBenchmark
     {
         public static string Description =>
-            @"Resolves 3 small object graphs from each container";
+            @"Resolves a small object graph from each container";
 
         #region setup
         [GlobalSetup]
@@ -93,8 +93,6 @@ namespace DotNet.DependencyInjectionBenchmarks.Benchmarks.Standard
         private void ExecuteBenchmark(IResolveScope scope)
         {
             scope.Resolve(typeof(ISmallObjectGraphService1));
-            scope.Resolve(typeof(ISmallObjectGraphService2));
-            scope.Resolve(typeof(ISmallObjectGraphService3));
         }
 
         #endregion
@@ -113,14 +111,6 @@ namespace DotNet.DependencyInjectionBenchmarks.Benchmarks.Standard
             yield return singletons[0];
             yield return new RegistrationDefinition { ExportType = typeof(ISmallObjectGraphService1), ActivationType = typeof(SmallObjectGraphService1), RegistrationLifestyle = lifestyle};
             yield return new RegistrationDefinition { ExportType = typeof(ITransientService1), ActivationType = typeof(TransientService1) };
-
-            yield return singletons[1];
-            yield return new RegistrationDefinition { ExportType = typeof(ISmallObjectGraphService2), ActivationType = typeof(SmallObjectGraphService2), RegistrationLifestyle = lifestyle };
-            yield return new RegistrationDefinition { ExportType = typeof(ITransientService2), ActivationType = typeof(TransientService2) };
-
-            yield return singletons[2];
-            yield return new RegistrationDefinition { ExportType = typeof(ISmallObjectGraphService3), ActivationType = typeof(SmallObjectGraphService3), RegistrationLifestyle = lifestyle };
-            yield return new RegistrationDefinition { ExportType = typeof(ITransientService3), ActivationType = typeof(TransientService3) };
             
         }
 

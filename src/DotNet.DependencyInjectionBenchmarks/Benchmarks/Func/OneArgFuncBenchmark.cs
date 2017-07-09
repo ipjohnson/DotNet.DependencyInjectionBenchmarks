@@ -14,7 +14,7 @@ namespace DotNet.DependencyInjectionBenchmarks.Benchmarks.Func
     public class OneArgFuncBenchmark : BaseBenchmark
     {
         public static string Description =>
-            "This benchmark registers 3 small objects then resolves a one argument function for each object";
+            "This benchmark registers a small object then resolves a one argument function for each object";
 
         [GlobalSetup]
         public void Setup()
@@ -23,9 +23,7 @@ namespace DotNet.DependencyInjectionBenchmarks.Benchmarks.Func
 
             var warmups = new Action<IResolveScope>[]
             {
-                r =>  r.Resolve<Func<ITransientService1,ISmallObjectGraphService1>>()(new TransientService1()),
-                r =>  r.Resolve<Func<ITransientService2,ISmallObjectGraphService2>>()(new TransientService2()),
-                r =>  r.Resolve<Func<ITransientService3,ISmallObjectGraphService3>>()(new TransientService3())
+                r =>  r.Resolve<Func<ITransientService1,ISmallObjectGraphService1>>()(new TransientService1())
             };
             
             SetupContainerForTest(CreateDryIocContainer(), definitions, warmups);
@@ -35,9 +33,7 @@ namespace DotNet.DependencyInjectionBenchmarks.Benchmarks.Func
         private IEnumerable<RegistrationDefinition> Definitions()
         {
             yield return new RegistrationDefinition { ExportType = typeof(ISmallObjectGraphService1), ActivationType = typeof(SmallObjectGraphService1) };
-            yield return new RegistrationDefinition { ExportType = typeof(ISmallObjectGraphService2), ActivationType = typeof(SmallObjectGraphService2) };
-            yield return new RegistrationDefinition { ExportType = typeof(ISmallObjectGraphService3), ActivationType = typeof(SmallObjectGraphService3) };
-
+            
             foreach (var definition in SingletonBenchmark.Definitions())
             {
                 yield return definition;
@@ -63,8 +59,6 @@ namespace DotNet.DependencyInjectionBenchmarks.Benchmarks.Func
         private void ExecuteBenchmark(IResolveScope scope)
         {
             scope.Resolve<Func<ITransientService1, ISmallObjectGraphService1>>()(new TransientService1());
-            scope.Resolve<Func<ITransientService2, ISmallObjectGraphService2>>()(new TransientService2());
-            scope.Resolve<Func<ITransientService3, ISmallObjectGraphService3>>()(new TransientService3());
         }
 
         #endregion

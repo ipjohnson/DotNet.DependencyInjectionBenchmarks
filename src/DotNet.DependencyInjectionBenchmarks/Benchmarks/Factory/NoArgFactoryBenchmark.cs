@@ -14,7 +14,7 @@ namespace DotNet.DependencyInjectionBenchmarks.Benchmarks.Factory
     public class NoArgFactoryBenchmark : BaseBenchmark
     {
         public static string Description =>
-            "This benchmark registers 3 small objects using a factory to provide on piece of the object graph.";
+            "This benchmark registers a small object using a factory to provide on piece of the object graph.";
         
         [GlobalSetup]
         public void Setup()
@@ -32,21 +32,15 @@ namespace DotNet.DependencyInjectionBenchmarks.Benchmarks.Factory
         private void SetupContainer(IContainer container, RegistrationDefinition[] definitions)
         {
             container.RegisterFactory<ITransientService1>(() => new TransientService1(), RegistrationMode.Single, RegistrationLifestyle.Transient);
-            container.RegisterFactory<ITransientService2>(() => new TransientService2(), RegistrationMode.Single, RegistrationLifestyle.Transient);
-            container.RegisterFactory<ITransientService3>(() => new TransientService3(), RegistrationMode.Single, RegistrationLifestyle.Transient);
-
+            
             SetupContainerForTest(container,definitions,
-                scope => scope.Resolve<ISmallObjectGraphService1>(),
-                scope => scope.Resolve<ISmallObjectGraphService2>(),
-                scope => scope.Resolve<ISmallObjectGraphService3>()
+                scope => scope.Resolve<ISmallObjectGraphService1>()
             );
         }
 
         private IEnumerable<RegistrationDefinition> Definitions()
         {
             yield return new RegistrationDefinition { ExportType = typeof(ISmallObjectGraphService1), ActivationType = typeof(SmallObjectGraphService1)};
-            yield return new RegistrationDefinition { ExportType = typeof(ISmallObjectGraphService2), ActivationType = typeof(SmallObjectGraphService2) };
-            yield return new RegistrationDefinition { ExportType = typeof(ISmallObjectGraphService3), ActivationType = typeof(SmallObjectGraphService3) };
 
             foreach (var definition in SingletonBenchmark.Definitions())
             {
@@ -101,8 +95,6 @@ namespace DotNet.DependencyInjectionBenchmarks.Benchmarks.Factory
         private void ExecuteBenchmark(IResolveScope scope)
         {
             scope.Resolve<ISmallObjectGraphService1>();
-            scope.Resolve<ISmallObjectGraphService2>();
-            scope.Resolve<ISmallObjectGraphService3>();
         }
 
         #endregion

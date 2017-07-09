@@ -13,7 +13,7 @@ namespace DotNet.DependencyInjectionBenchmarks.Benchmarks.Standard
     public class SingletonBenchmark : BaseBenchmark
     {
         public static string Description =>
-            @"Resolves 3 Singleton services from each container";
+            @"Resolves a Singleton services from each container";
 
         [GlobalSetup]
         public void Setup()
