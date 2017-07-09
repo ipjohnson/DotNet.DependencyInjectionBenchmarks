@@ -23,7 +23,7 @@ namespace DotNet.DependencyInjectionBenchmarks.Benchmarks.Func
 
             var warmupStatements = new Action<IResolveScope>[]
             {
-                scope => scope.Resolve<Func<int,string,ITransientService1,IThreeArgService1>>()(5, "Hello", new TransientService1()),
+                scope => scope.Resolve<Func<int,string,ITransientService,IThreeArgService1>>()(5, "Hello", new TransientService()),
             };
 
             SetupContainerForTest(CreateDryIocContainer(), definitions, warmupStatements);
@@ -57,8 +57,8 @@ namespace DotNet.DependencyInjectionBenchmarks.Benchmarks.Func
 
         private void ExecuteBenchmark(IResolveScope scope)
         {
-            scope.Resolve<Func<int, string, ITransientService1, IThreeArgService1>>()(5, "Hello",
-                new TransientService1());
+            scope.Resolve<Func<int, string, ITransientService, IThreeArgService1>>()(5, "Hello",
+                new TransientService());
         }
 
         #endregion

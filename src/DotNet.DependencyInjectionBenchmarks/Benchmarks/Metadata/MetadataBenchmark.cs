@@ -37,8 +37,8 @@ namespace DotNet.DependencyInjectionBenchmarks.Benchmarks.Metadata
                 { "StringProp", "StringValue1" }
             };
 
-            yield return new RegistrationDefinition { ExportType = typeof(ISmallObjectGraphService1), ActivationType = typeof(SmallObjectGraphService1), Metadata = metadata };
-            yield return new RegistrationDefinition { ExportType = typeof(ITransientService1), ActivationType = typeof(TransientService1) };
+            yield return new RegistrationDefinition { ExportType = typeof(ISmallObjectService), ActivationType = typeof(SmallObjectService), Metadata = metadata };
+            yield return new RegistrationDefinition { ExportType = typeof(ITransientService), ActivationType = typeof(TransientService) };
             
             foreach (var definition in SingletonBenchmark.Definitions())
             {
@@ -52,14 +52,14 @@ namespace DotNet.DependencyInjectionBenchmarks.Benchmarks.Metadata
         [BenchmarkCategory("Autofac")]
         public void Autofac()
         {
-            AutofacContainer.Resolve<AF.Features.Metadata.Meta<ISmallObjectGraphService1>>();
+            AutofacContainer.Resolve<AF.Features.Metadata.Meta<ISmallObjectService>>();
         }
 
         [Benchmark]
         [BenchmarkCategory("Grace")]
         public void Grace()
         {
-            GraceContainer.Resolve<G.DependencyInjection.Meta<ISmallObjectGraphService1>>();
+            GraceContainer.Resolve<G.DependencyInjection.Meta<ISmallObjectService>>();
         }
 
         #endregion

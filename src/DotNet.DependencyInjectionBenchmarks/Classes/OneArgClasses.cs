@@ -6,16 +6,16 @@ namespace DotNet.DependencyInjectionBenchmarks.Classes
 {
     public interface IOneArgeFactoryService1
     {
-        ISmallObjectGraphService1 SmallObject { get; }
+        ISmallObjectService SmallObject { get; }
     }
 
     public class OneArgeFactoryService1 : IOneArgeFactoryService1
     {
-        public OneArgeFactoryService1(ISmallObjectGraphService1 smallObject)
+        public OneArgeFactoryService1(ISmallObjectService smallObject)
         {
             SmallObject = smallObject;
         }
 
-        public ISmallObjectGraphService1 SmallObject { get; }
+        public ISmallObjectService SmallObject { get; }
     }
 }

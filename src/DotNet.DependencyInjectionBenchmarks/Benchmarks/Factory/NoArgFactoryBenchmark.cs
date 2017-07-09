@@ -31,16 +31,16 @@ namespace DotNet.DependencyInjectionBenchmarks.Benchmarks.Factory
 
         private void SetupContainer(IContainer container, RegistrationDefinition[] definitions)
         {
-            container.RegisterFactory<ITransientService1>(() => new TransientService1(), RegistrationMode.Single, RegistrationLifestyle.Transient);
+            container.RegisterFactory<ITransientService>(() => new TransientService(), RegistrationMode.Single, RegistrationLifestyle.Transient);
             
             SetupContainerForTest(container,definitions,
-                scope => scope.Resolve<ISmallObjectGraphService1>()
+                scope => scope.Resolve<ISmallObjectService>()
             );
         }
 
         private IEnumerable<RegistrationDefinition> Definitions()
         {
-            yield return new RegistrationDefinition { ExportType = typeof(ISmallObjectGraphService1), ActivationType = typeof(SmallObjectGraphService1)};
+            yield return new RegistrationDefinition { ExportType = typeof(ISmallObjectService), ActivationType = typeof(SmallObjectService)};
 
             foreach (var definition in SingletonBenchmark.Definitions())
             {
@@ -94,7 +94,7 @@ namespace DotNet.DependencyInjectionBenchmarks.Benchmarks.Factory
 
         private void ExecuteBenchmark(IResolveScope scope)
         {
-            scope.Resolve<ISmallObjectGraphService1>();
+            scope.Resolve<ISmallObjectService>();
         }
 
         #endregion

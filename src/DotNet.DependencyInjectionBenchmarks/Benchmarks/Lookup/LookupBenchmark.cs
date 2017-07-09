@@ -92,7 +92,7 @@ namespace DotNet.DependencyInjectionBenchmarks.Benchmarks.Lookup
 
         private void ExecuteBenchmark(IResolveScope scope)
         {
-            scope.Resolve(typeof(ISmallObjectGraphService1));
+            scope.Resolve(typeof(ISmallObjectService));
         }
 
         #endregion

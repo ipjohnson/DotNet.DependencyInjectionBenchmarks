@@ -59,7 +59,7 @@ namespace DotNet.DependencyInjectionBenchmarks.Benchmarks.Func
         
         private void ExecuteBenchmark(IResolveScope scope)
         {
-            scope.Resolve<Func<ISmallObjectGraphService1>>()();
+            scope.Resolve<Func<ISmallObjectService>>()();
         }
         #endregion
     }

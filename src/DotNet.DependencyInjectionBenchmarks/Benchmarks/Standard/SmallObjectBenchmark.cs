@@ -92,7 +92,7 @@ namespace DotNet.DependencyInjectionBenchmarks.Benchmarks.Standard
 
         private void ExecuteBenchmark(IResolveScope scope)
         {
-            scope.Resolve(typeof(ISmallObjectGraphService1));
+            scope.Resolve(typeof(ISmallObjectService));
         }
 
         #endregion
@@ -109,9 +109,8 @@ namespace DotNet.DependencyInjectionBenchmarks.Benchmarks.Standard
             var singletons = SingletonBenchmark.Definitions().ToArray();
 
             yield return singletons[0];
-            yield return new RegistrationDefinition { ExportType = typeof(ISmallObjectGraphService1), ActivationType = typeof(SmallObjectGraphService1), RegistrationLifestyle = lifestyle};
-            yield return new RegistrationDefinition { ExportType = typeof(ITransientService1), ActivationType = typeof(TransientService1) };
-            
+            yield return new RegistrationDefinition { ExportType = typeof(ISmallObjectService), ActivationType = typeof(SmallObjectService), RegistrationLifestyle = lifestyle};
+            yield return new RegistrationDefinition { ExportType = typeof(ITransientService), ActivationType = typeof(TransientService) };            
         }
 
         #endregion

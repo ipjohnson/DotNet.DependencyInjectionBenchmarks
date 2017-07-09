@@ -27,7 +27,7 @@ namespace DotNet.DependencyInjectionBenchmarks.Benchmarks.Lifestyles
                 {
                     using (var childScope = scope.CreateScope())
                     {
-                        childScope.Resolve(typeof(ISmallObjectGraphService1));
+                        childScope.Resolve(typeof(ISmallObjectService));
                     }
                 }
             };
@@ -80,7 +80,7 @@ namespace DotNet.DependencyInjectionBenchmarks.Benchmarks.Lifestyles
         {
             using (var childScope = scope.CreateScope())
             {
-                childScope.Resolve(typeof(ISmallObjectGraphService1));
+                childScope.Resolve(typeof(ISmallObjectService));
             }
         }
 

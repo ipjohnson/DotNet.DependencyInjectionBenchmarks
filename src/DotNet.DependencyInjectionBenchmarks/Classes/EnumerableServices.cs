@@ -6,73 +6,73 @@ namespace DotNet.DependencyInjectionBenchmarks.Classes
 {
     public interface IEnumerableService
     {
-        ISingletonService1 Singleton { get; }
+        ISingletonService Singleton { get; }
 
-        ITransientService1 Transient { get; }
+        ITransientService Transient { get; }
     }
 
     public class EnumerableService1 : IEnumerableService
     {
-        public EnumerableService1(ITransientService1 transient, ISingletonService1 singleton)
+        public EnumerableService1(ITransientService transient, ISingletonService singleton)
         {
             Transient = transient;
             Singleton = singleton;
         }
 
-        public ISingletonService1 Singleton { get; }
+        public ISingletonService Singleton { get; }
 
-        public ITransientService1 Transient { get; }
+        public ITransientService Transient { get; }
     }
 
     public class EnumerableService2 : IEnumerableService
     {
-        public EnumerableService2(ITransientService1 transient, ISingletonService1 singleton)
+        public EnumerableService2(ITransientService transient, ISingletonService singleton)
         {
             Transient = transient;
             Singleton = singleton;
         }
 
-        public ISingletonService1 Singleton { get; }
+        public ISingletonService Singleton { get; }
 
-        public ITransientService1 Transient { get; }
+        public ITransientService Transient { get; }
     }
 
     public class EnumerableService3 : IEnumerableService
     {
-        public EnumerableService3(ITransientService1 transient, ISingletonService1 singleton)
+        public EnumerableService3(ITransientService transient, ISingletonService singleton)
         {
             Transient = transient;
             Singleton = singleton;
         }
 
-        public ISingletonService1 Singleton { get; }
+        public ISingletonService Singleton { get; }
 
-        public ITransientService1 Transient { get; }
+        public ITransientService Transient { get; }
     }
 
     public class EnumerableService4 : IEnumerableService
     {
-        public EnumerableService4(ITransientService1 transient, ISingletonService1 singleton)
+        public EnumerableService4(ITransientService transient, ISingletonService singleton)
         {
             Transient = transient;
             Singleton = singleton;
         }
 
-        public ISingletonService1 Singleton { get; }
+        public ISingletonService Singleton { get; }
 
-        public ITransientService1 Transient { get; }
+        public ITransientService Transient { get; }
     }
 
     public class EnumerableService5 : IEnumerableService
     {
-        public EnumerableService5(ITransientService1 transient, ISingletonService1 singleton)
+        public EnumerableService5(ITransientService transient, ISingletonService singleton)
         {
             Transient = transient;
             Singleton = singleton;
         }
 
-        public ISingletonService1 Singleton { get; }
+        public ISingletonService Singleton { get; }
 
-        public ITransientService1 Transient { get; }
+        public ITransientService Transient { get; }
     }
 }

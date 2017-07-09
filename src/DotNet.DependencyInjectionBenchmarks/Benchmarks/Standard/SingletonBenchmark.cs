@@ -32,10 +32,8 @@ namespace DotNet.DependencyInjectionBenchmarks.Benchmarks.Standard
 
         public static IEnumerable<RegistrationDefinition> Definitions()
         {
-            yield return new RegistrationDefinition { ExportType = typeof(ISingletonService1), ActivationType = typeof(SingletonService1), RegistrationLifestyle = RegistrationLifestyle.Singleton };
-            yield return new RegistrationDefinition { ExportType = typeof(ISingletonService2), ActivationType = typeof(SingletonService2), RegistrationLifestyle = RegistrationLifestyle.Singleton };
-            yield return new RegistrationDefinition { ExportType = typeof(ISingletonService3), ActivationType = typeof(SingletonService3), RegistrationLifestyle = RegistrationLifestyle.Singleton };
-        }
+            yield return new RegistrationDefinition { ExportType = typeof(ISingletonService), ActivationType = typeof(SingletonService), RegistrationLifestyle = RegistrationLifestyle.Singleton };
+            }
 
         #region Benchmark
 
@@ -97,9 +95,7 @@ namespace DotNet.DependencyInjectionBenchmarks.Benchmarks.Standard
 
         private void ExecuteBenchmark(IResolveScope scope)
         {
-            scope.Resolve(typeof(ISingletonService1));
-            scope.Resolve(typeof(ISingletonService2));
-            scope.Resolve(typeof(ISingletonService3));
+            scope.Resolve(typeof(ISingletonService));
         }
         #endregion
     }

@@ -69,7 +69,7 @@ namespace DotNet.DependencyInjectionBenchmarks.Benchmarks.Scoped
         {
             using (var childScope = scope.CreateScope())
             {
-                childScope.Resolve(typeof(ISmallObjectGraphService1));
+                childScope.Resolve(typeof(ISmallObjectService));
             }
         }
 

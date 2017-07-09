@@ -73,7 +73,7 @@ namespace DotNet.DependencyInjectionBenchmarks.Benchmarks.Lazy
 
         private void ExecuteBenchmark(IResolveScope scope)
         {
-            if (scope.Resolve<Lazy<ISmallObjectGraphService1>>().Value == null)
+            if (scope.Resolve<Lazy<ISmallObjectService>>().Value == null)
             {
                 throw new Exception("Null lazy value");
             }

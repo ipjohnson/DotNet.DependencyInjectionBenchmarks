@@ -6,23 +6,23 @@ using System.Threading.Tasks;
 
 namespace DotNet.DependencyInjectionBenchmarks.Classes
 {
-    public interface ISmallObjectGraphService1
+    public interface ISmallObjectService
     {
-        ITransientService1 TransientService { get; }
+        ITransientService TransientService { get; }
 
-        ISingletonService1 Singleton { get; }
+        ISingletonService Singleton { get; }
     }
 
-    public class SmallObjectGraphService1 : ISmallObjectGraphService1
+    public class SmallObjectService : ISmallObjectService
     {
-        public SmallObjectGraphService1(ITransientService1 transientService, ISingletonService1 singleton)
+        public SmallObjectService(ITransientService transientService, ISingletonService singleton)
         {
             TransientService = transientService;
             Singleton = singleton;
         }
 
-        public ITransientService1 TransientService { get; }
+        public ITransientService TransientService { get; }
 
-        public ISingletonService1 Singleton { get; }
+        public ISingletonService Singleton { get; }
     }
 }

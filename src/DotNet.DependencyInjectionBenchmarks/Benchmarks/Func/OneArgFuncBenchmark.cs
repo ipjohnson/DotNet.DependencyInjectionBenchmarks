@@ -23,7 +23,7 @@ namespace DotNet.DependencyInjectionBenchmarks.Benchmarks.Func
 
             var warmups = new Action<IResolveScope>[]
             {
-                r =>  r.Resolve<Func<ITransientService1,ISmallObjectGraphService1>>()(new TransientService1())
+                r =>  r.Resolve<Func<ITransientService,ISmallObjectService>>()(new TransientService())
             };
             
             SetupContainerForTest(CreateDryIocContainer(), definitions, warmups);
@@ -32,7 +32,7 @@ namespace DotNet.DependencyInjectionBenchmarks.Benchmarks.Func
 
         private IEnumerable<RegistrationDefinition> Definitions()
         {
-            yield return new RegistrationDefinition { ExportType = typeof(ISmallObjectGraphService1), ActivationType = typeof(SmallObjectGraphService1) };
+            yield return new RegistrationDefinition { ExportType = typeof(ISmallObjectService), ActivationType = typeof(SmallObjectService) };
             
             foreach (var definition in SingletonBenchmark.Definitions())
             {
@@ -58,7 +58,7 @@ namespace DotNet.DependencyInjectionBenchmarks.Benchmarks.Func
 
         private void ExecuteBenchmark(IResolveScope scope)
         {
-            scope.Resolve<Func<ITransientService1, ISmallObjectGraphService1>>()(new TransientService1());
+            scope.Resolve<Func<ITransientService, ISmallObjectService>>()(new TransientService());
         }
 
         #endregion
