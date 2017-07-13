@@ -21,8 +21,9 @@ namespace DotNet.DependencyInjectionBenchmarks.Benchmarks.Standard
             var definitions = Definitions().ToArray();
 
             SetupContainerForTest(CreateAutofacContainer(), definitions);
-            SetupContainerForTest(CreateGraceContainer(), definitions);
+            SetupContainerForTest(CreateCastleWindsorContainer(), definitions);
             SetupContainerForTest(CreateDryIocContainer(), definitions);
+            SetupContainerForTest(CreateGraceContainer(), definitions);
             SetupContainerForTest(CreateLightInjectContainer(), definitions);
             SetupContainerForTest(CreateMicrosoftDependencyInjectionContainer(), definitions);
             SetupContainerForTest(CreateNInjectContainer(), definitions);
@@ -33,7 +34,7 @@ namespace DotNet.DependencyInjectionBenchmarks.Benchmarks.Standard
         public static IEnumerable<RegistrationDefinition> Definitions()
         {
             yield return new RegistrationDefinition { ExportType = typeof(ISingletonService), ActivationType = typeof(SingletonService), RegistrationLifestyle = RegistrationLifestyle.Singleton };
-            }
+        }
 
         #region Benchmark
 
@@ -42,6 +43,13 @@ namespace DotNet.DependencyInjectionBenchmarks.Benchmarks.Standard
         public void Autofac()
         {
             ExecuteBenchmark(AutofacContainer);
+        }
+
+        [Benchmark]
+        [BenchmarkCategory("CastleWindsor")]
+        public void CastleWindsor()
+        {
+            ExecuteBenchmark(CastleWindsorContainer);
         }
 
         [Benchmark]

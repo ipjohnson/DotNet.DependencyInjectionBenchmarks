@@ -75,4 +75,19 @@ namespace DotNet.DependencyInjectionBenchmarks.Classes
 
         public ITransientService Transient { get; }
     }
+
+    public interface IImportEnumerableService
+    {
+        IEnumerable<IEnumerableService> Services { get; }
+    }
+
+    public class ImportEnumerableService : IImportEnumerableService
+    {
+        public ImportEnumerableService(IEnumerable<IEnumerableService> services)
+        {
+            Services = services;
+        }
+
+        public IEnumerable<IEnumerableService> Services { get; }
+    }
 }
