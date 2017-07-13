@@ -10,6 +10,9 @@ namespace DotNet.DependencyInjectionBenchmarks.Benchmarks
 {
     public abstract class BaseBenchmark
     {
+        public static readonly int ExtraRegistrationsCount = 200;
+        public static readonly int ExtraRegistrationsResolveCount = ExtraRegistrationsCount / 2;
+
         protected IContainer AutofacContainer;
         protected IContainer CastleWindsorContainer;
         protected IContainer DryIocContainer;
@@ -73,7 +76,7 @@ namespace DotNet.DependencyInjectionBenchmarks.Benchmarks
         /// <param name="resolveStatements"></param>
         protected void SetupContainerForTest(IContainer container, IEnumerable<RegistrationDefinition> definitions, params Action<IResolveScope>[] resolveStatements)
         {
-            var dummyTypes = DummyClasses.GetTypes(200).ToArray();
+            var dummyTypes = DummyClasses.GetTypes(ExtraRegistrationsCount).ToArray();
 
             container.Registration(dummyTypes.Select(t => new RegistrationDefinition { ExportType = t, ActivationType = t }));
 
@@ -83,10 +86,10 @@ namespace DotNet.DependencyInjectionBenchmarks.Benchmarks
 
             container.BuildContainer();
 
+            var resolveTypes = new List<Type>(dummyTypes.Take(ExtraRegistrationsResolveCount));
+
             if (resolveStatements != null && resolveStatements.Length > 0)
             {
-                var resolveTypes = new List<Type>(dummyTypes.Take(50));
-
                 var gap = resolveTypes.Count / resolveStatements.Length;
 
                 var index = gap / 2;
@@ -104,8 +107,6 @@ namespace DotNet.DependencyInjectionBenchmarks.Benchmarks
             }
             else
             {
-                var resolveTypes = new List<Type>(dummyTypes.Take(50));
-
                 var gap = resolveTypes.Count / definitionArray.Length;
 
                 var index = gap / 2;
