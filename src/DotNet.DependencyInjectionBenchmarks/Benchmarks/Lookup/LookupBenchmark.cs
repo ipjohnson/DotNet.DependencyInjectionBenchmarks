@@ -23,8 +23,9 @@ namespace DotNet.DependencyInjectionBenchmarks.Benchmarks.Lookup
         public void Setup()
         {
             SetupContainerForLookup(CreateAutofacContainer());
-            SetupContainerForLookup(CreateGraceContainer());
+            SetupContainerForLookup(CreateCastleWindsorContainer());
             SetupContainerForLookup(CreateDryIocContainer());
+            SetupContainerForLookup(CreateGraceContainer());
             SetupContainerForLookup(CreateLightInjectContainer());
             SetupContainerForLookup(CreateMicrosoftDependencyInjectionContainer());
             SetupContainerForLookup(CreateNInjectContainer());
@@ -39,6 +40,13 @@ namespace DotNet.DependencyInjectionBenchmarks.Benchmarks.Lookup
         public void Autofac()
         {
             ExecuteBenchmark(AutofacContainer);
+        }
+
+        [Benchmark]
+        [BenchmarkCategory("CastleWindsor")]
+        public void CastleWindsor()
+        {
+            ExecuteBenchmark(CastleWindsorContainer);
         }
 
         [Benchmark]
