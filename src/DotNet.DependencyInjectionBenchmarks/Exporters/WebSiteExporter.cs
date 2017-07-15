@@ -583,6 +583,7 @@ namespace DotNet.DependencyInjectionBenchmarks.Exporters
                     
                 $(""#benchmarkDataTable_length"").append('{AppendEnvironments}');
                 $(""input[type='checkbox']"").bootstrapToggle().change(function () { table.draw(); });
+                table.draw();
             } );
         </script>
 ";
