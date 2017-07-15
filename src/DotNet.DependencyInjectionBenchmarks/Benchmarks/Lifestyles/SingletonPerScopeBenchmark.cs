@@ -33,9 +33,11 @@ namespace DotNet.DependencyInjectionBenchmarks.Benchmarks.Lifestyles
             };
 
             SetupContainerForTest(CreateAutofacContainer(), definitions, warmups);
+            SetupContainerForTest(CreateCastleWindsorContainer(), definitions, warmups);
             SetupContainerForTest(CreateDryIocContainer(), definitions, warmups);
             SetupContainerForTest(CreateGraceContainer(), definitions, warmups);
             SetupContainerForTest(CreateLightInjectContainer(), definitions, warmups);
+            SetupContainerForTest(CreateMicrosoftDependencyInjectionContainer(), definitions, warmups);
             SetupContainerForTest(CreateStructureMapContainer(), definitions, warmups);
         }
 
@@ -46,6 +48,13 @@ namespace DotNet.DependencyInjectionBenchmarks.Benchmarks.Lifestyles
         public void Autofac()
         {
             ExecuteBenchmark(AutofacContainer);
+        }
+
+        [Benchmark]
+        [BenchmarkCategory("CastleWindsor")]
+        public void CastleWindsor()
+        {
+            ExecuteBenchmark(CastleWindsorContainer);
         }
 
         [Benchmark]
@@ -69,6 +78,13 @@ namespace DotNet.DependencyInjectionBenchmarks.Benchmarks.Lifestyles
             ExecuteBenchmark(LightInjectContainer);
         }
 
+        [Benchmark]
+        [BenchmarkCategory("MicrosoftDependencyInjection")]
+        public void MicrosoftDependencyInjection()
+        {
+            ExecuteBenchmark(MicrosoftDependencyInjectionContainer);
+        }
+        
         [Benchmark]
         [BenchmarkCategory("StructureMap")]
         public void StructureMap()

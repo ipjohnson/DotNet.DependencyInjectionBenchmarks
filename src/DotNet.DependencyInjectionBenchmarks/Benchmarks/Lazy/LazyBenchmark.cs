@@ -22,6 +22,7 @@ namespace DotNet.DependencyInjectionBenchmarks.Benchmarks.Lazy
             var definitions = SmallObjectBenchmark.Definitions().ToArray();
 
             SetupContainerForTest(CreateAutofacContainer(), definitions);
+            SetupContainerForTest(CreateCastleWindsorContainer(), definitions);
             SetupContainerForTest(CreateDryIocContainer(), definitions);
             SetupContainerForTest(CreateGraceContainer(), definitions);
             SetupContainerForTest(CreateLightInjectContainer(), definitions);
@@ -34,6 +35,13 @@ namespace DotNet.DependencyInjectionBenchmarks.Benchmarks.Lazy
         public void Autofac()
         {
             ExecuteBenchmark(AutofacContainer);
+        }
+        
+        [Benchmark]
+        [BenchmarkCategory("CastleWindsor")]
+        public void CastleWindsor()
+        {
+            ExecuteBenchmark(CastleWindsorContainer);
         }
 
         [Benchmark]

@@ -114,9 +114,13 @@ namespace DotNet.DependencyInjectionBenchmarks.Exporters
 
             StringBuilder output = new StringBuilder();
 
+            var checkedValue = "checked";
+
             foreach (var id in ids.Keys)
             {
-                output.Append($"&nbsp;&nbsp;<input data-on=\"{id}\" data-off=\"{id}\" checked data-toggle=\"toggle\" type=\"checkbox\">");
+                output.Append($"&nbsp;&nbsp;<input data-on=\"{id}\" data-off=\"{id}\" {checkedValue} data-toggle=\"toggle\" type=\"checkbox\">");
+
+                checkedValue = "";
             }
 
             return output.ToString();
@@ -183,6 +187,7 @@ namespace DotNet.DependencyInjectionBenchmarks.Exporters
             textFile.WriteLine("<th>Mean (ns)</th>");
             textFile.WriteLine("<th>Median (ns)</th>");
             textFile.WriteLine("<th>Max (ns)</th>");
+            textFile.WriteLine("<th>Outliers</th>");
             textFile.WriteLine("<th>Std Dev (ns)</th>");
             textFile.WriteLine("<th>Std Err (ns)</th>");
             textFile.WriteLine("<th>Gen 1</th>");
@@ -202,6 +207,7 @@ namespace DotNet.DependencyInjectionBenchmarks.Exporters
                     textFile.Write($"<td style=\"text-align: right\">{report.ResultStatistics.Mean:F1}</td>");
                     textFile.Write($"<td style=\"text-align: right\">{report.ResultStatistics.Median:F1}</td>");
                     textFile.Write($"<td style=\"text-align: right\">{report.ResultStatistics.Max:F1}</td>");
+                    textFile.Write($"<td style=\"text-align: right\">{report.ResultStatistics.Outliers?.Length ?? 0}</td>");
                     textFile.Write(
                         $"<td style= \"text-align: right\">{report.ResultStatistics.StandardDeviation:F3}</td>");
                     textFile.Write($"<td style=\"text-align: right\">{report.ResultStatistics.StandardError:F3}</td>");

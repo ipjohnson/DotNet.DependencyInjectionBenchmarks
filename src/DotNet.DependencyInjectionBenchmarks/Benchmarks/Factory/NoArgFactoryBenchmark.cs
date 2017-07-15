@@ -15,16 +15,18 @@ namespace DotNet.DependencyInjectionBenchmarks.Benchmarks.Factory
     {
         public static string Description =>
             "This benchmark registers a small object using a factory to provide on piece of the object graph.";
-        
+
         [GlobalSetup]
         public void Setup()
         {
             var definitions = Definitions().ToArray();
 
             SetupContainer(CreateAutofacContainer(), definitions);
+            SetupContainer(CreateCastleWindsorContainer(), definitions);
             SetupContainer(CreateDryIocContainer(), definitions);
             SetupContainer(CreateGraceContainer(), definitions);
             SetupContainer(CreateLightInjectContainer(), definitions);
+            SetupContainer(CreateMicrosoftDependencyInjectionContainer(), definitions);
             SetupContainer(CreateSimpleInjectorContainer(), definitions);
             SetupContainer(CreateStructureMapContainer(), definitions);
         }
@@ -32,15 +34,15 @@ namespace DotNet.DependencyInjectionBenchmarks.Benchmarks.Factory
         private void SetupContainer(IContainer container, RegistrationDefinition[] definitions)
         {
             container.RegisterFactory<ITransientService>(() => new TransientService(), RegistrationMode.Single, RegistrationLifestyle.Transient);
-            
-            SetupContainerForTest(container,definitions,
+
+            SetupContainerForTest(container, definitions,
                 scope => scope.Resolve<ISmallObjectService>()
             );
         }
 
         private IEnumerable<RegistrationDefinition> Definitions()
         {
-            yield return new RegistrationDefinition { ExportType = typeof(ISmallObjectService), ActivationType = typeof(SmallObjectService)};
+            yield return new RegistrationDefinition { ExportType = typeof(ISmallObjectService), ActivationType = typeof(SmallObjectService) };
 
             foreach (var definition in SingletonBenchmark.Definitions())
             {
@@ -55,6 +57,13 @@ namespace DotNet.DependencyInjectionBenchmarks.Benchmarks.Factory
         public void Autofac()
         {
             ExecuteBenchmark(AutofacContainer);
+        }
+        
+        [Benchmark]
+        [BenchmarkCategory("CastleWindsor")]
+        public void CastleWindsor()
+        {
+            ExecuteBenchmark(CastleWindsorContainer);
         }
 
         [Benchmark]
@@ -77,12 +86,19 @@ namespace DotNet.DependencyInjectionBenchmarks.Benchmarks.Factory
         {
             ExecuteBenchmark(LightInjectContainer);
         }
+        
+        [Benchmark]
+        [BenchmarkCategory("MicrosoftDependencyInjection")]
+        public void MicrosoftDependencyInjection()
+        {
+            ExecuteBenchmark(MicrosoftDependencyInjectionContainer);
+        }
 
         [Benchmark]
         [BenchmarkCategory("SimpleInjector")]
         public void SimpleInjector()
         {
-            ExecuteBenchmark(SimpleInjectorContainer);            
+            ExecuteBenchmark(SimpleInjectorContainer);
         }
 
         [Benchmark]

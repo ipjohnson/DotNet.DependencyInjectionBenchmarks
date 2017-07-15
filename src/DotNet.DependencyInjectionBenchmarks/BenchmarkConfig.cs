@@ -17,7 +17,7 @@ namespace DotNet.DependencyInjectionBenchmarks
     {
         public BenchmarkConfig()
         {
-            Add(Job.ShortRun);
+            Add(Job.Core, Job.Clr);
             Add(new MemoryDiagnoser());
             Add(new CompositeExporter(CsvExporter.Default, HtmlExporter.Default, MarkdownExporter.Default, new WebSiteExporter()));
         }

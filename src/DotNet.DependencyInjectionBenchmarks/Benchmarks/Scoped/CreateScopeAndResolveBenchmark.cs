@@ -22,9 +22,11 @@ namespace DotNet.DependencyInjectionBenchmarks.Benchmarks.Scoped
             var definitions = SmallObjectBenchmark.Definitions().ToArray();
 
             SetupContainerForTest(CreateAutofacContainer(), definitions);
+            SetupContainerForTest(CreateCastleWindsorContainer(), definitions);
             SetupContainerForTest(CreateDryIocContainer(), definitions);
             SetupContainerForTest(CreateGraceContainer(), definitions);
             SetupContainerForTest(CreateLightInjectContainer(), definitions);
+            SetupContainerForTest(CreateMicrosoftDependencyInjectionContainer(), definitions);
             SetupContainerForTest(CreateStructureMapContainer(), definitions);
         }
 
@@ -35,6 +37,13 @@ namespace DotNet.DependencyInjectionBenchmarks.Benchmarks.Scoped
         public void Autofac()
         {
             ExecuteBenchmark(AutofacContainer);
+        }
+
+        [Benchmark]
+        [BenchmarkCategory("CastleWindsor")]
+        public void CastleWindsor()
+        {
+            ExecuteBenchmark(CastleWindsorContainer);
         }
 
         [Benchmark]
@@ -56,6 +65,13 @@ namespace DotNet.DependencyInjectionBenchmarks.Benchmarks.Scoped
         public void LightInject()
         {
             ExecuteBenchmark(LightInjectContainer);
+        }
+
+        [Benchmark]
+        [BenchmarkCategory("MicrosoftDependencyInjection")]
+        public void MicrosoftDependencyInjection()
+        {
+            ExecuteBenchmark(MicrosoftDependencyInjectionContainer);
         }
 
         [Benchmark]

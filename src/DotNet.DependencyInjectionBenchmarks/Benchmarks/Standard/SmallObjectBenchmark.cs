@@ -22,8 +22,9 @@ namespace DotNet.DependencyInjectionBenchmarks.Benchmarks.Standard
             var definitions = Definitions().ToArray();
 
             SetupContainerForTest(CreateAutofacContainer(), definitions);
-            SetupContainerForTest(CreateGraceContainer(), definitions);
+            SetupContainerForTest(CreateCastleWindsorContainer(), definitions);
             SetupContainerForTest(CreateDryIocContainer(), definitions);
+            SetupContainerForTest(CreateGraceContainer(), definitions);
             SetupContainerForTest(CreateLightInjectContainer(), definitions);
             SetupContainerForTest(CreateMicrosoftDependencyInjectionContainer(), definitions);
             SetupContainerForTest(CreateNInjectContainer(), definitions);
@@ -39,6 +40,13 @@ namespace DotNet.DependencyInjectionBenchmarks.Benchmarks.Standard
         public void Autofac()
         {
             ExecuteBenchmark(AutofacContainer);
+        }
+
+        [Benchmark]
+        [BenchmarkCategory("CastleWindsor")]
+        public void CastleWindsor()
+        {
+            ExecuteBenchmark(CastleWindsorContainer);
         }
 
         [Benchmark]
@@ -109,8 +117,8 @@ namespace DotNet.DependencyInjectionBenchmarks.Benchmarks.Standard
             var singletons = SingletonBenchmark.Definitions().ToArray();
 
             yield return singletons[0];
-            yield return new RegistrationDefinition { ExportType = typeof(ISmallObjectService), ActivationType = typeof(SmallObjectService), RegistrationLifestyle = lifestyle};
-            yield return new RegistrationDefinition { ExportType = typeof(ITransientService), ActivationType = typeof(TransientService) };            
+            yield return new RegistrationDefinition { ExportType = typeof(ISmallObjectService), ActivationType = typeof(SmallObjectService), RegistrationLifestyle = lifestyle };
+            yield return new RegistrationDefinition { ExportType = typeof(ITransientService), ActivationType = typeof(TransientService) };
         }
 
         #endregion
