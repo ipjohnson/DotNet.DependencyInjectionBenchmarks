@@ -8,6 +8,7 @@ using DotNet.DependencyInjectionBenchmarks.Classes;
 using DotNet.DependencyInjectionBenchmarks.Containers;
 using DryIoc;
 using Grace.DependencyInjection;
+using Grace.Dynamic;
 using Microsoft.Extensions.DependencyInjection;
 using Ninject;
 
@@ -113,7 +114,7 @@ namespace DotNet.DependencyInjectionBenchmarks.Benchmarks.Registration
         [BenchmarkCategory("Grace")]
         public void Grace()
         {
-            var container = new DependencyInjectionContainer();
+            var container = new DependencyInjectionContainer(GraceDynamicMethod.Configuration());
 
             container.Configure(c =>
             {
