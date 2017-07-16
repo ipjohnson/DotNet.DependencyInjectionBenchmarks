@@ -23,33 +23,19 @@ namespace DotNet.DependencyInjectionBenchmarks.Benchmarks.Collections
             {
                 scope => scope.Resolve<List<IEnumerableService>>()
             };
-            
-            SetupContainerForTest(CreateGraceContainer(), definitions, warmup);
+			
+			SetupContainerForTest(CreateGraceContainer(), definitions, warmup);
             SetupContainerForTest(CreateStructureMapContainer(), definitions, warmup);
         }
 
-        #region Benchmarks
-
-        //[Benchmark]
-        //[BenchmarkCategory("Autofac")]
-        //public void Autofac()
-        //{
-        //    ExecuteBenchmark(AutofacScope);
-        //}
-        
-        [Benchmark]
+		#region Benchmarks
+		
+		[Benchmark]
         [BenchmarkCategory("Grace")]
         public void Grace()
         {
             ExecuteBenchmark(GraceContainer);
         }
-
-        //[Benchmark]
-        //[BenchmarkCategory("LightInject")]
-        //public void LightInject()
-        //{
-        //    ExecuteBenchmark(LightInjectScope);
-        //}
 
         [Benchmark]
         [BenchmarkCategory("StructureMap")]

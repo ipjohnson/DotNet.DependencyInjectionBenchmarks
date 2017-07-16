@@ -26,7 +26,8 @@ namespace DotNet.DependencyInjectionBenchmarks.Benchmarks.Collections
             };
 
             SetupContainerForTest(CreateAutofacContainer(), definitions, warmup);
-            SetupContainerForTest(CreateDryIocContainer(), definitions, warmup);
+			SetupContainerForTest(CreateCastleWindsorContainer(), definitions, warmup);
+			SetupContainerForTest(CreateDryIocContainer(), definitions, warmup);
             SetupContainerForTest(CreateGraceContainer(), definitions, warmup);
             SetupContainerForTest(CreateLightInjectContainer(), definitions, warmup);
             SetupContainerForTest(CreateSimpleInjectorContainer(), definitions, warmup);
@@ -42,8 +43,14 @@ namespace DotNet.DependencyInjectionBenchmarks.Benchmarks.Collections
             ExecuteBenchmark(AutofacContainer);
         }
 
+	    [Benchmark]
+	    [BenchmarkCategory("CastleWindsor")]
+	    public void CastleWindsor()
+	    {
+		    ExecuteBenchmark(CastleWindsorContainer);
+	    }
 
-        [Benchmark]
+		[Benchmark]
         [BenchmarkCategory("DryIoc")]
         public void DryIoc()
         {

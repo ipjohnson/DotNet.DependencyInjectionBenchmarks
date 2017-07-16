@@ -14,7 +14,7 @@ namespace DotNet.DependencyInjectionBenchmarks.Benchmarks.Factory
     public class NoArgFactoryBenchmark : BaseBenchmark
     {
         public static string Description =>
-            "This benchmark registers a small object using a factory to provide on piece of the object graph.";
+            "This benchmark registers a small object using a factory to provide one piece of the object graph.";
 
         [GlobalSetup]
         public void Setup()

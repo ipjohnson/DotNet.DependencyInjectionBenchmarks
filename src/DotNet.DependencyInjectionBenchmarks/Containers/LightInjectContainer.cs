@@ -172,6 +172,5 @@ namespace DotNet.DependencyInjectionBenchmarks.Containers
                     break;
             }
         }
-
     }
 }

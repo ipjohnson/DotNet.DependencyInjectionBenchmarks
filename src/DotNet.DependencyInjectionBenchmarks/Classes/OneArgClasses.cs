@@ -4,14 +4,14 @@ using System.Text;
 
 namespace DotNet.DependencyInjectionBenchmarks.Classes
 {
-    public interface IOneArgeFactoryService1
+    public interface IOneArgeFactoryService
     {
         ISmallObjectService SmallObject { get; }
     }
 
-    public class OneArgeFactoryService1 : IOneArgeFactoryService1
+    public class OneArgeFactoryService : IOneArgeFactoryService
     {
-        public OneArgeFactoryService1(ISmallObjectService smallObject)
+        public OneArgeFactoryService(ISmallObjectService smallObject)
         {
             SmallObject = smallObject;
         }
