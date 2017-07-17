@@ -341,7 +341,7 @@ namespace DotNet.DependencyInjectionBenchmarks.Exporters
 
 		private const string _menuHtml = @"
     <nav class=""navbar navbar-inverse navbar-fixed-top"">
-        <div class=""container"">
+        <div class=""container-fluid"">
             <div class=""navbar-header"">
                 <a class=""navbar-brand"" href=""Index.html"">Benchmarks</a>
             </div>
