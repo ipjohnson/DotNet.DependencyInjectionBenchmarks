@@ -9,7 +9,8 @@ using DotNet.DependencyInjectionBenchmarks.Containers;
 
 namespace DotNet.DependencyInjectionBenchmarks.Benchmarks.Factory
 {
-	public class ThreeArgFactoryBenchmark : BaseBenchmark
+    [BenchmarkCategory("Factory")]
+    public class ThreeArgFactoryBenchmark : BaseBenchmark
 	{
 		[GlobalSetup]
 		public void Setup()
