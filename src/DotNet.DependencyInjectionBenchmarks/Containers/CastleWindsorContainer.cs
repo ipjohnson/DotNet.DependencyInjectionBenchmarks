@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 using System.Text;
 using Castle.MicroKernel;
@@ -151,6 +152,12 @@ namespace DotNet.DependencyInjectionBenchmarks.Containers
 					case RegistrationLifestyle.Transient:
 						_container.Register(Component.For(definition.ExportType).ImplementedBy(definition.ActivationType)
 							.LifeStyle.Transient);
+						break;
+					case RegistrationLifestyle.SingletonPerAncestor:
+					case RegistrationLifestyle.SingletonPerObjectGraph:
+						var rootType = definition.LifestyleInformation as Type;
+						_container.Register(Component.For(definition.ExportType).ImplementedBy(definition.ActivationType)
+							.LifestyleBoundTo(resolutionStack => resolutionStack.FirstOrDefault(h => rootType.GetTypeInfo().IsAssignableFrom(h.ComponentModel.Implementation))));
 						break;
 				}
 			}
