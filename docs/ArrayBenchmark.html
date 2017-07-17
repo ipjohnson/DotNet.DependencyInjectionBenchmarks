@@ -1,0 +1,194 @@
+<html>
+	<head>
+		
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://cdn.datatables.net/v/bs/jszip-3.1.3/dt-1.10.15/b-1.3.1/b-colvis-1.3.1/b-html5-1.3.1/r-2.1.1/datatables.min.css">
+        <link rel="stylesheet" href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" >
+		</head>
+	<body>
+
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="Index.html">Benchmarks</a>
+            </div>
+            <div id="navbar" class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Standard <span class="caret"></span></a>
+<ul class="dropdown-menu">
+<li><a href="EnumerableBenchmark.html">Enumerable</a></li>
+<li><a href="LargeObjectGraphBenchmark.html">LargeObjectGraph</a></li>
+<li><a href="SingletonBenchmark.html">Singleton</a></li>
+<li><a href="SmallObjectBenchmark.html">SmallObject</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Collections <span class="caret"></span></a>
+<ul class="dropdown-menu">
+<li><a href="ArrayBenchmark.html">Array</a></li>
+<li><a href="IEnumerableBenchmark.html">IEnumerable</a></li>
+<li><a href="IReadOnlyListBenchmark.html">IReadOnlyList</a></li>
+<li><a href="ImmutableCollectionBenchmark.html">ImmutableCollection</a></li>
+<li><a href="ListBenchmark.html">List</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Factory <span class="caret"></span></a>
+<ul class="dropdown-menu">
+<li><a href="NoArgFactoryBenchmark.html">NoArgFactory</a></li>
+<li><a href="OneArgFactoryBenchmark.html">OneArgFactory</a></li>
+<li><a href="ThreeArgFactoryBenchmark.html">ThreeArgFactory</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Func <span class="caret"></span></a>
+<ul class="dropdown-menu">
+<li><a href="NoArgFuncBenchmark.html">NoArgFunc</a></li>
+<li><a href="OneArgFuncBenchmark.html">OneArgFunc</a></li>
+<li><a href="ThreeArgFuncBenchmark.html">ThreeArgFunc</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Lazy <span class="caret"></span></a>
+<ul class="dropdown-menu">
+<li><a href="LazyBenchmark.html">Lazy</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Lifestyles <span class="caret"></span></a>
+<ul class="dropdown-menu">
+<li><a href="SingletonPerAncestorBenchmark.html">SingletonPerAncestor</a></li>
+<li><a href="SingletonPerObjectGraphBenchmark.html">SingletonPerObjectGraph</a></li>
+<li><a href="SingletonPerScopeBenchmark.html">SingletonPerScope</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Lookup <span class="caret"></span></a>
+<ul class="dropdown-menu">
+<li><a href="LookupBenchmark_0.html">Lookup 0</a></li>
+<li><a href="LookupBenchmark_100.html">Lookup 100</a></li>
+<li><a href="LookupBenchmark_2000.html">Lookup 2000</a></li>
+<li><a href="LookupBenchmark_50.html">Lookup 50</a></li>
+<li><a href="LookupBenchmark_500.html">Lookup 500</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Metadata <span class="caret"></span></a>
+<ul class="dropdown-menu">
+<li><a href="MetadataBenchmark.html">Metadata</a></li>
+<li><a href="StronglyTypedMetadataBenchmark.html">StronglyTypedMetadata</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Registration <span class="caret"></span></a>
+<ul class="dropdown-menu">
+<li><a href="RegistrationBenchmark_10_ResolveAll.html">Registration 10 ResolveAll</a></li>
+<li><a href="RegistrationBenchmark_10_ResolveHalf.html">Registration 10 ResolveHalf</a></li>
+<li><a href="RegistrationBenchmark_10_ResolveNone.html">Registration 10 ResolveNone</a></li>
+<li><a href="RegistrationBenchmark_10_ResolveOne.html">Registration 10 ResolveOne</a></li>
+<li><a href="RegistrationBenchmark_100_ResolveAll.html">Registration 100 ResolveAll</a></li>
+<li><a href="RegistrationBenchmark_100_ResolveHalf.html">Registration 100 ResolveHalf</a></li>
+<li><a href="RegistrationBenchmark_100_ResolveNone.html">Registration 100 ResolveNone</a></li>
+<li><a href="RegistrationBenchmark_100_ResolveOne.html">Registration 100 ResolveOne</a></li>
+<li><a href="RegistrationBenchmark_500_ResolveAll.html">Registration 500 ResolveAll</a></li>
+<li><a href="RegistrationBenchmark_500_ResolveHalf.html">Registration 500 ResolveHalf</a></li>
+<li><a href="RegistrationBenchmark_500_ResolveNone.html">Registration 500 ResolveNone</a></li>
+<li><a href="RegistrationBenchmark_500_ResolveOne.html">Registration 500 ResolveOne</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Scoped <span class="caret"></span></a>
+<ul class="dropdown-menu">
+<li><a href="CreateScopeAndResolveBenchmark.html">CreateScopeAndResolve</a></li>
+</ul>
+</li>
+
+                </ul>
+            </div>
+        </div>
+    </nav>
+		<div class="container-fluid theme-showcase" role="main">
+<div class="jumbotron">
+<h1>Array</h1>
+<p>This benchmark registers 5 small objects then resolves them as an Array. The code can be found <a href="https://github.com/ipjohnson/DotNet.DependencyInjectionBenchmarks/tree/master/src/DotNet.DependencyInjectionBenchmarks/Benchmarks/Collections/ArrayBenchmark.cs">here</a>.</p>
+</div>
+				<table class="table table-striped table-bordered responsive nowrap" id="benchmarkDataTable" width="100%" cellspacing="0">
+<thead>
+<tr>
+<th>Container</th>
+<th>Env</th>
+<th>Mean (ns)</th>
+<th>Median (ns)</th>
+<th>Max (ns)</th>
+<th>Outliers</th>
+<th>Std Dev (ns)</th>
+<th>Std Err (ns)</th>
+<th>Gen 1</th>
+<th>Gen 2</th>
+<th>Bytes Alloc</th>
+</tr>
+</thead>
+<tbody>
+<tr><td><a href="https://github.com/autofac/Autofac" title="Version: 4.6.0-develop-00413">Autofac</a></td><td>Clr</td><td style="text-align: right">11844.6</td><td style="text-align: right">11843.9</td><td style="text-align: right">11858.9</td><td style="text-align: right">0</td><td style= "text-align: right">8.031</td><td style="text-align: right">2.073</td><td style="text-align: right">0</td><td style="text-align: right">0</td><td style="text-align: right">9968</td></tr>
+<tr><td><a href="https://bitbucket.org/dadhi/dryioc" title="Version: 2.11.4">DryIoc</a></td><td>Clr</td><td style="text-align: right">224.1</td><td style="text-align: right">224.1</td><td style="text-align: right">224.1</td><td style="text-align: right">0</td><td style= "text-align: right">0.021</td><td style="text-align: right">0.006</td><td style="text-align: right">0</td><td style="text-align: right">0</td><td style="text-align: right">464</td></tr>
+<tr><td><a href="https://github.com/ipjohnson/Grace" title="Version: 6.2.1">Grace</a></td><td>Clr</td><td style="text-align: right">266.5</td><td style="text-align: right">266.5</td><td style="text-align: right">266.6</td><td style="text-align: right">0</td><td style= "text-align: right">0.029</td><td style="text-align: right">0.008</td><td style="text-align: right">0</td><td style="text-align: right">0</td><td style="text-align: right">464</td></tr>
+<tr><td><a href="http://www.lightinject.net/" title="Version: 5.0.3">LightInject</a></td><td>Clr</td><td style="text-align: right">213.4</td><td style="text-align: right">213.4</td><td style="text-align: right">213.4</td><td style="text-align: right">0</td><td style= "text-align: right">0.016</td><td style="text-align: right">0.004</td><td style="text-align: right">0</td><td style="text-align: right">0</td><td style="text-align: right">464</td></tr>
+<tr><td><a href="https://simpleinjector.org/index.html" title="Version: 4.0.8">Simple Injector</a></td><td>Clr</td><td style="text-align: right">818.3</td><td style="text-align: right">818.9</td><td style="text-align: right">821.4</td><td style="text-align: right">0</td><td style= "text-align: right">1.666</td><td style="text-align: right">0.430</td><td style="text-align: right">0</td><td style="text-align: right">0</td><td style="text-align: right">528</td></tr>
+<tr><td><a href="http://structuremap.github.io/" title="Version: 4.5.1">StructureMap</a></td><td>Clr</td><td style="text-align: right">8531.5</td><td style="text-align: right">8530.4</td><td style="text-align: right">8547.0</td><td style="text-align: right">0</td><td style= "text-align: right">9.153</td><td style="text-align: right">2.446</td><td style="text-align: right">0</td><td style="text-align: right">0</td><td style="text-align: right">4856</td></tr>
+<tr><td><a href="https://github.com/autofac/Autofac" title="Version: 4.6.0-develop-00413">Autofac</a></td><td>Core</td><td style="text-align: right">16982.7</td><td style="text-align: right">16982.2</td><td style="text-align: right">17021.2</td><td style="text-align: right">0</td><td style= "text-align: right">19.718</td><td style="text-align: right">5.091</td><td style="text-align: right">0</td><td style="text-align: right">0</td><td style="text-align: right">9808</td></tr>
+<tr><td><a href="https://bitbucket.org/dadhi/dryioc" title="Version: 2.11.4">DryIoc</a></td><td>Core</td><td style="text-align: right">201.1</td><td style="text-align: right">201.1</td><td style="text-align: right">201.1</td><td style="text-align: right">0</td><td style= "text-align: right">0.015</td><td style="text-align: right">0.004</td><td style="text-align: right">0</td><td style="text-align: right">0</td><td style="text-align: right">464</td></tr>
+<tr><td><a href="https://github.com/ipjohnson/Grace" title="Version: 6.2.1">Grace</a></td><td>Core</td><td style="text-align: right">194.6</td><td style="text-align: right">194.6</td><td style="text-align: right">194.6</td><td style="text-align: right">0</td><td style= "text-align: right">0.022</td><td style="text-align: right">0.006</td><td style="text-align: right">0</td><td style="text-align: right">0</td><td style="text-align: right">464</td></tr>
+<tr><td><a href="http://www.lightinject.net/" title="Version: 5.0.3">LightInject</a></td><td>Core</td><td style="text-align: right">199.5</td><td style="text-align: right">199.5</td><td style="text-align: right">199.5</td><td style="text-align: right">0</td><td style= "text-align: right">0.016</td><td style="text-align: right">0.005</td><td style="text-align: right">0</td><td style="text-align: right">0</td><td style="text-align: right">464</td></tr>
+<tr><td><a href="https://simpleinjector.org/index.html" title="Version: 4.0.8">Simple Injector</a></td><td>Core</td><td style="text-align: right">673.0</td><td style="text-align: right">673.0</td><td style="text-align: right">673.1</td><td style="text-align: right">0</td><td style= "text-align: right">0.044</td><td style="text-align: right">0.012</td><td style="text-align: right">0</td><td style="text-align: right">0</td><td style="text-align: right">528</td></tr>
+<tr><td><a href="http://structuremap.github.io/" title="Version: 4.5.1">StructureMap</a></td><td>Core</td><td style="text-align: right">8950.6</td><td style="text-align: right">8950.4</td><td style="text-align: right">8958.6</td><td style="text-align: right">0</td><td style= "text-align: right">6.164</td><td style="text-align: right">1.591</td><td style="text-align: right">0</td><td style="text-align: right">0</td><td style="text-align: right">4704</td></tr>
+</tbody>
+				</table>
+
+<div class="row">
+        <div class="col-sm-12">
+            <a href = "#details" class="btn btn-info" data-toggle="collapse">Details</a>
+        <div id = "details" class="collapse">
+            <pre><code>
+BenchmarkDotNet=v0.10.8, OS=Windows 10 Redstone 2 (10.0.15063)
+Processor=Intel Core i7-3770 CPU 3.40GHz (Ivy Bridge), ProcessorCount=4
+Frequency=3320336 Hz, Resolution=301.1743 ns, Timer=TSC
+  [Host] : Clr 4.0.30319.42000, 64bit RyuJIT-v4.7.2101.1
+  Clr    : Clr 4.0.30319.42000, 64bit RyuJIT-v4.7.2101.1
+  Core   : .NET Core 4.6.25211.01, 64bit RyuJIT
+</code></pre></div></div></div>
+
+		<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <script src="https://cdn.datatables.net/v/bs/jszip-3.1.3/dt-1.10.15/b-1.3.1/b-colvis-1.3.1/b-html5-1.3.1/r-2.1.1/datatables.min.js"></script>
+        <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
+        <script>
+            $.fn.dataTable.ext.search.push(
+                function (settings, data, dataIndex) {
+                    var returnValue = true;
+                    $("input[type = 'checkbox']").each(function () {
+                        if ($(this).data('on') == data[1] && !this.checked) {
+                            returnValue = false;
+                        }
+                    });
+
+                    return returnValue;
+                }
+            );
+
+            $(document).ready(function() {
+                var table = $('#benchmarkDataTable').DataTable({
+                    dom: "<'row'<'col-sm-6'l><'col-sm-6'f>>" +
+                         "<'row'<'col-sm-12'tr>>" +
+                         "<'row'<'col-sm-5'B><'col-sm-7'p>>",
+                    buttons: ['colvis','excel']
+                    });
+                    
+                $("#benchmarkDataTable_length").append('&nbsp;&nbsp;<input data-on="Clr" data-off="Clr" checked data-toggle="toggle" type="checkbox">&nbsp;&nbsp;<input data-on="Core" data-off="Core"  data-toggle="toggle" type="checkbox">');
+                $("input[type='checkbox']").bootstrapToggle().change(function () { table.draw(); });
+                table.draw();
+            } );
+        </script>
+	</div></body>
+</html>

@@ -1,0 +1,231 @@
+<html>
+	<head>
+		
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://cdn.datatables.net/v/bs/jszip-3.1.3/dt-1.10.15/b-1.3.1/b-colvis-1.3.1/b-html5-1.3.1/r-2.1.1/datatables.min.css">
+        <link rel="stylesheet" href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" >
+		</head>
+	<body>
+
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="Index.html">Benchmarks</a>
+            </div>
+            <div id="navbar" class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Standard <span class="caret"></span></a>
+<ul class="dropdown-menu">
+<li><a href="EnumerableBenchmark.html">Enumerable</a></li>
+<li><a href="LargeObjectGraphBenchmark.html">LargeObjectGraph</a></li>
+<li><a href="SingletonBenchmark.html">Singleton</a></li>
+<li><a href="SmallObjectBenchmark.html">SmallObject</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Collections <span class="caret"></span></a>
+<ul class="dropdown-menu">
+<li><a href="ArrayBenchmark.html">Array</a></li>
+<li><a href="IEnumerableBenchmark.html">IEnumerable</a></li>
+<li><a href="IReadOnlyListBenchmark.html">IReadOnlyList</a></li>
+<li><a href="ImmutableCollectionBenchmark.html">ImmutableCollection</a></li>
+<li><a href="ListBenchmark.html">List</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Factory <span class="caret"></span></a>
+<ul class="dropdown-menu">
+<li><a href="NoArgFactoryBenchmark.html">NoArgFactory</a></li>
+<li><a href="OneArgFactoryBenchmark.html">OneArgFactory</a></li>
+<li><a href="ThreeArgFactoryBenchmark.html">ThreeArgFactory</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Func <span class="caret"></span></a>
+<ul class="dropdown-menu">
+<li><a href="NoArgFuncBenchmark.html">NoArgFunc</a></li>
+<li><a href="OneArgFuncBenchmark.html">OneArgFunc</a></li>
+<li><a href="ThreeArgFuncBenchmark.html">ThreeArgFunc</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Lazy <span class="caret"></span></a>
+<ul class="dropdown-menu">
+<li><a href="LazyBenchmark.html">Lazy</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Lifestyles <span class="caret"></span></a>
+<ul class="dropdown-menu">
+<li><a href="SingletonPerAncestorBenchmark.html">SingletonPerAncestor</a></li>
+<li><a href="SingletonPerObjectGraphBenchmark.html">SingletonPerObjectGraph</a></li>
+<li><a href="SingletonPerScopeBenchmark.html">SingletonPerScope</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Lookup <span class="caret"></span></a>
+<ul class="dropdown-menu">
+<li><a href="LookupBenchmark_0.html">Lookup 0</a></li>
+<li><a href="LookupBenchmark_100.html">Lookup 100</a></li>
+<li><a href="LookupBenchmark_2000.html">Lookup 2000</a></li>
+<li><a href="LookupBenchmark_50.html">Lookup 50</a></li>
+<li><a href="LookupBenchmark_500.html">Lookup 500</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Metadata <span class="caret"></span></a>
+<ul class="dropdown-menu">
+<li><a href="MetadataBenchmark.html">Metadata</a></li>
+<li><a href="StronglyTypedMetadataBenchmark.html">StronglyTypedMetadata</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Registration <span class="caret"></span></a>
+<ul class="dropdown-menu">
+<li><a href="RegistrationBenchmark_10_ResolveAll.html">Registration 10 ResolveAll</a></li>
+<li><a href="RegistrationBenchmark_10_ResolveHalf.html">Registration 10 ResolveHalf</a></li>
+<li><a href="RegistrationBenchmark_10_ResolveNone.html">Registration 10 ResolveNone</a></li>
+<li><a href="RegistrationBenchmark_10_ResolveOne.html">Registration 10 ResolveOne</a></li>
+<li><a href="RegistrationBenchmark_100_ResolveAll.html">Registration 100 ResolveAll</a></li>
+<li><a href="RegistrationBenchmark_100_ResolveHalf.html">Registration 100 ResolveHalf</a></li>
+<li><a href="RegistrationBenchmark_100_ResolveNone.html">Registration 100 ResolveNone</a></li>
+<li><a href="RegistrationBenchmark_100_ResolveOne.html">Registration 100 ResolveOne</a></li>
+<li><a href="RegistrationBenchmark_500_ResolveAll.html">Registration 500 ResolveAll</a></li>
+<li><a href="RegistrationBenchmark_500_ResolveHalf.html">Registration 500 ResolveHalf</a></li>
+<li><a href="RegistrationBenchmark_500_ResolveNone.html">Registration 500 ResolveNone</a></li>
+<li><a href="RegistrationBenchmark_500_ResolveOne.html">Registration 500 ResolveOne</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Scoped <span class="caret"></span></a>
+<ul class="dropdown-menu">
+<li><a href="CreateScopeAndResolveBenchmark.html">CreateScopeAndResolve</a></li>
+</ul>
+</li>
+
+                </ul>
+            </div>
+        </div>
+    </nav>
+		<div class="container-fluid theme-showcase" role="main">
+
+        <div class="jumbotron">
+            <h1>Dependency Injection Benchmarks</h1>
+            <p>Comprehensive benchmarks for .net dependency injection containers.</p>
+        </div>
+				<table class="table table-striped table-bordered responsive nowrap" id="benchmarkDataTable" width="100%" cellspacing="0">
+				<thead>
+					<tr>
+						<th>Container</th>
+						<th>Env</th>
+						<th>Enumerable (ns)</th>
+						<th>LargeObjectGraph (ns)</th>
+						<th>Singleton (ns)</th>
+						<th>SmallObject (ns)</th>
+						<th>Array (ns)</th>
+						<th>IEnumerable (ns)</th>
+						<th>ImmutableCollection (ns)</th>
+						<th>IReadOnlyList (ns)</th>
+						<th>List (ns)</th>
+						<th>NoArgFactory (ns)</th>
+						<th>OneArgFactory (ns)</th>
+						<th>ThreeArgFactory (ns)</th>
+						<th>NoArgFunc (ns)</th>
+						<th>OneArgFunc (ns)</th>
+						<th>ThreeArgFunc (ns)</th>
+						<th>Lazy (ns)</th>
+						<th>SingletonPerAncestor (ns)</th>
+						<th>SingletonPerObjectGraph (ns)</th>
+						<th>SingletonPerScope (ns)</th>
+						<th>Lookup 0 (ns)</th>
+						<th>Lookup 100 (ns)</th>
+						<th>Lookup 2000 (ns)</th>
+						<th>Lookup 50 (ns)</th>
+						<th>Lookup 500 (ns)</th>
+						<th>Metadata (ns)</th>
+						<th>StronglyTypedMetadata (ns)</th>
+						<th>Registration 10 ResolveAll (ns)</th>
+						<th>Registration 10 ResolveHalf (ns)</th>
+						<th>Registration 10 ResolveNone (ns)</th>
+						<th>Registration 10 ResolveOne (ns)</th>
+						<th>Registration 100 ResolveAll (ns)</th>
+						<th>Registration 100 ResolveHalf (ns)</th>
+						<th>Registration 100 ResolveNone (ns)</th>
+						<th>Registration 100 ResolveOne (ns)</th>
+						<th>Registration 500 ResolveAll (ns)</th>
+						<th>Registration 500 ResolveHalf (ns)</th>
+						<th>Registration 500 ResolveNone (ns)</th>
+						<th>Registration 500 ResolveOne (ns)</th>
+						<th>CreateScopeAndResolve (ns)</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr><td><a href="https://github.com/autofac/Autofac" title="Version: 4.6.0-develop-00413">Autofac</a></td><td>Clr</td><td style="text-align: right">12976.3</td><td style="text-align: right">5001.9</td><td style="text-align: right">364.1</td><td style="text-align: right">1549.9</td><td style="text-align: right">11844.6</td><td style="text-align: right">11580.9</td><td>&nbsp;</td><td style="text-align: right">16100.8</td><td>&nbsp;</td><td style="text-align: right">1618.5</td><td style="text-align: right">2112.5</td><td style="text-align: right">1827.3</td><td style="text-align: right">1711.1</td><td>&nbsp;</td><td>&nbsp;</td><td style="text-align: right">2668.8</td><td>&nbsp;</td><td>&nbsp;</td><td style="text-align: right">3034.1</td><td style="text-align: right">1729.9</td><td style="text-align: right">1451.1</td><td style="text-align: right">1527.3</td><td style="text-align: right">1453.6</td><td style="text-align: right">1489.1</td><td style="text-align: right">1824.7</td><td style="text-align: right">1835.7</td><td style="text-align: right">81640.7</td><td style="text-align: right">65719.3</td><td style="text-align: right">46680.0</td><td style="text-align: right">50520.2</td><td style="text-align: right">793594.7</td><td style="text-align: right">624484.5</td><td style="text-align: right">458124.5</td><td style="text-align: right">447412.0</td><td style="text-align: right">6783592.4</td><td style="text-align: right">6012971.0</td><td style="text-align: right">5096635.6</td><td style="text-align: right">5086661.8</td><td style="text-align: right">1987.3</td></tr>
+					<tr><td><a href="https://github.com/ipjohnson/Grace" title="Version: 6.2.1">Grace</a></td><td>Clr</td><td style="text-align: right">211.4</td><td style="text-align: right">48.5</td><td style="text-align: right">12.1</td><td style="text-align: right">21.9</td><td style="text-align: right">266.5</td><td style="text-align: right">286.9</td><td style="text-align: right">572.1</td><td style="text-align: right">453.7</td><td style="text-align: right">294.7</td><td style="text-align: right">43.7</td><td style="text-align: right">31.1</td><td style="text-align: right">37.1</td><td style="text-align: right">68.4</td><td style="text-align: right">184.0</td><td style="text-align: right">451.6</td><td style="text-align: right">289.3</td><td style="text-align: right">248.5</td><td style="text-align: right">238.3</td><td style="text-align: right">192.9</td><td style="text-align: right">21.3</td><td style="text-align: right">24.3</td><td style="text-align: right">27.0</td><td style="text-align: right">21.4</td><td style="text-align: right">26.0</td><td style="text-align: right">33.0</td><td style="text-align: right">33.0</td><td style="text-align: right">795644.4</td><td style="text-align: right">408745.7</td><td style="text-align: right">20209.6</td><td style="text-align: right">99400.8</td><td style="text-align: right">7772040.9</td><td style="text-align: right">3929220.5</td><td style="text-align: right">125480.7</td><td style="text-align: right">210737.1</td><td style="text-align: right">39419436.8</td><td style="text-align: right">20012901.2</td><td style="text-align: right">681195.7</td><td style="text-align: right">787392.7</td><td style="text-align: right">74.8</td></tr>
+					<tr><td><a href="https://bitbucket.org/dadhi/dryioc" title="Version: 2.11.4">DryIoc</a></td><td>Clr</td><td style="text-align: right">217.4</td><td style="text-align: right">55.0</td><td style="text-align: right">18.0</td><td style="text-align: right">26.9</td><td style="text-align: right">224.1</td><td style="text-align: right">292.3</td><td>&nbsp;</td><td style="text-align: right">297.1</td><td>&nbsp;</td><td style="text-align: right">51.5</td><td style="text-align: right">71.4</td><td style="text-align: right">152.4</td><td style="text-align: right">39.7</td><td style="text-align: right">50.4</td><td style="text-align: right">40.8</td><td style="text-align: right">2183.1</td><td>&nbsp;</td><td>&nbsp;</td><td style="text-align: right">238.2</td><td style="text-align: right">26.0</td><td style="text-align: right">44.4</td><td style="text-align: right">33.1</td><td style="text-align: right">25.7</td><td style="text-align: right">28.8</td><td>&nbsp;</td><td>&nbsp;</td><td style="text-align: right">666101.0</td><td style="text-align: right">338278.7</td><td style="text-align: right">7593.9</td><td style="text-align: right">73041.8</td><td style="text-align: right">6705607.3</td><td style="text-align: right">3401435.3</td><td style="text-align: right">85792.7</td><td style="text-align: right">150611.1</td><td style="text-align: right">34029745.0</td><td style="text-align: right">17113931.6</td><td style="text-align: right">496348.4</td><td style="text-align: right">553813.0</td><td style="text-align: right">119.7</td></tr>
+					<tr><td><a href="https://github.com/castleproject/Windsor" title="Version: 4.0.0">Castle Windsor</a></td><td>Clr</td><td style="text-align: right">42502.7</td><td style="text-align: right">24063.0</td><td style="text-align: right">268.0</td><td style="text-align: right">5959.0</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td style="text-align: right">5672.4</td><td style="text-align: right">7844.5</td><td style="text-align: right">6746.5</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td style="text-align: right">24905.7</td><td style="text-align: right">14422.6</td><td style="text-align: right">15670.6</td><td style="text-align: right">14912.7</td><td style="text-align: right">6024.3</td><td style="text-align: right">6056.8</td><td style="text-align: right">5918.5</td><td style="text-align: right">6083.7</td><td style="text-align: right">6658.3</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td style="text-align: right">9220.7</td></tr>
+					<tr><td><a href="http://structuremap.github.io/" title="Version: 4.5.1">StructureMap</a></td><td>Clr</td><td style="text-align: right">8906.1</td><td style="text-align: right">2722.0</td><td style="text-align: right">542.2</td><td style="text-align: right">1664.9</td><td style="text-align: right">8531.5</td><td style="text-align: right">7812.9</td><td>&nbsp;</td><td>&nbsp;</td><td style="text-align: right">7595.4</td><td style="text-align: right">1777.7</td><td style="text-align: right">2490.5</td><td style="text-align: right">2378.4</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td style="text-align: right">5741.0</td><td>&nbsp;</td><td style="text-align: right">2580.1</td><td style="text-align: right">21308.2</td><td style="text-align: right">1738.9</td><td style="text-align: right">1647.8</td><td style="text-align: right">1690.4</td><td style="text-align: right">1678.4</td><td style="text-align: right">1831.9</td><td>&nbsp;</td><td>&nbsp;</td><td style="text-align: right">17275208.0</td><td style="text-align: right">8829042.8</td><td style="text-align: right">440510.7</td><td style="text-align: right">2134339.9</td><td style="text-align: right">175146370.5</td><td style="text-align: right">90138672.9</td><td style="text-align: right">4791783.4</td><td style="text-align: right">6299902.6</td><td style="text-align: right">905058850.5</td><td style="text-align: right">474738147.2</td><td style="text-align: right">38012327.7</td><td style="text-align: right">40248961.2</td><td style="text-align: right">19188.6</td></tr>
+					<tr><td><a href="http://www.lightinject.net/" title="Version: 5.0.3">LightInject</a></td><td>Clr</td><td style="text-align: right">214.9</td><td style="text-align: right">54.9</td><td style="text-align: right">14.7</td><td style="text-align: right">25.9</td><td style="text-align: right">213.4</td><td style="text-align: right">291.4</td><td>&nbsp;</td><td style="text-align: right">470.6</td><td>&nbsp;</td><td style="text-align: right">50.6</td><td>&nbsp;</td><td>&nbsp;</td><td style="text-align: right">60.1</td><td>&nbsp;</td><td>&nbsp;</td><td style="text-align: right">174.2</td><td>&nbsp;</td><td>&nbsp;</td><td style="text-align: right">675.5</td><td style="text-align: right">24.4</td><td style="text-align: right">24.4</td><td style="text-align: right">24.8</td><td style="text-align: right">24.3</td><td style="text-align: right">25.7</td><td>&nbsp;</td><td>&nbsp;</td><td style="text-align: right">734237.3</td><td style="text-align: right">382640.7</td><td style="text-align: right">20027.6</td><td style="text-align: right">93194.6</td><td style="text-align: right">7439886.5</td><td style="text-align: right">3781714.1</td><td style="text-align: right">183424.6</td><td style="text-align: right">256922.4</td><td style="text-align: right">40449341.9</td><td style="text-align: right">19969864.8</td><td style="text-align: right">1293756.5</td><td style="text-align: right">1436137.8</td><td style="text-align: right">274.4</td></tr>
+					<tr><td><a href="https://github.com/aspnet/DependencyInjection" title="Version: 1.1.1">Microsoft Dependency Injection</a></td><td>Clr</td><td style="text-align: right">740.8</td><td style="text-align: right">455.9</td><td style="text-align: right">98.2</td><td style="text-align: right">170.8</td><td>&nbsp;</td><td style="text-align: right">692.2</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td style="text-align: right">176.1</td><td style="text-align: right">260.1</td><td style="text-align: right">299.5</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td style="text-align: right">602.9</td><td style="text-align: right">165.0</td><td style="text-align: right">161.4</td><td style="text-align: right">162.5</td><td style="text-align: right">164.9</td><td style="text-align: right">162.1</td><td>&nbsp;</td><td>&nbsp;</td><td style="text-align: right">11968.4</td><td style="text-align: right">6814.5</td><td style="text-align: right">2595.1</td><td style="text-align: right">3706.6</td><td style="text-align: right">241819.0</td><td style="text-align: right">130191.1</td><td style="text-align: right">19131.1</td><td style="text-align: right">20393.5</td><td style="text-align: right">1402993.8</td><td style="text-align: right">690558.7</td><td style="text-align: right">94712.4</td><td style="text-align: right">96737.9</td><td style="text-align: right">391.7</td></tr>
+					<tr><td><a href="https://simpleinjector.org/index.html" title="Version: 4.0.8">Simple Injector</a></td><td>Clr</td><td style="text-align: right">164.2</td><td style="text-align: right">118.0</td><td style="text-align: right">28.9</td><td style="text-align: right">55.0</td><td style="text-align: right">818.3</td><td style="text-align: right">138.2</td><td>&nbsp;</td><td style="text-align: right">161.8</td><td>&nbsp;</td><td style="text-align: right">73.0</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td style="text-align: right">173.8</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td style="text-align: right">57.3</td><td style="text-align: right">55.2</td><td style="text-align: right">55.7</td><td style="text-align: right">56.1</td><td style="text-align: right">55.8</td><td>&nbsp;</td><td>&nbsp;</td><td style="text-align: right">1326847.8</td><td style="text-align: right">755907.2</td><td style="text-align: right">130074.9</td><td style="text-align: right">286224.0</td><td style="text-align: right">12433565.1</td><td style="text-align: right">6743048.0</td><td style="text-align: right">988439.2</td><td style="text-align: right">1163516.4</td><td style="text-align: right">68418499.9</td><td style="text-align: right">35570324.4</td><td style="text-align: right">5314409.2</td><td style="text-align: right">5570326.2</td><td>&nbsp;</td></tr>
+					<tr><td><a href="http://www.ninject.org/" title="Version: 4.0.0+134.Branch.master.Sha.005e6f9e38414a38ae7c6aaf346c74ec64212609">NInject</a></td><td>Clr</td><td style="text-align: right">84116.2</td><td style="text-align: right">41739.1</td><td style="text-align: right">814.9</td><td style="text-align: right">11416.9</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td style="text-align: right">12079.2</td><td style="text-align: right">12001.9</td><td style="text-align: right">11540.9</td><td style="text-align: right">11788.7</td><td style="text-align: right">11599.0</td><td>&nbsp;</td><td>&nbsp;</td><td style="text-align: right">1469664.9</td><td style="text-align: right">904221.1</td><td style="text-align: right">279081.5</td><td style="text-align: right">419051.9</td><td style="text-align: right">12139405.2</td><td style="text-align: right">6533013.7</td><td style="text-align: right">889124.9</td><td style="text-align: right">1061155.7</td><td style="text-align: right">65411345.2</td><td style="text-align: right">37485308.1</td><td style="text-align: right">9197426.1</td><td style="text-align: right">9379044.5</td><td>&nbsp;</td></tr>
+					<tr><td><a href="https://github.com/autofac/Autofac" title="Version: 4.6.0-develop-00413">Autofac</a></td><td>Core</td><td style="text-align: right">18543.1</td><td style="text-align: right">6747.0</td><td style="text-align: right">509.4</td><td style="text-align: right">1886.6</td><td style="text-align: right">16982.7</td><td style="text-align: right">16943.7</td><td>&nbsp;</td><td style="text-align: right">21330.7</td><td>&nbsp;</td><td style="text-align: right">2246.6</td><td style="text-align: right">2724.4</td><td style="text-align: right">2315.2</td><td style="text-align: right">2676.4</td><td>&nbsp;</td><td>&nbsp;</td><td style="text-align: right">3855.3</td><td>&nbsp;</td><td>&nbsp;</td><td style="text-align: right">4630.3</td><td style="text-align: right">2316.1</td><td style="text-align: right">1951.5</td><td style="text-align: right">2127.9</td><td style="text-align: right">1944.4</td><td style="text-align: right">2164.7</td><td style="text-align: right">2549.5</td><td style="text-align: right">2466.4</td><td style="text-align: right">97589.2</td><td style="text-align: right">83929.7</td><td style="text-align: right">64677.7</td><td style="text-align: right">77301.1</td><td style="text-align: right">1047264.5</td><td style="text-align: right">759824.3</td><td style="text-align: right">601360.5</td><td style="text-align: right">611765.3</td><td style="text-align: right">8101226.3</td><td style="text-align: right">6774291.9</td><td style="text-align: right">5915982.0</td><td style="text-align: right">5912665.6</td><td style="text-align: right">2564.5</td></tr>
+					<tr><td><a href="https://github.com/ipjohnson/Grace" title="Version: 6.2.1">Grace</a></td><td>Core</td><td style="text-align: right">194.7</td><td style="text-align: right">49.7</td><td style="text-align: right">12.4</td><td style="text-align: right">21.8</td><td style="text-align: right">194.6</td><td style="text-align: right">201.5</td><td style="text-align: right">721.1</td><td style="text-align: right">318.8</td><td style="text-align: right">302.3</td><td style="text-align: right">44.7</td><td style="text-align: right">31.9</td><td style="text-align: right">33.9</td><td style="text-align: right">63.5</td><td style="text-align: right">199.4</td><td style="text-align: right">508.1</td><td style="text-align: right">216.2</td><td style="text-align: right">230.3</td><td style="text-align: right">214.9</td><td style="text-align: right">317.9</td><td style="text-align: right">22.0</td><td style="text-align: right">21.8</td><td style="text-align: right">30.0</td><td style="text-align: right">21.7</td><td style="text-align: right">26.4</td><td style="text-align: right">35.0</td><td style="text-align: right">35.1</td><td style="text-align: right">773056.2</td><td style="text-align: right">397969.8</td><td style="text-align: right">21873.2</td><td style="text-align: right">99639.9</td><td style="text-align: right">7785690.1</td><td style="text-align: right">3927496.9</td><td style="text-align: right">131541.1</td><td style="text-align: right">214506.4</td><td style="text-align: right">39719179.3</td><td style="text-align: right">20063458.9</td><td style="text-align: right">712399.1</td><td style="text-align: right">814731.2</td><td style="text-align: right">87.5</td></tr>
+					<tr><td><a href="https://bitbucket.org/dadhi/dryioc" title="Version: 2.11.4">DryIoc</a></td><td>Core</td><td style="text-align: right">197.4</td><td style="text-align: right">53.9</td><td style="text-align: right">16.3</td><td style="text-align: right">29.7</td><td style="text-align: right">201.1</td><td style="text-align: right">204.4</td><td>&nbsp;</td><td style="text-align: right">210.0</td><td>&nbsp;</td><td style="text-align: right">52.4</td><td style="text-align: right">69.1</td><td style="text-align: right">143.0</td><td style="text-align: right">900.1</td><td style="text-align: right">1879.8</td><td style="text-align: right">1225.7</td><td style="text-align: right">1792.9</td><td>&nbsp;</td><td>&nbsp;</td><td style="text-align: right">1999.2</td><td style="text-align: right">26.6</td><td style="text-align: right">26.6</td><td style="text-align: right">34.4</td><td style="text-align: right">25.9</td><td style="text-align: right">26.6</td><td>&nbsp;</td><td>&nbsp;</td><td style="text-align: right">846828.8</td><td style="text-align: right">426901.8</td><td style="text-align: right">9945.2</td><td style="text-align: right">93571.0</td><td style="text-align: right">8585215.2</td><td style="text-align: right">4369819.3</td><td style="text-align: right">105287.7</td><td style="text-align: right">191779.0</td><td style="text-align: right">43752162.2</td><td style="text-align: right">22129140.3</td><td style="text-align: right">621199.2</td><td style="text-align: right">790073.1</td><td style="text-align: right">120.7</td></tr>
+					<tr><td><a href="https://github.com/castleproject/Windsor" title="Version: 4.0.0">Castle Windsor</a></td><td>Core</td><td style="text-align: right">66602.9</td><td style="text-align: right">38490.3</td><td style="text-align: right">324.1</td><td style="text-align: right">9654.2</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td style="text-align: right">9343.3</td><td style="text-align: right">12406.6</td><td style="text-align: right">8363.6</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td style="text-align: right">34254.1</td><td style="text-align: right">22201.9</td><td style="text-align: right">22775.9</td><td style="text-align: right">22276.8</td><td style="text-align: right">9918.5</td><td style="text-align: right">9794.5</td><td style="text-align: right">10197.1</td><td style="text-align: right">9769.2</td><td style="text-align: right">10941.1</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td style="text-align: right">13103.3</td></tr>
+					<tr><td><a href="http://structuremap.github.io/" title="Version: 4.5.1">StructureMap</a></td><td>Core</td><td style="text-align: right">8736.5</td><td style="text-align: right">3159.6</td><td style="text-align: right">626.9</td><td style="text-align: right">2072.8</td><td style="text-align: right">8950.6</td><td style="text-align: right">8895.4</td><td>&nbsp;</td><td>&nbsp;</td><td style="text-align: right">9383.2</td><td style="text-align: right">2067.5</td><td style="text-align: right">2925.7</td><td style="text-align: right">3127.0</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td style="text-align: right">6344.1</td><td>&nbsp;</td><td style="text-align: right">3211.4</td><td style="text-align: right">25576.0</td><td style="text-align: right">2353.6</td><td style="text-align: right">2142.1</td><td style="text-align: right">2393.7</td><td style="text-align: right">2044.1</td><td style="text-align: right">2153.9</td><td>&nbsp;</td><td>&nbsp;</td><td style="text-align: right">15810221.6</td><td style="text-align: right">8121815.2</td><td style="text-align: right">432984.6</td><td style="text-align: right">1988475.2</td><td style="text-align: right">160405201.0</td><td style="text-align: right">82524936.2</td><td style="text-align: right">4464762.2</td><td style="text-align: right">6091208.1</td><td style="text-align: right">822765607.9</td><td style="text-align: right">432288195.6</td><td style="text-align: right">37188470.4</td><td style="text-align: right">39043756.9</td><td style="text-align: right">21879.2</td></tr>
+					<tr><td><a href="http://www.lightinject.net/" title="Version: 5.0.3">LightInject</a></td><td>Core</td><td style="text-align: right">196.4</td><td style="text-align: right">54.9</td><td style="text-align: right">15.1</td><td style="text-align: right">25.8</td><td style="text-align: right">199.5</td><td style="text-align: right">203.6</td><td>&nbsp;</td><td style="text-align: right">378.6</td><td>&nbsp;</td><td style="text-align: right">50.9</td><td>&nbsp;</td><td>&nbsp;</td><td style="text-align: right">80.3</td><td>&nbsp;</td><td>&nbsp;</td><td style="text-align: right">194.4</td><td>&nbsp;</td><td>&nbsp;</td><td style="text-align: right">1083.9</td><td style="text-align: right">29.2</td><td style="text-align: right">26.2</td><td style="text-align: right">25.8</td><td style="text-align: right">25.4</td><td style="text-align: right">25.0</td><td>&nbsp;</td><td>&nbsp;</td><td style="text-align: right">713330.7</td><td style="text-align: right">368553.7</td><td style="text-align: right">17592.4</td><td style="text-align: right">90109.9</td><td style="text-align: right">7400233.2</td><td style="text-align: right">3751935.4</td><td style="text-align: right">178148.7</td><td style="text-align: right">263815.8</td><td style="text-align: right">38935372.2</td><td style="text-align: right">19932786.3</td><td style="text-align: right">1133781.7</td><td style="text-align: right">1196412.7</td><td style="text-align: right">271.4</td></tr>
+					<tr><td><a href="https://github.com/aspnet/DependencyInjection" title="Version: 1.1.1">Microsoft Dependency Injection</a></td><td>Core</td><td style="text-align: right">405.3</td><td style="text-align: right">327.6</td><td style="text-align: right">100.8</td><td style="text-align: right">130.1</td><td>&nbsp;</td><td style="text-align: right">378.6</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td style="text-align: right">149.3</td><td style="text-align: right">221.2</td><td style="text-align: right">279.0</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td style="text-align: right">527.5</td><td style="text-align: right">131.4</td><td style="text-align: right">130.0</td><td style="text-align: right">174.0</td><td style="text-align: right">130.3</td><td style="text-align: right">131.5</td><td>&nbsp;</td><td>&nbsp;</td><td style="text-align: right">16347.9</td><td style="text-align: right">10330.1</td><td style="text-align: right">2700.8</td><td style="text-align: right">4610.4</td><td style="text-align: right">305508.2</td><td style="text-align: right">181442.9</td><td style="text-align: right">19964.5</td><td style="text-align: right">22092.3</td><td style="text-align: right">1770640.6</td><td style="text-align: right">853895.7</td><td style="text-align: right">96072.6</td><td style="text-align: right">99809.9</td><td style="text-align: right">366.4</td></tr>
+					<tr><td><a href="https://simpleinjector.org/index.html" title="Version: 4.0.8">Simple Injector</a></td><td>Core</td><td style="text-align: right">135.6</td><td style="text-align: right">67.8</td><td style="text-align: right">30.4</td><td style="text-align: right">40.2</td><td style="text-align: right">673.0</td><td style="text-align: right">116.2</td><td>&nbsp;</td><td style="text-align: right">127.8</td><td>&nbsp;</td><td style="text-align: right">80.4</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td style="text-align: right">194.3</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td style="text-align: right">39.5</td><td style="text-align: right">40.9</td><td style="text-align: right">42.3</td><td style="text-align: right">41.7</td><td style="text-align: right">39.9</td><td>&nbsp;</td><td>&nbsp;</td><td style="text-align: right">1061325.3</td><td style="text-align: right">596801.3</td><td style="text-align: right">120911.2</td><td style="text-align: right">224462.6</td><td style="text-align: right">10996960.3</td><td style="text-align: right">6073999.6</td><td style="text-align: right">1186350.1</td><td style="text-align: right">1389396.0</td><td style="text-align: right">61609701.0</td><td style="text-align: right">32588812.7</td><td style="text-align: right">6881977.1</td><td style="text-align: right">6820939.5</td><td>&nbsp;</td></tr>
+					<tr><td><a href="http://www.ninject.org/" title="Version: 4.0.0+134.Branch.master.Sha.005e6f9e38414a38ae7c6aaf346c74ec64212609">NInject</a></td><td>Core</td><td style="text-align: right">111965.5</td><td style="text-align: right">53482.0</td><td style="text-align: right">1165.9</td><td style="text-align: right">14548.1</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td style="text-align: right">14996.2</td><td style="text-align: right">15265.7</td><td style="text-align: right">15106.4</td><td style="text-align: right">15195.0</td><td style="text-align: right">15192.9</td><td>&nbsp;</td><td>&nbsp;</td><td style="text-align: right">1052568.2</td><td style="text-align: right">616158.9</td><td style="text-align: right">158567.1</td><td style="text-align: right">255328.6</td><td style="text-align: right">9436410.2</td><td style="text-align: right">5085821.7</td><td style="text-align: right">700500.6</td><td style="text-align: right">834939.3</td><td style="text-align: right">50736495.5</td><td style="text-align: right">29626244.9</td><td style="text-align: right">7002325.3</td><td style="text-align: right">7170694.2</td><td>&nbsp;</td></tr>
+				</tbody>
+				</table>
+
+<div class="row">
+        <div class="col-sm-12">
+            <a href = "#details" class="btn btn-info" data-toggle="collapse">Details</a>
+        <div id = "details" class="collapse">
+            <pre><code>
+BenchmarkDotNet=v0.10.8, OS=Windows 10 Redstone 2 (10.0.15063)
+Processor=Intel Core i7-3770 CPU 3.40GHz (Ivy Bridge), ProcessorCount=4
+Frequency=3320336 Hz, Resolution=301.1743 ns, Timer=TSC
+  [Host] : Clr 4.0.30319.42000, 64bit RyuJIT-v4.7.2101.1
+  Clr    : Clr 4.0.30319.42000, 64bit RyuJIT-v4.7.2101.1
+  Core   : .NET Core 4.6.25211.01, 64bit RyuJIT
+</code></pre></div></div></div>
+
+		<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <script src="https://cdn.datatables.net/v/bs/jszip-3.1.3/dt-1.10.15/b-1.3.1/b-colvis-1.3.1/b-html5-1.3.1/r-2.1.1/datatables.min.js"></script>
+        <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
+        <script>
+            $.fn.dataTable.ext.search.push(
+                function (settings, data, dataIndex) {
+                    var returnValue = true;
+                    $("input[type = 'checkbox']").each(function () {
+                        if ($(this).data('on') == data[1] && !this.checked) {
+                            returnValue = false;
+                        }
+                    });
+
+                    return returnValue;
+                }
+            );
+
+            $(document).ready(function() {
+                var table = $('#benchmarkDataTable').DataTable({
+                    dom: "<'row'<'col-sm-6'l><'col-sm-6'f>>" +
+                         "<'row'<'col-sm-12'tr>>" +
+                         "<'row'<'col-sm-5'B><'col-sm-7'p>>",
+                    buttons: ['colvis','excel']
+                    });
+                    
+                $("#benchmarkDataTable_length").append('&nbsp;&nbsp;<input data-on="Clr" data-off="Clr" checked data-toggle="toggle" type="checkbox">&nbsp;&nbsp;<input data-on="Core" data-off="Core"  data-toggle="toggle" type="checkbox">');
+                $("input[type='checkbox']").bootstrapToggle().change(function () { table.draw(); });
+                table.draw();
+            } );
+        </script>
+	</div></body>
+</html>
