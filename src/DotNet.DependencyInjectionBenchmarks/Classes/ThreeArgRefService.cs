@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace DotNet.DependencyInjectionBenchmarks.Classes
+﻿namespace DotNet.DependencyInjectionBenchmarks.Classes
 {
 	#region Interfaces
 	public interface IThreeArgTransient1

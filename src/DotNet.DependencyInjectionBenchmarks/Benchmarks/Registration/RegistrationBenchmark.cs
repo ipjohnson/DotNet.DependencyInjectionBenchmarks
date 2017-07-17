@@ -1,11 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using Autofac;
 using BenchmarkDotNet.Attributes;
 using DotNet.DependencyInjectionBenchmarks.Classes;
-using DotNet.DependencyInjectionBenchmarks.Containers;
 using DryIoc;
 using Grace.DependencyInjection;
 using Grace.Dynamic;

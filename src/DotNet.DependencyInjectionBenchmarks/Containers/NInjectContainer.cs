@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Reflection;
-using System.Text;
-using Microsoft.Extensions.DependencyInjection;
 using Ninject;
 
 namespace DotNet.DependencyInjectionBenchmarks.Containers
