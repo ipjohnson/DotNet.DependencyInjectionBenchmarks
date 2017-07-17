@@ -19,7 +19,9 @@ namespace DotNet.DependencyInjectionBenchmarks.Benchmarks.Lifestyles
         [GlobalSetup]
         public void Setup()
         {
-            var definitions = SmallObjectBenchmark.Definitions(RegistrationLifestyle.SingletonPerScope).ToArray();
+            var definitions = SmallObjectBenchmark.Definitions(RegistrationLifestyle.SingletonPerScope).ToList();
+
+            definitions.Add(new RegistrationDefinition{ ExportType = typeof(IImportMultipleSmallObject), ActivationType = typeof(ImportMultipleSmallObject)});
 
             var warmups = new Action<IResolveScope>[]
             {
@@ -27,7 +29,12 @@ namespace DotNet.DependencyInjectionBenchmarks.Benchmarks.Lifestyles
                 {
                     using (var childScope = scope.CreateScope())
                     {
-                        childScope.Resolve(typeof(ISmallObjectService));
+                        var instance = childScope.Resolve<IImportMultipleSmallObject>();
+
+                        if (!ReferenceEquals(instance.SmallObject1, instance.SmallObject2))
+                        {
+                            throw new Exception("Not the same instance");
+                        }
                     }
                 }
             };
@@ -96,7 +103,7 @@ namespace DotNet.DependencyInjectionBenchmarks.Benchmarks.Lifestyles
         {
             using (var childScope = scope.CreateScope())
             {
-                childScope.Resolve(typeof(ISmallObjectService));
+                childScope.Resolve(typeof(IImportMultipleSmallObject));
             }
         }
 

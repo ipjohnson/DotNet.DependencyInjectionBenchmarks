@@ -27,7 +27,7 @@ namespace DotNet.DependencyInjectionBenchmarks.Benchmarks.Standard
             SetupContainerForTest(CreateGraceContainer(), definitions, warmup);
             SetupContainerForTest(CreateLightInjectContainer(), definitions, warmup);
             SetupContainerForTest(CreateMicrosoftDependencyInjectionContainer(), definitions, warmup);
-            //SetupContainerForTest(CreateNInjectContainer(), definitions, warmup);
+            SetupContainerForTest(CreateNInjectContainer(), definitions, warmup);
             SetupContainerForTest(CreateSimpleInjectorContainer(), definitions, warmup);
             SetupContainerForTest(CreateStructureMapContainer(), definitions, warmup);
         }
@@ -90,12 +90,12 @@ namespace DotNet.DependencyInjectionBenchmarks.Benchmarks.Standard
             ExecuteBenchmark(MicrosoftDependencyInjectionContainer);
         }
 
-        //[Benchmark]
-        //[BenchmarkCategory("NInject")]
-        //public void NInject()
-        //{
-        //    ExecuteBenchmark(NInjectContainer);
-        //}
+        [Benchmark]
+        [BenchmarkCategory("NInject")]
+        public void NInject()
+        {
+            ExecuteBenchmark(NInjectContainer);
+        }
 
         [Benchmark]
         [BenchmarkCategory("SimpleInjector")]

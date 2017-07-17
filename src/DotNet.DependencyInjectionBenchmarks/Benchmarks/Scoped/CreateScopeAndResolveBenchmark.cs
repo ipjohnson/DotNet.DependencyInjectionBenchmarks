@@ -14,13 +14,13 @@ namespace DotNet.DependencyInjectionBenchmarks.Benchmarks.Scoped
     public class CreateScopeAndResolveBenchmark : BaseBenchmark
     {
         public static string Description =>
-            "This benchmark creates a child scope and then resolves a small object from the child scope.";
+            "This benchmark creates a lifetime scope and then resolves a small object from the child scope.";
 
         [GlobalSetup]
         public void Setup()
         {
-            var definitions = SmallObjectBenchmark.Definitions().ToArray();
-
+            var definitions = SmallObjectBenchmark.Definitions().ToList();
+        
             SetupContainerForTest(CreateAutofacContainer(), definitions);
             SetupContainerForTest(CreateCastleWindsorContainer(), definitions);
             SetupContainerForTest(CreateDryIocContainer(), definitions);
