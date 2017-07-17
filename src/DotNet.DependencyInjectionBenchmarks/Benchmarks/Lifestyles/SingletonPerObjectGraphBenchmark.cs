@@ -7,7 +7,7 @@ using DotNet.DependencyInjectionBenchmarks.Containers;
 
 namespace DotNet.DependencyInjectionBenchmarks.Benchmarks.Lifestyles
 {
-	[BenchmarkCategory("Lifestyle")]
+	[BenchmarkCategory("Lifestyles")]
 	public class SingletonPerObjectGraphBenchmark : BaseBenchmark
 	{
 		public static string Description =>
