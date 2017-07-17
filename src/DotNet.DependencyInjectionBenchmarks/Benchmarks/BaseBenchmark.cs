@@ -9,7 +9,7 @@ namespace DotNet.DependencyInjectionBenchmarks.Benchmarks
     public abstract class BaseBenchmark
     {
         public static readonly int ExtraRegistrationsCount = 200;
-        public static readonly int ExtraRegistrationsResolveCount = ExtraRegistrationsCount / 2;
+        public static readonly int ExtraRegistrationsResolveCount = ExtraRegistrationsCount / 4;
 
         protected IContainer AutofacContainer;
         protected IContainer CastleWindsorContainer;
