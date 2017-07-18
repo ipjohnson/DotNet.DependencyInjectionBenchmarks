@@ -225,7 +225,7 @@ namespace DotNet.DependencyInjectionBenchmarks.Exporters
 
 		private void ExportSummaryPage(string path, Summary summary, SummaryInfo calculatedHeaders)
 		{
-			using (var file = File.Create(Path.Combine(path, "Index.html")))
+			using (var file = File.Create(Path.Combine(path, "index.html")))
 			{
 				using (var textFile = new StreamWriter(file))
 				{
@@ -343,7 +343,7 @@ namespace DotNet.DependencyInjectionBenchmarks.Exporters
     <nav class=""navbar navbar-inverse navbar-fixed-top"">
         <div class=""container-fluid"">
             <div class=""navbar-header"">
-                <a class=""navbar-brand"" href=""Index.html"">Benchmarks</a>
+                <a class=""navbar-brand"" href=""index.html"">Benchmarks</a>
             </div>
             <div id=""navbar"" class=""navbar-collapse collapse"">
                 <ul class=""nav navbar-nav"">
