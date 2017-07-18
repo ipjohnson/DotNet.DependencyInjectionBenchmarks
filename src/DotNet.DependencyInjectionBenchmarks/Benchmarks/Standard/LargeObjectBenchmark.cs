@@ -7,7 +7,7 @@ using DotNet.DependencyInjectionBenchmarks.Containers;
 namespace DotNet.DependencyInjectionBenchmarks.Benchmarks.Standard
 {
     [BenchmarkCategory("Standard")]
-    public class LargeObjectGraphBenchmark : BaseBenchmark
+    public class LargeObjectBenchmark : BaseBenchmark
     {
         [GlobalSetup]
         public void Setup()
