@@ -6,8 +6,11 @@ namespace DotNet.DependencyInjectionBenchmarks.Benchmarks.Factory
 {
     [BenchmarkCategory("Factory")]
     public class ThreeArgFactoryBenchmark : BaseBenchmark
-	{
-		[GlobalSetup]
+    {
+        public static string Description =>
+            "This benchmark resolves a small object graph using a factory that takes 3 arguments.";
+
+        [GlobalSetup]
 		public void Setup()
 		{
 			SetupContainer(CreateAutofacContainer());

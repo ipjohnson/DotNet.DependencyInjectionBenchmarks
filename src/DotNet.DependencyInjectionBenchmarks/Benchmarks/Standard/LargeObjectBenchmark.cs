@@ -9,6 +9,9 @@ namespace DotNet.DependencyInjectionBenchmarks.Benchmarks.Standard
     [BenchmarkCategory("Standard")]
     public class LargeObjectBenchmark : BaseBenchmark
     {
+        public static string Description =>
+            @"Resolves a Large object graph containing 7 transients and 3 Singletons from each container";
+
         [GlobalSetup]
         public void Setup()
         {

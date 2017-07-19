@@ -10,7 +10,7 @@ namespace DotNet.DependencyInjectionBenchmarks.Benchmarks.Standard
 	public class SmallObjectBenchmark : BaseBenchmark
 	{
 		public static string Description =>
-			@"Resolves a small object graph from each container";
+			@"Resolves a small object graph containing two transients and a Singleton from each container";
 
 		#region setup
 		[GlobalSetup]

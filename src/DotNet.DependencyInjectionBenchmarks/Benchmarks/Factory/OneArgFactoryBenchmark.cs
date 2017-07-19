@@ -9,7 +9,10 @@ namespace DotNet.DependencyInjectionBenchmarks.Benchmarks.Factory
 	[BenchmarkCategory("Factory")]
 	public class OneArgFactoryBenchmark : BaseBenchmark
 	{
-		[GlobalSetup]
+	    public static string Description =>
+	        "This benchmark registers a small object graph and a one argument function to create part of the object graph";
+
+        [GlobalSetup]
 		public void Setup()
 		{
 			var definitions = SmallObjectBenchmark.Definitions().ToArray();
@@ -30,8 +33,7 @@ namespace DotNet.DependencyInjectionBenchmarks.Benchmarks.Factory
 
 			SetupContainerForTest(container, definitions, scope => scope.Resolve(typeof(IOneArgeFactoryService)));
 		}
-
-
+        
 		#region Benchmarks
 
 		[Benchmark]

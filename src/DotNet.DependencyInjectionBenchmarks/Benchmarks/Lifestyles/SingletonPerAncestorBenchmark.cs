@@ -61,5 +61,4 @@ namespace DotNet.DependencyInjectionBenchmarks.Benchmarks.Lifestyles
 		#endregion
 
 	}
-	//}
 }

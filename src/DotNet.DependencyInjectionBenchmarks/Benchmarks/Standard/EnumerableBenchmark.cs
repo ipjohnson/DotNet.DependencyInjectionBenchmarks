@@ -10,6 +10,10 @@ namespace DotNet.DependencyInjectionBenchmarks.Benchmarks.Standard
     [BenchmarkCategory("Standard")]
     public class EnumerableBenchmark : BaseBenchmark
     {
+
+        public static string Description =>
+            @"Resolves one object that depends on an enumerable containing 5 instances";
+
         [GlobalSetup]
         public void Setup()
         {
