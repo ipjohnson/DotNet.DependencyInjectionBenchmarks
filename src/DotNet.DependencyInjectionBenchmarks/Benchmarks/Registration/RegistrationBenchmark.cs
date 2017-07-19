@@ -31,7 +31,7 @@ namespace DotNet.DependencyInjectionBenchmarks.Benchmarks.Registration
         public ResolveScenario Scenario { get; set; }
         
         public static string Description =>
-            "This benchmark tests registering {Registrations} then {Scenario} from the container";
+            "This benchmark registers {Registrations} classes then {Scenario} from the container";
 
         [GlobalSetup]
         public void Setup()
