@@ -18,4 +18,8 @@
     <PackageReference Include="StructureMap" Version="4.5.1" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Benchmarks\Generic\" />
+  </ItemGroup>
+
 </Project>
