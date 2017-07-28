@@ -107,7 +107,27 @@ namespace DotNet.DependencyInjectionBenchmarks.Containers
                         break;
                 }
 
-                _container.Register(definition.ExportType, definition.ActivationType, reuse);
+                PropertiesAndFieldsSelector madeOf = null;
+
+                if (definition.MemberInjectionList != null)
+                {
+                    madeOf = PropertiesAndFields.Of;
+
+                    foreach (var injectionInfo in definition.MemberInjectionList)
+                    {
+                        switch (injectionInfo.InjectionType)
+                        {
+                            case MemberInjectionType.Field:
+                            case MemberInjectionType.Property:
+                                madeOf = madeOf.Name(injectionInfo.MemberName);
+                                break;
+                            case MemberInjectionType.Method:
+                                throw new NotSupportedException();
+                        }
+                    }
+                }
+
+                _container.Register(definition.ExportType, definition.ActivationType, reuse, madeOf);
             }
         }
 

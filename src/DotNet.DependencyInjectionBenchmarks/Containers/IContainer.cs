@@ -19,6 +19,20 @@ namespace DotNet.DependencyInjectionBenchmarks.Containers
         SingletonPerAncestor
     }
 
+    public enum MemberInjectionType
+    {
+        Method,
+        Field,
+        Property
+    }
+
+    public class MemberInjectionInfo
+    {
+        public MemberInjectionType InjectionType { get; set; }
+
+        public string MemberName { get; set; }
+    }
+
     public class RegistrationDefinition
     {
         public Type ActivationType { get; set; }
@@ -34,6 +48,8 @@ namespace DotNet.DependencyInjectionBenchmarks.Containers
         public object LifestyleInformation { get; set; }
 
         public Dictionary<object, object> Metadata { get; set; }
+
+        public List<MemberInjectionInfo> MemberInjectionList { get; set; }
     }
 
     public interface IResolveScope : IDisposable

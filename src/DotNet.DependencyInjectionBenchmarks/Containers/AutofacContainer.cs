@@ -175,6 +175,25 @@ namespace DotNet.DependencyInjectionBenchmarks.Containers
                     registration.WithMetadata(kvp.Key.ToString(), kvp.Value);
                 }
             }
+
+            if (definition.MemberInjectionList != null)
+            {
+                foreach (var injectionInfo in definition.MemberInjectionList)
+                {
+                    switch (injectionInfo.InjectionType)
+                    {
+                            case MemberInjectionType.Field:
+                                throw new Exception("Field injection is not supported out of the box for autofac");
+                            
+                            case MemberInjectionType.Method:
+                                throw new Exception("Method injection is not supported out of the box for autofac");
+                                
+                            case MemberInjectionType.Property:
+                                registration.PropertiesAutowired();
+                                break;
+                    }
+                }
+            }
         }
 
         public void RegisterFactory<TResult>(Func<TResult> factory, RegistrationMode mode, RegistrationLifestyle lifestyle) where TResult : class

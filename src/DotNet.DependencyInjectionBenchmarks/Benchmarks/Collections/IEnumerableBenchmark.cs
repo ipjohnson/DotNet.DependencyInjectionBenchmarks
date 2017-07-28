@@ -53,14 +53,14 @@ namespace DotNet.DependencyInjectionBenchmarks.Benchmarks.Collections
             ExecuteBenchmark(AutofacContainer);
         }
 
-	    [Benchmark]
+        [Benchmark]
         [BenchmarkCategory("DryIoc")]
         public void DryIoc()
         {
             ExecuteBenchmark(DryIocContainer);
         }
 
-		[Benchmark]
+        [Benchmark]
         [BenchmarkCategory("Grace")]
         public void Grace()
         {
