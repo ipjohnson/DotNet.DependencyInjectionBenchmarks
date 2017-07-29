@@ -30,14 +30,14 @@ namespace DotNet.DependencyInjectionBenchmarks.Benchmarks.Collections
 		#region Benchmarks
 		
 		[Benchmark]
-        [BenchmarkCategory("Grace")]
+        [BenchmarkCategory(nameof(Grace))]
         public void Grace()
         {
             ExecuteBenchmark(GraceContainer);
         }
 
         [Benchmark]
-        [BenchmarkCategory("StructureMap")]
+        [BenchmarkCategory(nameof(StructureMap))]
         public void StructureMap()
         {
             ExecuteBenchmark(StructureMapContainer);

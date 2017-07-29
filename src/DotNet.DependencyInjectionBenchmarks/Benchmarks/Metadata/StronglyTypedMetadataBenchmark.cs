@@ -45,14 +45,14 @@ namespace DotNet.DependencyInjectionBenchmarks.Benchmarks.Metadata
         #region Benchmarks
 
         [Benchmark]
-        [BenchmarkCategory("Autofac")]
+        [BenchmarkCategory(nameof(Autofac))]
         public void Autofac()
         {
             AutofacContainer.Resolve<AF.Features.Metadata.Meta<ISmallObjectService, MetadataClass>>();
         }
 
         [Benchmark]
-        [BenchmarkCategory("Autofac")]
+        [BenchmarkCategory(nameof(Autofac))]
         public void Grace()
         {
             GraceContainer.Resolve<G.DependencyInjection.Meta<ISmallObjectService, MetadataClass>>();

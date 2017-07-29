@@ -50,56 +50,56 @@ namespace DotNet.DependencyInjectionBenchmarks.Benchmarks.Factory
         #region Benchmarks
 
         [Benchmark]
-        [BenchmarkCategory("Autofac")]
+        [BenchmarkCategory(nameof(Autofac))]
         public void Autofac()
         {
             ExecuteBenchmark(AutofacContainer);
         }
         
         [Benchmark]
-        [BenchmarkCategory("CastleWindsor")]
+        [BenchmarkCategory(nameof(CastleWindsor))]
         public void CastleWindsor()
         {
             ExecuteBenchmark(CastleWindsorContainer);
         }
 
         [Benchmark]
-        [BenchmarkCategory("DryIoc")]
+        [BenchmarkCategory(nameof(DryIoc))]
         public void DryIoc()
         {
             ExecuteBenchmark(DryIocContainer);
         }
 
         [Benchmark]
-        [BenchmarkCategory("Grace")]
+        [BenchmarkCategory(nameof(Grace))]
         public void Grace()
         {
             ExecuteBenchmark(GraceContainer);
         }
 
         [Benchmark]
-        [BenchmarkCategory("LightInject")]
+        [BenchmarkCategory(nameof(LightInject))]
         public void LightInject()
         {
             ExecuteBenchmark(LightInjectContainer);
         }
         
         [Benchmark]
-        [BenchmarkCategory("MicrosoftDependencyInjection")]
+        [BenchmarkCategory(nameof(MicrosoftDependencyInjection))]
         public void MicrosoftDependencyInjection()
         {
             ExecuteBenchmark(MicrosoftDependencyInjectionContainer);
         }
 
         [Benchmark]
-        [BenchmarkCategory("SimpleInjector")]
+        [BenchmarkCategory(nameof(SimpleInjector))]
         public void SimpleInjector()
         {
             ExecuteBenchmark(SimpleInjectorContainer);
         }
 
         [Benchmark]
-        [BenchmarkCategory("StructureMap")]
+        [BenchmarkCategory(nameof(StructureMap))]
         public void StructureMap()
         {
             ExecuteBenchmark(StructureMapContainer);

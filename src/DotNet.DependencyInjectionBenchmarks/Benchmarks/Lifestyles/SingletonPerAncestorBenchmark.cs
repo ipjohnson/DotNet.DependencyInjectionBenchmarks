@@ -40,14 +40,14 @@ namespace DotNet.DependencyInjectionBenchmarks.Benchmarks.Lifestyles
 		#region Benchmarks
 
 		[Benchmark]
-		[BenchmarkCategory("CastleWindsor")]
+		[BenchmarkCategory(nameof(CastleWindsor))]
 		public void CastleWindsor()
 		{
 			ExecuteBenchmark(CastleWindsorContainer);
 		}
 
 		[Benchmark]
-		[BenchmarkCategory("Grace")]
+		[BenchmarkCategory(nameof(Grace))]
 		public void Grace()
 		{
 			ExecuteBenchmark(GraceContainer);
