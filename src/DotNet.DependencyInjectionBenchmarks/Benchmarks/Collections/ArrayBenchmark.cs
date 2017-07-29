@@ -9,78 +9,10 @@ namespace DotNet.DependencyInjectionBenchmarks.Benchmarks.Collections
     [BenchmarkCategory("Collections")]
     public class ArrayBenchmark : BaseBenchmark
     {
+        #region Benchmark Definition
+
         public static string Description =>
             "This benchmark registers 5 small objects then resolves them as an Array.";
-
-        [GlobalSetup]
-        public void Setup()
-        {
-            var definitions = IEnumerableBenchmark.Definitions().ToArray();
-
-            var warmup = new Action<IResolveScope>[]
-            {
-                scope => scope.Resolve<IEnumerableService[]>()
-            };
-
-            SetupContainerForTest(CreateAutofacContainer(), definitions, warmup);
-			SetupContainerForTest(CreateCastleWindsorContainer(), definitions, warmup);
-			SetupContainerForTest(CreateDryIocContainer(), definitions, warmup);
-            SetupContainerForTest(CreateGraceContainer(), definitions, warmup);
-            SetupContainerForTest(CreateLightInjectContainer(), definitions, warmup);
-            SetupContainerForTest(CreateSimpleInjectorContainer(), definitions, warmup);
-            SetupContainerForTest(CreateStructureMapContainer(), definitions, warmup);
-        }
-
-        #region Benchmarks
-
-        [Benchmark]
-        [BenchmarkCategory("Autofac")]
-        public void Autofac()
-        {
-            ExecuteBenchmark(AutofacContainer);
-        }
-
-	    [Benchmark]
-	    [BenchmarkCategory("CastleWindsor")]
-	    public void CastleWindsor()
-	    {
-		    ExecuteBenchmark(CastleWindsorContainer);
-	    }
-
-		[Benchmark]
-        [BenchmarkCategory("DryIoc")]
-        public void DryIoc()
-        {
-            ExecuteBenchmark(DryIocContainer);
-        }
-
-        [Benchmark]
-        [BenchmarkCategory("Grace")]
-        public void Grace()
-        {
-            ExecuteBenchmark(GraceContainer);
-        }
-        
-        [Benchmark]
-        [BenchmarkCategory("LightInject")]
-        public void LightInject()
-        {
-            ExecuteBenchmark(LightInjectContainer);
-        }
-        
-        [Benchmark]
-        [BenchmarkCategory("SimpleInjector")]
-        public void SimpleInjector()
-        {
-            ExecuteBenchmark(SimpleInjectorContainer);
-        }
-
-        [Benchmark]
-        [BenchmarkCategory("StructureMap")]
-        public void StructureMap()
-        {
-            ExecuteBenchmark(StructureMapContainer);
-        }
 
         private void ExecuteBenchmark(IResolveScope scope)
         {
@@ -88,6 +20,139 @@ namespace DotNet.DependencyInjectionBenchmarks.Benchmarks.Collections
             {
                 throw new Exception("Count does not equal 5");
             }
+        }
+
+        #endregion
+
+        #region Autofac
+
+        [GlobalSetup(Target = nameof(Autofac))]
+        public void AutofacSetup()
+        {
+            SetupContainerForTest(CreateAutofacContainer(),
+                IEnumerableBenchmark.Definitions(),
+                ExecuteBenchmark);
+        }
+
+        [Benchmark]
+        [BenchmarkCategory(nameof(Autofac))]
+        public void Autofac()
+        {
+            ExecuteBenchmark(AutofacContainer);
+        }
+
+        #endregion
+
+        #region Castle Windsor
+
+        //[GlobalSetup(Target = nameof(CastleWindsor))]
+        //public void CastleWindsorSetup()
+        //{
+        //    SetupContainerForTest(CreateCastleWindsorContainer(),
+        //        IEnumerableBenchmark.Definitions(),
+        //        ExecuteBenchmark);
+        //}
+
+        //[Benchmark]
+        //[BenchmarkCategory(nameof(CastleWindsor))]
+        //public void CastleWindsor()
+        //{
+        //    ExecuteBenchmark(CastleWindsorContainer);
+        //}
+
+        #endregion
+
+        #region DryIoc
+
+        [GlobalSetup(Target = nameof(DryIoc))]
+        public void DryIocSetup()
+        {
+            SetupContainerForTest(CreateDryIocContainer(),
+                IEnumerableBenchmark.Definitions(),
+                ExecuteBenchmark);
+        }
+
+        [Benchmark]
+        [BenchmarkCategory(nameof(DryIoc))]
+        public void DryIoc()
+        {
+            ExecuteBenchmark(DryIocContainer);
+        }
+
+        #endregion
+
+        #region Grace
+
+        [GlobalSetup(Target = nameof(Grace))]
+        public void GraceSetup()
+        {
+            SetupContainerForTest(CreateGraceContainer(),
+                IEnumerableBenchmark.Definitions(),
+                ExecuteBenchmark);
+        }
+
+        [Benchmark]
+        [BenchmarkCategory(nameof(Grace))]
+        public void Grace()
+        {
+            ExecuteBenchmark(GraceContainer);
+        }
+
+        #endregion
+
+        #region LightInject
+
+        [GlobalSetup(Target = nameof(LightInject))]
+        public void LightInjectSetup()
+        {
+            SetupContainerForTest(CreateLightInjectContainer(),
+                IEnumerableBenchmark.Definitions(),
+                ExecuteBenchmark);
+        }
+
+        [Benchmark]
+        [BenchmarkCategory(nameof(LightInject))]
+        public void LightInject()
+        {
+            ExecuteBenchmark(LightInjectContainer);
+        }
+
+        #endregion
+
+        #region SimpleInjector
+
+        [GlobalSetup(Target = nameof(SimpleInjector))]
+        public void SimpleInjectorSetup()
+        {
+            SetupContainerForTest(CreateSimpleInjectorContainer(),
+                IEnumerableBenchmark.Definitions(),
+                ExecuteBenchmark);
+        }
+
+        [Benchmark]
+        [BenchmarkCategory(nameof(SimpleInjector))]
+        public void SimpleInjector()
+        {
+            ExecuteBenchmark(SimpleInjectorContainer);
+        }
+
+        #endregion
+
+        #region StructureMap
+
+        [GlobalSetup(Target = nameof(StructureMap))]
+        public void StructureMapSetup()
+        {
+            SetupContainerForTest(CreateStructureMapContainer(),
+                IEnumerableBenchmark.Definitions(),
+                ExecuteBenchmark);
+        }
+
+        [Benchmark]
+        [BenchmarkCategory(nameof(StructureMap))]
+        public void StructureMap()
+        {
+            ExecuteBenchmark(StructureMapContainer);
         }
 
         #endregion
