@@ -10,31 +10,11 @@ namespace DotNet.DependencyInjectionBenchmarks.Benchmarks.Collections
     [BenchmarkCategory("Collections")]
     public class ImmutableCollectionBenchmark : BaseBenchmark
     {
+        #region Benchmark Definition
+
         public static string Description =>
             "This benchmark registers 5 small objects then resolves them as an ImmutableList(T).";
 
-        [GlobalSetup]
-        public void Setup()
-        {
-            var definitions = IEnumerableBenchmark.Definitions().ToArray();
-
-            var warmup = new Action<IResolveScope>[]
-            {
-                scope => scope.Resolve<ImmutableList<IEnumerableService>>()
-            };
-
-            SetupContainerForTest(CreateGraceContainer(), definitions, warmup);
-        }
-
-        #region Benchmarks
-
-        [Benchmark]
-        [BenchmarkCategory(nameof(Grace))]
-        public void Grace()
-        {
-            ExecuteBenchmark(GraceContainer);
-        }
-        
         private void ExecuteBenchmark(IResolveScope scope)
         {
             if (scope.Resolve<ImmutableList<IEnumerableService>>().Count() != 5)
@@ -43,6 +23,23 @@ namespace DotNet.DependencyInjectionBenchmarks.Benchmarks.Collections
             }
         }
 
+        #endregion
+
+        #region Grace
+
+        [GlobalSetup(Target = nameof(Grace))]
+        public void GraceSetup()
+        {
+            SetupContainerForTest(CreateGraceContainer(), IEnumerableBenchmark.Definitions(), ExecuteBenchmark);
+        }
+
+        [Benchmark]
+        [BenchmarkCategory(nameof(Grace))]
+        public void Grace()
+        {
+            ExecuteBenchmark(GraceContainer);
+        }
+        
         #endregion
     }
 }
