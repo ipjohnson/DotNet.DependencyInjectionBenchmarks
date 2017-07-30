@@ -1,4 +1,6 @@
-﻿using System.Linq;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using BenchmarkDotNet.Attributes;
 using DotNet.DependencyInjectionBenchmarks.Benchmarks.Standard;
 using DotNet.DependencyInjectionBenchmarks.Classes;
@@ -7,36 +9,32 @@ using DotNet.DependencyInjectionBenchmarks.Containers;
 namespace DotNet.DependencyInjectionBenchmarks.Benchmarks.Factory
 {
 	[BenchmarkCategory("Factory")]
-	public class OneArgFactoryBenchmark : BaseBenchmark
+	public class OneArgFactoryBenchmark : StandardBenchmark
 	{
 	    public static string Description =>
 	        "This benchmark registers a small object graph and a one argument function to create part of the object graph";
 
-        [GlobalSetup]
-		public void Setup()
-		{
-			var definitions = SmallObjectBenchmark.Definitions().ToArray();
+	    protected override IEnumerable<RegistrationDefinition> Definitions => SmallObjectServices.Definitions();
 
-			SetupContainer(CreateAutofacContainer(), definitions);
-			SetupContainer(CreateCastleWindsorContainer(), definitions);
-			SetupContainer(CreateDryIocContainer(), definitions);
-			SetupContainer(CreateGraceContainer(), definitions);
-			SetupContainer(CreateLightInjectContainer(), definitions);
-			SetupContainer(CreateMicrosoftDependencyInjectionContainer(), definitions);
-			//SetupContainer(CreateSimpleInjectorContainer(), definitions);
-			SetupContainer(CreateStructureMapContainer(), definitions);
-		}
-
-		private void SetupContainer(IContainer container, RegistrationDefinition[] definitions)
-		{
+        /// <summary>
+        /// Registers definitions and dummy classes for scope
+        /// </summary>
+        /// <param name="container"></param>
+        /// <param name="definitions"></param>
+        /// <param name="resolveStatements"></param>
+        protected override void SetupContainerForTest(IContainer container, IEnumerable<RegistrationDefinition> definitions, params Action<IResolveScope>[] resolveStatements)
+	    {
 			container.RegisterFactory<ISmallObjectService, IOneArgeFactoryService>(service => new OneArgeFactoryService(service), RegistrationMode.Single, RegistrationLifestyle.Transient);
 
-			SetupContainerForTest(container, definitions, scope => scope.Resolve(typeof(IOneArgeFactoryService)));
+			base.SetupContainerForTest(container, definitions, resolveStatements);
 		}
         
-		#region Benchmarks
-
-		[Benchmark]
+	    protected override void ExecuteBenchmark(IResolveScope scope)
+	    {
+	        scope.Resolve(typeof(IOneArgeFactoryService));
+	    }
+        
+        [Benchmark]
 		[BenchmarkCategory(nameof(Autofac))]
 		public void Autofac()
 		{
@@ -84,12 +82,6 @@ namespace DotNet.DependencyInjectionBenchmarks.Benchmarks.Factory
 		{
 			ExecuteBenchmark(StructureMapContainer);
 		}
-
-		private void ExecuteBenchmark(IResolveScope scope)
-		{
-			scope.Resolve(typeof(IOneArgeFactoryService));
-		}
-
-		#endregion
+        
 	}
 }

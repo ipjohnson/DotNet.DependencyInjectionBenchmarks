@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using BenchmarkDotNet.Attributes;
 using DotNet.DependencyInjectionBenchmarks.Benchmarks.Standard;
 using DotNet.DependencyInjectionBenchmarks.Classes;
@@ -7,27 +8,21 @@ using DotNet.DependencyInjectionBenchmarks.Containers;
 namespace DotNet.DependencyInjectionBenchmarks.Benchmarks.Scoped
 {
     [BenchmarkCategory("Scoped")]
-    public class CreateScopeAndResolveBenchmark : BaseBenchmark
+    public class CreateScopeAndResolveBenchmark : StandardBenchmark
     {
         public static string Description =>
             "This benchmark creates a lifetime scope and then resolves a small object from the child scope.";
-
-        [GlobalSetup]
-        public void Setup()
-        {
-            var definitions = SmallObjectBenchmark.Definitions().ToList();
         
-            SetupContainerForTest(CreateAutofacContainer(), definitions);
-            SetupContainerForTest(CreateCastleWindsorContainer(), definitions);
-            SetupContainerForTest(CreateDryIocContainer(), definitions);
-            SetupContainerForTest(CreateGraceContainer(), definitions);
-            SetupContainerForTest(CreateLightInjectContainer(), definitions);
-            SetupContainerForTest(CreateMicrosoftDependencyInjectionContainer(), definitions);
-            SetupContainerForTest(CreateStructureMapContainer(), definitions);
+        protected override IEnumerable<RegistrationDefinition> Definitions => SmallObjectServices.Definitions();
+
+        protected override void ExecuteBenchmark(IResolveScope scope)
+        {
+            using (var childScope = scope.CreateScope())
+            {
+                childScope.Resolve(typeof(ISmallObjectService));
+            }
         }
-
-        #region Benchmarks
-
+        
         [Benchmark]
         [BenchmarkCategory(nameof(Autofac))]
         public void Autofac()
@@ -76,15 +71,5 @@ namespace DotNet.DependencyInjectionBenchmarks.Benchmarks.Scoped
         {
             ExecuteBenchmark(StructureMapContainer);
         }
-
-        private void ExecuteBenchmark(IResolveScope scope)
-        {
-            using (var childScope = scope.CreateScope())
-            {
-                childScope.Resolve(typeof(ISmallObjectService));
-            }
-        }
-
-        #endregion
     }
 }

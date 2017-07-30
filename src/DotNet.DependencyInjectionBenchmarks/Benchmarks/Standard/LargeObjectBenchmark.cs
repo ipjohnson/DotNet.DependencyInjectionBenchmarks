@@ -7,44 +7,36 @@ using DotNet.DependencyInjectionBenchmarks.Containers;
 namespace DotNet.DependencyInjectionBenchmarks.Benchmarks.Standard
 {
     [BenchmarkCategory("Standard")]
-    public class LargeObjectBenchmark : BaseBenchmark
+    public class LargeObjectBenchmark : StandardBenchmark
     {
         public static string Description =>
             @"Resolves a Large object graph containing 7 transients and 3 Singletons from each container";
 
-        [GlobalSetup]
-        public void Setup()
+        protected override IEnumerable<RegistrationDefinition> Definitions
         {
-            var definitions = Definitions().ToArray();
+            get
+            {
+                yield return new RegistrationDefinition { ExportType = typeof(ILargeSingletonService1), ActivationType = typeof(LargeSingletonService1), RegistrationLifestyle = RegistrationLifestyle.Singleton };
+                yield return new RegistrationDefinition { ExportType = typeof(ILargeSingletonService2), ActivationType = typeof(LargeSingletonService2), RegistrationLifestyle = RegistrationLifestyle.Singleton };
+                yield return new RegistrationDefinition { ExportType = typeof(ILargeSingletonService3), ActivationType = typeof(LargeSingletonService3), RegistrationLifestyle = RegistrationLifestyle.Singleton };
 
-            SetupContainerForTest(CreateAutofacContainer(), definitions);
-            SetupContainerForTest(CreateCastleWindsorContainer(), definitions);
-            SetupContainerForTest(CreateDryIocContainer(), definitions);
-            SetupContainerForTest(CreateGraceContainer(), definitions);
-            SetupContainerForTest(CreateLightInjectContainer(), definitions);
-            SetupContainerForTest(CreateMicrosoftDependencyInjectionContainer(), definitions);
-            SetupContainerForTest(CreateNInjectContainer(), definitions);
-            SetupContainerForTest(CreateSimpleInjectorContainer(), definitions);
-            SetupContainerForTest(CreateStructureMapContainer(), definitions);
+                yield return new RegistrationDefinition { ExportType = typeof(ILargeComplexService), ActivationType = typeof(LargeComplexService) };
+
+                yield return new RegistrationDefinition { ExportType = typeof(ILargeTransient1), ActivationType = typeof(LargeTransient1) };
+                yield return new RegistrationDefinition { ExportType = typeof(ILargeTransient2), ActivationType = typeof(LargeTransient2) };
+                yield return new RegistrationDefinition { ExportType = typeof(ILargeTransient3), ActivationType = typeof(LargeTransient3) };
+
+                yield return new RegistrationDefinition { ExportType = typeof(ILargeObjectService1), ActivationType = typeof(LargeObjectService1) };
+                yield return new RegistrationDefinition { ExportType = typeof(ILargeObjectService2), ActivationType = typeof(LargeObjectService2) };
+                yield return new RegistrationDefinition { ExportType = typeof(ILargeObjectService3), ActivationType = typeof(LargeObjectService3) };
+            }
         }
 
-        public static IEnumerable<RegistrationDefinition> Definitions()
+        protected override void ExecuteBenchmark(IResolveScope scope)
         {
-            yield return new RegistrationDefinition { ExportType = typeof(ILargeSingletonService1), ActivationType = typeof(LargeSingletonService1), RegistrationLifestyle = RegistrationLifestyle.Singleton };
-            yield return new RegistrationDefinition { ExportType = typeof(ILargeSingletonService2), ActivationType = typeof(LargeSingletonService2), RegistrationLifestyle = RegistrationLifestyle.Singleton };
-            yield return new RegistrationDefinition { ExportType = typeof(ILargeSingletonService3), ActivationType = typeof(LargeSingletonService3), RegistrationLifestyle = RegistrationLifestyle.Singleton };
-
-            yield return new RegistrationDefinition { ExportType = typeof(ILargeComplexService), ActivationType = typeof(LargeComplexService) };
-
-            yield return new RegistrationDefinition { ExportType = typeof(ILargeTransient1), ActivationType = typeof(LargeTransient1) };
-            yield return new RegistrationDefinition { ExportType = typeof(ILargeTransient2), ActivationType = typeof(LargeTransient2) };
-            yield return new RegistrationDefinition { ExportType = typeof(ILargeTransient3), ActivationType = typeof(LargeTransient3) };
-
-            yield return new RegistrationDefinition { ExportType = typeof(ILargeObjectService1), ActivationType = typeof(LargeObjectService1) };
-            yield return new RegistrationDefinition { ExportType = typeof(ILargeObjectService2), ActivationType = typeof(LargeObjectService2) };
-            yield return new RegistrationDefinition { ExportType = typeof(ILargeObjectService3), ActivationType = typeof(LargeObjectService3) };
+            scope.Resolve(typeof(ILargeComplexService));
         }
-
+        
         #region Benchmarks
 
         [Benchmark]
@@ -108,11 +100,6 @@ namespace DotNet.DependencyInjectionBenchmarks.Benchmarks.Standard
         public void StructureMap()
         {
             ExecuteBenchmark(StructureMapContainer);
-        }
-
-        private void ExecuteBenchmark(IResolveScope scope)
-        {
-            scope.Resolve(typeof(ILargeComplexService));
         }
 
         #endregion

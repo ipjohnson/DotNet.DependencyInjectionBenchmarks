@@ -8,48 +8,34 @@ using DotNet.DependencyInjectionBenchmarks.Containers;
 namespace DotNet.DependencyInjectionBenchmarks.Benchmarks.Standard
 {
     [BenchmarkCategory("Standard")]
-    public class EnumerableBenchmark : BaseBenchmark
+    public class EnumerableBenchmark : StandardBenchmark
     {
-
         public static string Description =>
             @"Resolves one object that depends on an enumerable containing 5 instances";
 
-        [GlobalSetup]
-        public void Setup()
+        protected override IEnumerable<RegistrationDefinition> Definitions
         {
-            var definitions = Definitions().ToArray();
-
-            var warmup = new Action<IResolveScope>[]
+            get
             {
-                scope => scope.Resolve<IImportEnumerableService>()
-            };
+                yield return new RegistrationDefinition { ExportType = typeof(IEnumerableService), ActivationType = typeof(EnumerableService1), RegistrationMode = RegistrationMode.Multiple };
+                yield return new RegistrationDefinition { ExportType = typeof(IEnumerableService), ActivationType = typeof(EnumerableService2), RegistrationMode = RegistrationMode.Multiple };
+                yield return new RegistrationDefinition { ExportType = typeof(IEnumerableService), ActivationType = typeof(EnumerableService3), RegistrationMode = RegistrationMode.Multiple };
+                yield return new RegistrationDefinition { ExportType = typeof(IEnumerableService), ActivationType = typeof(EnumerableService4), RegistrationMode = RegistrationMode.Multiple };
+                yield return new RegistrationDefinition { ExportType = typeof(IEnumerableService), ActivationType = typeof(EnumerableService5), RegistrationMode = RegistrationMode.Multiple };
+                yield return new RegistrationDefinition { ExportType = typeof(ISingletonService), ActivationType = typeof(SingletonService) };
+                yield return new RegistrationDefinition { ExportType = typeof(ITransientService), ActivationType = typeof(TransientService) };
 
-            SetupContainerForTest(CreateAutofacContainer(), definitions, warmup);
-            SetupContainerForTest(CreateCastleWindsorContainer(), definitions, warmup);
-            SetupContainerForTest(CreateDryIocContainer(), definitions, warmup);
-            SetupContainerForTest(CreateGraceContainer(), definitions, warmup);
-            SetupContainerForTest(CreateLightInjectContainer(), definitions, warmup);
-            SetupContainerForTest(CreateMicrosoftDependencyInjectionContainer(), definitions, warmup);
-            SetupContainerForTest(CreateNInjectContainer(), definitions, warmup);
-            SetupContainerForTest(CreateSimpleInjectorContainer(), definitions, warmup);
-            SetupContainerForTest(CreateStructureMapContainer(), definitions, warmup);
+                yield return new RegistrationDefinition { ExportType = typeof(IImportEnumerableService), ActivationType = typeof(ImportEnumerableService) };
+            }
         }
 
-        public static IEnumerable<RegistrationDefinition> Definitions()
+        protected override void ExecuteBenchmark(IResolveScope scope)
         {
-            yield return new RegistrationDefinition { ExportType = typeof(IEnumerableService), ActivationType = typeof(EnumerableService1), RegistrationMode = RegistrationMode.Multiple };
-            yield return new RegistrationDefinition { ExportType = typeof(IEnumerableService), ActivationType = typeof(EnumerableService2), RegistrationMode = RegistrationMode.Multiple };
-            yield return new RegistrationDefinition { ExportType = typeof(IEnumerableService), ActivationType = typeof(EnumerableService3), RegistrationMode = RegistrationMode.Multiple };
-            yield return new RegistrationDefinition { ExportType = typeof(IEnumerableService), ActivationType = typeof(EnumerableService4), RegistrationMode = RegistrationMode.Multiple };
-            yield return new RegistrationDefinition { ExportType = typeof(IEnumerableService), ActivationType = typeof(EnumerableService5), RegistrationMode = RegistrationMode.Multiple };
-            yield return new RegistrationDefinition { ExportType = typeof(ISingletonService), ActivationType = typeof(SingletonService) };
-            yield return new RegistrationDefinition { ExportType = typeof(ITransientService), ActivationType = typeof(TransientService) };
-
-            yield return new RegistrationDefinition { ExportType = typeof(IImportEnumerableService), ActivationType = typeof(ImportEnumerableService) };
+            if (scope.Resolve<IImportEnumerableService>().Services.Count() != 5)
+            {
+                throw new Exception("Count does not equal 5");
+            }
         }
-
-
-        #region Benchmarks
 
         [Benchmark]
         [BenchmarkCategory(nameof(Autofac))]
@@ -113,16 +99,6 @@ namespace DotNet.DependencyInjectionBenchmarks.Benchmarks.Standard
         {
             ExecuteBenchmark(StructureMapContainer);
         }
-
-        private void ExecuteBenchmark(IResolveScope scope)
-        {
-            if (scope.Resolve<IImportEnumerableService>().Services.Count() != 5)
-            {
-                throw new Exception("Count does not equal 5");
-            }
-        }
-
-        #endregion
 
     }
 }

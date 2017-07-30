@@ -72,7 +72,7 @@ namespace DotNet.DependencyInjectionBenchmarks.Benchmarks
         /// <param name="container"></param>
         /// <param name="definitions"></param>
         /// <param name="resolveStatements"></param>
-        protected void SetupContainerForTest(IContainer container, IEnumerable<RegistrationDefinition> definitions, params Action<IResolveScope>[] resolveStatements)
+        protected virtual void SetupContainerForTest(IContainer container, IEnumerable<RegistrationDefinition> definitions, params Action<IResolveScope>[] resolveStatements)
         {
             var dummyTypes = DummyClasses.GetTypes(ExtraRegistrationsCount).ToArray();
 

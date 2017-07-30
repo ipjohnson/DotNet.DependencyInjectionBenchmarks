@@ -8,35 +8,28 @@ using DotNet.DependencyInjectionBenchmarks.Containers;
 namespace DotNet.DependencyInjectionBenchmarks.Benchmarks.Func
 {
     [BenchmarkCategory("Func")]
-    public class ThreeArgFuncBenchmark : BaseBenchmark
+    public class ThreeArgFuncBenchmark : StandardBenchmark
     {
         public static string Description =>
             "This benchmark registers a small object then resolves a three argument function for each object";
 
-        [GlobalSetup]
-        public void Setup()
+        protected override IEnumerable<RegistrationDefinition> Definitions
         {
-            var definitions = Definitions().ToArray();
-
-            var warmupStatements = new Action<IResolveScope>[]
+            get
             {
-                scope => scope.Resolve<Func<int,string,ITransientService,IThreeArgService1>>()(5, "Hello", new TransientService()),
-            };
-
-            SetupContainerForTest(CreateDryIocContainer(), definitions, warmupStatements);
-            SetupContainerForTest(CreateGraceContainer(), definitions, warmupStatements);
+                yield return new RegistrationDefinition
+                {
+                    ExportType = typeof(IThreeArgService1),
+                    ActivationType = typeof(ThreeArgService1)
+                };
+            }
         }
 
-        private IEnumerable<RegistrationDefinition> Definitions()
+        protected override void ExecuteBenchmark(IResolveScope scope)
         {
-            yield return new RegistrationDefinition
-            {
-                ExportType = typeof(IThreeArgService1),
-                ActivationType = typeof(ThreeArgService1)
-            };
+            scope.Resolve<Func<int, string, ITransientService, IThreeArgService1>>()(5, "Hello",
+                new TransientService());
         }
-
-        #region Benchmark
 
         [Benchmark]
         [BenchmarkCategory(nameof(DryIoc))]
@@ -51,13 +44,5 @@ namespace DotNet.DependencyInjectionBenchmarks.Benchmarks.Func
         {
             ExecuteBenchmark(GraceContainer);
         }
-
-        private void ExecuteBenchmark(IResolveScope scope)
-        {
-            scope.Resolve<Func<int, string, ITransientService, IThreeArgService1>>()(5, "Hello",
-                new TransientService());
-        }
-
-        #endregion
     }
 }

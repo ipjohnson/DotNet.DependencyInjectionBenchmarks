@@ -35,11 +35,8 @@ namespace DotNet.DependencyInjectionBenchmarks.Benchmarks.Metadata
 
             yield return new RegistrationDefinition { ExportType = typeof(ISmallObjectService), ActivationType = typeof(SmallObjectService), Metadata = metadata };
             yield return new RegistrationDefinition { ExportType = typeof(ITransientService), ActivationType = typeof(TransientService) };
-            
-            foreach (var definition in SingletonBenchmark.Definitions())
-            {
-                yield return definition;
-            }
+            yield return new RegistrationDefinition { ExportType = typeof(ISingletonService), ActivationType = typeof(SingletonService), RegistrationLifestyle = RegistrationLifestyle.Singleton };
+
         }
 
         #region Benchmarks

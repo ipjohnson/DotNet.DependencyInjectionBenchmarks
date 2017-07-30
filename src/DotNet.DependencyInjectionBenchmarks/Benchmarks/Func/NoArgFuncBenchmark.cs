@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using BenchmarkDotNet.Attributes;
 using DotNet.DependencyInjectionBenchmarks.Benchmarks.Standard;
@@ -8,23 +9,17 @@ using DotNet.DependencyInjectionBenchmarks.Containers;
 namespace DotNet.DependencyInjectionBenchmarks.Benchmarks.Func
 {
     [BenchmarkCategory("Func")]
-    public class NoArgFuncBenchmark : BaseBenchmark
+    public class NoArgFuncBenchmark : StandardBenchmark
     {
         public static string Description =>
             "This benchmark registers a small objects then resolves a no argument function for each object";
 
-        [GlobalSetup]
-        public void Setup()
+        protected override IEnumerable<RegistrationDefinition> Definitions => SmallObjectServices.Definitions();
+
+        protected override void ExecuteBenchmark(IResolveScope scope)
         {
-            var definitions = SmallObjectBenchmark.Definitions().ToArray();
-
-            SetupContainerForTest(CreateAutofacContainer(), definitions);
-            SetupContainerForTest(CreateDryIocContainer(), definitions);
-            SetupContainerForTest(CreateGraceContainer(), definitions);
-            SetupContainerForTest(CreateLightInjectContainer(), definitions);
+            scope.Resolve<Func<ISmallObjectService>>()();
         }
-
-        #region Benchmark
 
         [Benchmark]
         [BenchmarkCategory(nameof(Autofac))]
@@ -53,11 +48,5 @@ namespace DotNet.DependencyInjectionBenchmarks.Benchmarks.Func
         {
             ExecuteBenchmark(LightInjectContainer);
         }
-        
-        private void ExecuteBenchmark(IResolveScope scope)
-        {
-            scope.Resolve<Func<ISmallObjectService>>()();
-        }
-        #endregion
     }
 }

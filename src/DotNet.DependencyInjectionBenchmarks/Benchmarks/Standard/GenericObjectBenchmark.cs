@@ -9,40 +9,28 @@ using DotNet.DependencyInjectionBenchmarks.Containers;
 namespace DotNet.DependencyInjectionBenchmarks.Benchmarks.Standard
 {
     [BenchmarkCategory("Standard")]
-    public class GenericObjectBenchmark : BaseBenchmark
+    public class GenericObjectBenchmark : StandardBenchmark
     {
-        [GlobalSetup]
-        public void Setup()
+        public static string Description =>
+            @"Registers a small object graph as well as one generic service and resolves it.";
+        
+        protected override IEnumerable<RegistrationDefinition> Definitions
         {
-            var definitions = Definitions().ToArray();
-
-            var warmup = new Action<IResolveScope>[]
+            get
             {
-                scope => scope.Resolve<IGenericObjectService<ISmallObjectService>>()
-            };
-            
-            SetupContainerForTest(CreateAutofacContainer(), definitions, warmup);
-            SetupContainerForTest(CreateCastleWindsorContainer(), definitions, warmup);
-            SetupContainerForTest(CreateDryIocContainer(), definitions, warmup);
-            SetupContainerForTest(CreateGraceContainer(), definitions, warmup);
-            SetupContainerForTest(CreateLightInjectContainer(), definitions, warmup);
-            SetupContainerForTest(CreateNInjectContainer(), definitions, warmup);
-            SetupContainerForTest(CreateSimpleInjectorContainer(), definitions, warmup);
-            SetupContainerForTest(CreateStructureMapContainer(), definitions, warmup);
-        }
+                foreach (var registrationDefinition in SmallObjectServices.Definitions())
+                {
+                    yield return registrationDefinition;
+                }
 
-        public static IEnumerable<RegistrationDefinition> Definitions()
-        {
-            foreach (var registrationDefinition in SmallObjectBenchmark.Definitions())
-            {
-                yield return registrationDefinition;
+                yield return new RegistrationDefinition { ExportType = typeof(IGenericObjectService<>), ActivationType = typeof(GenericObjectService<>) };
             }
-
-            yield return new RegistrationDefinition { ExportType = typeof(IGenericObjectService<>), ActivationType = typeof(GenericObjectService<>) };
         }
 
-
-        #region Benchmarks
+        protected override void ExecuteBenchmark(IResolveScope scope)
+        {
+            scope.Resolve(typeof(IGenericObjectService<ISmallObjectService>));
+        }
 
         [Benchmark]
         [BenchmarkCategory(nameof(Autofac))]
@@ -99,14 +87,5 @@ namespace DotNet.DependencyInjectionBenchmarks.Benchmarks.Standard
         {
             ExecuteBenchmark(StructureMapContainer);
         }
-
-        private void ExecuteBenchmark(IResolveScope scope)
-        {
-            scope.Resolve(typeof(IGenericObjectService<ISmallObjectService>));
-        }
-
-        #endregion
-
-
     }
 }

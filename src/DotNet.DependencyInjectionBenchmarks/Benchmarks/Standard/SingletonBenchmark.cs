@@ -7,34 +7,24 @@ using DotNet.DependencyInjectionBenchmarks.Containers;
 namespace DotNet.DependencyInjectionBenchmarks.Benchmarks.Standard
 {
     [BenchmarkCategory("Standard")]
-    public class SingletonBenchmark : BaseBenchmark
+    public class SingletonBenchmark : StandardBenchmark
     {
         public static string Description =>
             @"Resolves a Singleton services from each container";
-
-        [GlobalSetup]
-        public void Setup()
+        
+        protected override IEnumerable<RegistrationDefinition> Definitions
         {
-            var definitions = Definitions().ToArray();
-
-            SetupContainerForTest(CreateAutofacContainer(), definitions);
-            SetupContainerForTest(CreateCastleWindsorContainer(), definitions);
-            SetupContainerForTest(CreateDryIocContainer(), definitions);
-            SetupContainerForTest(CreateGraceContainer(), definitions);
-            SetupContainerForTest(CreateLightInjectContainer(), definitions);
-            SetupContainerForTest(CreateMicrosoftDependencyInjectionContainer(), definitions);
-            SetupContainerForTest(CreateNInjectContainer(), definitions);
-            SetupContainerForTest(CreateSimpleInjectorContainer(), definitions);
-            SetupContainerForTest(CreateStructureMapContainer(), definitions);
+            get
+            {
+                yield return new RegistrationDefinition { ExportType = typeof(ISingletonService), ActivationType = typeof(SingletonService), RegistrationLifestyle = RegistrationLifestyle.Singleton };
+            }
         }
 
-        public static IEnumerable<RegistrationDefinition> Definitions()
+        protected override void ExecuteBenchmark(IResolveScope scope)
         {
-            yield return new RegistrationDefinition { ExportType = typeof(ISingletonService), ActivationType = typeof(SingletonService), RegistrationLifestyle = RegistrationLifestyle.Singleton };
+            scope.Resolve(typeof(ISingletonService));
         }
-
-        #region Benchmark
-
+        
         [Benchmark]
         [BenchmarkCategory(nameof(Autofac))]
         public void Autofac()
@@ -97,11 +87,6 @@ namespace DotNet.DependencyInjectionBenchmarks.Benchmarks.Standard
         {
             ExecuteBenchmark(StructureMapContainer);
         }
-
-        private void ExecuteBenchmark(IResolveScope scope)
-        {
-            scope.Resolve(typeof(ISingletonService));
-        }
-        #endregion
+        
     }
 }
