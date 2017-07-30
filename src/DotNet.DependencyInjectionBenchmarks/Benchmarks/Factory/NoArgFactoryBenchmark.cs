@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using BenchmarkDotNet.Attributes;
 using DotNet.DependencyInjectionBenchmarks.Benchmarks.Standard;
@@ -8,108 +9,87 @@ using DotNet.DependencyInjectionBenchmarks.Containers;
 namespace DotNet.DependencyInjectionBenchmarks.Benchmarks.Factory
 {
     [BenchmarkCategory("Factory")]
-    public class NoArgFactoryBenchmark : BaseBenchmark
+    public class NoArgFactoryBenchmark : StandardBenchmark
     {
         public static string Description =>
             "This benchmark registers a small object using a factory to provide one piece of the object graph.";
-
-        [GlobalSetup]
-        public void Setup()
-        {
-            var definitions = Definitions().ToArray();
-
-            SetupContainer(CreateAutofacContainer(), definitions);
-            SetupContainer(CreateCastleWindsorContainer(), definitions);
-            SetupContainer(CreateDryIocContainer(), definitions);
-            SetupContainer(CreateGraceContainer(), definitions);
-            SetupContainer(CreateLightInjectContainer(), definitions);
-            SetupContainer(CreateMicrosoftDependencyInjectionContainer(), definitions);
-            SetupContainer(CreateSimpleInjectorContainer(), definitions);
-            SetupContainer(CreateStructureMapContainer(), definitions);
-        }
-
-        private void SetupContainer(IContainer container, RegistrationDefinition[] definitions)
+        
+        protected override void SetupContainerForTest(IContainer container, IEnumerable<RegistrationDefinition> definitions, params Action<IResolveScope>[] resolveStatements)
         {
             container.RegisterFactory<ITransientService>(() => new TransientService(), RegistrationMode.Single, RegistrationLifestyle.Transient);
 
-            SetupContainerForTest(container, definitions,
-                scope => scope.Resolve<ISmallObjectService>()
-            );
+            base.SetupContainerForTest(container, definitions, resolveStatements);
         }
 
-        private IEnumerable<RegistrationDefinition> Definitions()
+        protected override IEnumerable<RegistrationDefinition> Definitions
         {
-            yield return new RegistrationDefinition { ExportType = typeof(ISmallObjectService), ActivationType = typeof(SmallObjectService) };
-
-            foreach (var definition in SingletonBenchmark.Definitions())
+            get
             {
-                yield return definition;
+                yield return new RegistrationDefinition { ExportType = typeof(ISmallObjectService), ActivationType = typeof(SmallObjectService) };
+
+                yield return new RegistrationDefinition { ExportType = typeof(ISingletonService), ActivationType = typeof(SingletonService), RegistrationLifestyle = RegistrationLifestyle.Singleton };
             }
         }
 
-        #region Benchmarks
-
+        protected override void ExecuteBenchmark(IResolveScope scope)
+        {
+            scope.Resolve<ISmallObjectService>();
+        }
+        
         [Benchmark]
-        [BenchmarkCategory("Autofac")]
+        [BenchmarkCategory(nameof(Autofac))]
         public void Autofac()
         {
             ExecuteBenchmark(AutofacContainer);
         }
-        
+
         [Benchmark]
-        [BenchmarkCategory("CastleWindsor")]
+        [BenchmarkCategory(nameof(CastleWindsor))]
         public void CastleWindsor()
         {
             ExecuteBenchmark(CastleWindsorContainer);
         }
 
         [Benchmark]
-        [BenchmarkCategory("DryIoc")]
+        [BenchmarkCategory(nameof(DryIoc))]
         public void DryIoc()
         {
             ExecuteBenchmark(DryIocContainer);
         }
 
         [Benchmark]
-        [BenchmarkCategory("Grace")]
+        [BenchmarkCategory(nameof(Grace))]
         public void Grace()
         {
             ExecuteBenchmark(GraceContainer);
         }
 
         [Benchmark]
-        [BenchmarkCategory("LightInject")]
+        [BenchmarkCategory(nameof(LightInject))]
         public void LightInject()
         {
             ExecuteBenchmark(LightInjectContainer);
         }
-        
+
         [Benchmark]
-        [BenchmarkCategory("MicrosoftDependencyInjection")]
+        [BenchmarkCategory(nameof(MicrosoftDependencyInjection))]
         public void MicrosoftDependencyInjection()
         {
             ExecuteBenchmark(MicrosoftDependencyInjectionContainer);
         }
 
         [Benchmark]
-        [BenchmarkCategory("SimpleInjector")]
+        [BenchmarkCategory(nameof(SimpleInjector))]
         public void SimpleInjector()
         {
             ExecuteBenchmark(SimpleInjectorContainer);
         }
 
         [Benchmark]
-        [BenchmarkCategory("StructureMap")]
+        [BenchmarkCategory(nameof(StructureMap))]
         public void StructureMap()
         {
             ExecuteBenchmark(StructureMapContainer);
         }
-
-        private void ExecuteBenchmark(IResolveScope scope)
-        {
-            scope.Resolve<ISmallObjectService>();
-        }
-
-        #endregion
     }
 }

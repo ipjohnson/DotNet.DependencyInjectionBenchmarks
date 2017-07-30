@@ -9,56 +9,37 @@ using DotNet.DependencyInjectionBenchmarks.Containers;
 namespace DotNet.DependencyInjectionBenchmarks.Benchmarks.Func
 {
     [BenchmarkCategory("Func")]
-    public class OneArgFuncBenchmark : BaseBenchmark
+    public class OneArgFuncBenchmark : StandardBenchmark
     {
         public static string Description =>
             "This benchmark registers a small object then resolves a one argument function for each object";
 
-        [GlobalSetup]
-        public void Setup()
+        protected override IEnumerable<RegistrationDefinition> Definitions
         {
-            var definitions = Definitions().ToArray();
-
-            var warmups = new Action<IResolveScope>[]
+            get
             {
-                r =>  r.Resolve<Func<ITransientService,ISmallObjectService>>()(new TransientService())
-            };
-            
-            SetupContainerForTest(CreateDryIocContainer(), definitions, warmups);
-            SetupContainerForTest(CreateGraceContainer(), definitions, warmups);
-        }
-
-        private IEnumerable<RegistrationDefinition> Definitions()
-        {
-            yield return new RegistrationDefinition { ExportType = typeof(ISmallObjectService), ActivationType = typeof(SmallObjectService) };
-            
-            foreach (var definition in SingletonBenchmark.Definitions())
-            {
-                yield return definition;
+                yield return new RegistrationDefinition { ExportType = typeof(ISmallObjectService), ActivationType = typeof(SmallObjectService) };
+                yield return new RegistrationDefinition { ExportType = typeof(ISingletonService), ActivationType = typeof(SingletonService), RegistrationLifestyle = RegistrationLifestyle.Singleton };
             }
         }
 
-        #region Benchmark
-        
+        protected override void ExecuteBenchmark(IResolveScope scope)
+        {
+            scope.Resolve<Func<ITransientService, ISmallObjectService>>()(new TransientService());
+        }
+
         [Benchmark]
-        [BenchmarkCategory("DryIoc")]
+        [BenchmarkCategory(nameof(DryIoc))]
         public void DryIoc()
         {
             ExecuteBenchmark(DryIocContainer);
         }
 
         [Benchmark]
-        [BenchmarkCategory("Grace")]
+        [BenchmarkCategory(nameof(Grace))]
         public void Grace()
         {
             ExecuteBenchmark(GraceContainer);
         }
-
-        private void ExecuteBenchmark(IResolveScope scope)
-        {
-            scope.Resolve<Func<ITransientService, ISmallObjectService>>()(new TransientService());
-        }
-
-        #endregion
     }
 }

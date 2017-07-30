@@ -8,42 +8,14 @@ using DotNet.DependencyInjectionBenchmarks.Containers;
 namespace DotNet.DependencyInjectionBenchmarks.Benchmarks.Collections
 {
     [BenchmarkCategory("Collections")]
-    public class ListBenchmark : BaseBenchmark
+    public class ListBenchmark : StandardBenchmark
     {
         public static string Description =>
             "This benchmark registers 5 small objects then resolves them as a List(T).";
 
-        [GlobalSetup]
-        public void Setup()
-        {
-            var definitions = IEnumerableBenchmark.Definitions().ToArray();
+        protected override IEnumerable<RegistrationDefinition> Definitions => EnumerableServices.Definitions();
 
-            var warmup = new Action<IResolveScope>[]
-            {
-                scope => scope.Resolve<List<IEnumerableService>>()
-            };
-			
-			SetupContainerForTest(CreateGraceContainer(), definitions, warmup);
-            SetupContainerForTest(CreateStructureMapContainer(), definitions, warmup);
-        }
-
-		#region Benchmarks
-		
-		[Benchmark]
-        [BenchmarkCategory("Grace")]
-        public void Grace()
-        {
-            ExecuteBenchmark(GraceContainer);
-        }
-
-        [Benchmark]
-        [BenchmarkCategory("StructureMap")]
-        public void StructureMap()
-        {
-            ExecuteBenchmark(StructureMapContainer);
-        }
-
-        private void ExecuteBenchmark(IResolveScope scope)
+        protected override void ExecuteBenchmark(IResolveScope scope)
         {
             if (scope.Resolve<List<IEnumerableService>>().Count() != 5)
             {
@@ -51,6 +23,18 @@ namespace DotNet.DependencyInjectionBenchmarks.Benchmarks.Collections
             }
         }
 
-        #endregion
+        [Benchmark]
+        [BenchmarkCategory(nameof(Grace))]
+        public void Grace()
+        {
+            ExecuteBenchmark(GraceContainer);
+        }
+        
+        [Benchmark]
+        [BenchmarkCategory(nameof(StructureMap))]
+        public void StructureMap()
+        {
+            ExecuteBenchmark(StructureMapContainer);
+        }
     }
 }

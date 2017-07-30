@@ -14,101 +14,130 @@ namespace DotNet.DependencyInjectionBenchmarks.Benchmarks.Lookup
 
         [Params(0, 50, 100, 500, 2000)]
         public int ExtraRegistrations { get; set; }
-
-        [GlobalSetup]
-        public void Setup()
+        
+        [GlobalSetup(Target = nameof(Autofac))]
+        public void AutofacSetup()
         {
             SetupContainerForLookup(CreateAutofacContainer());
-            SetupContainerForLookup(CreateCastleWindsorContainer());
-            SetupContainerForLookup(CreateDryIocContainer());
-            SetupContainerForLookup(CreateGraceContainer());
-            SetupContainerForLookup(CreateLightInjectContainer());
-            SetupContainerForLookup(CreateMicrosoftDependencyInjectionContainer());
-            SetupContainerForLookup(CreateNInjectContainer());
-            SetupContainerForLookup(CreateSimpleInjectorContainer());
-            SetupContainerForLookup(CreateStructureMapContainer());
         }
 
-        #region Benchmarks
-
         [Benchmark]
-        [BenchmarkCategory("Autofac")]
+        [BenchmarkCategory(nameof(Autofac))]
         public void Autofac()
         {
             ExecuteBenchmark(AutofacContainer);
         }
 
+        [GlobalSetup(Target = nameof(CastleWindsor))]
+        public void CastleWindsorSetup()
+        {
+            SetupContainerForLookup(CreateCastleWindsorContainer());
+        }
+
         [Benchmark]
-        [BenchmarkCategory("CastleWindsor")]
+        [BenchmarkCategory(nameof(CastleWindsor))]
         public void CastleWindsor()
         {
             ExecuteBenchmark(CastleWindsorContainer);
         }
 
+        [GlobalSetup(Target = nameof(DryIoc))]
+        public void DryIocSetup()
+        {
+            SetupContainerForLookup(CreateDryIocContainer());
+        }
+
         [Benchmark]
-        [BenchmarkCategory("DryIoc")]
+        [BenchmarkCategory(nameof(DryIoc))]
         public void DryIoc()
         {
             ExecuteBenchmark(DryIocContainer);
         }
 
+        [GlobalSetup(Target = nameof(Grace))]
+        public void GraceSetup()
+        {
+            SetupContainerForLookup(CreateGraceContainer());
+        }
+
         [Benchmark]
-        [BenchmarkCategory("Grace")]
+        [BenchmarkCategory(nameof(Grace))]
         public void Grace()
         {
             ExecuteBenchmark(GraceContainer);
         }
 
+        [GlobalSetup(Target = nameof(LightInject))]
+        public void LightInjectSetup()
+        {
+            SetupContainerForLookup(CreateLightInjectContainer());
+        }
+
         [Benchmark]
-        [BenchmarkCategory("LightInject")]
+        [BenchmarkCategory(nameof(LightInject))]
         public void LightInject()
         {
             ExecuteBenchmark(LightInjectContainer);
         }
 
+        [GlobalSetup(Target = nameof(MicrosoftDependencyInjection))]
+        public void MicrosoftDependencyInjectionSetup()
+        {
+            SetupContainerForLookup(CreateMicrosoftDependencyInjectionContainer());
+        }
+
         [Benchmark]
-        [BenchmarkCategory("MicrosoftDependencyInjection")]
+        [BenchmarkCategory(nameof(MicrosoftDependencyInjection))]
         public void MicrosoftDependencyInjection()
         {
             ExecuteBenchmark(MicrosoftDependencyInjectionContainer);
         }
 
+        [GlobalSetup(Target = nameof(NInject))]
+        public void NInjectSetup()
+        {
+            SetupContainerForLookup(CreateLightInjectContainer());
+        }
+
         [Benchmark]
-        [BenchmarkCategory("NInject")]
+        [BenchmarkCategory(nameof(NInject))]
         public void NInject()
         {
             ExecuteBenchmark(NInjectContainer);
         }
 
+        [GlobalSetup(Target = nameof(SimpleInjector))]
+        public void SimpleInjectorSetup()
+        {
+            SetupContainerForLookup(CreateSimpleInjectorContainer());
+        }
+
         [Benchmark]
-        [BenchmarkCategory("SimpleInjector")]
+        [BenchmarkCategory(nameof(SimpleInjector))]
         public void SimpleInjector()
         {
             ExecuteBenchmark(SimpleInjectorContainer);
         }
 
+        [GlobalSetup(Target = nameof(StructureMap))]
+        public void StructureMapSetup()
+        {
+            SetupContainerForLookup(CreateStructureMapContainer());
+        }
+
         [Benchmark]
-        [BenchmarkCategory("StructureMap")]
+        [BenchmarkCategory(nameof(StructureMap))]
         public void StructureMap()
         {
             ExecuteBenchmark(StructureMapContainer);
         }
-
-        private void ExecuteBenchmark(IResolveScope scope)
-        {
-            scope.Resolve(typeof(ISmallObjectService));
-        }
-
-        #endregion
-
-        #region Setup Container 
-
+        
         public void SetupContainerForLookup(IContainer scope)
         {
             var allTypes = DummyClasses.GetTypes(ExtraRegistrations)
                 .Select(t => new RegistrationDefinition { ExportType = t, ActivationType = t }).ToList();
 
-            var definitions = SmallObjectBenchmark.Definitions().ToArray();
+            var definitions = SmallObjectServices.Definitions().ToArray();
 
             var gap = allTypes.Count / definitions.Length;
 
@@ -130,6 +159,11 @@ namespace DotNet.DependencyInjectionBenchmarks.Benchmarks.Lookup
                 scope.Resolve(type);
             }
         }
-        #endregion
+
+        private void ExecuteBenchmark(IResolveScope scope)
+        {
+            scope.Resolve(typeof(ISmallObjectService));
+        }
+
     }
 }

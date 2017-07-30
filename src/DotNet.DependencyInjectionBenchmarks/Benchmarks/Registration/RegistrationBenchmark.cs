@@ -31,7 +31,7 @@ namespace DotNet.DependencyInjectionBenchmarks.Benchmarks.Registration
         public ResolveScenario Scenario { get; set; }
         
         public static string Description =>
-            "This benchmark tests registering {Registrations} then {Scenario} from the container";
+            "This benchmark registers {Registrations} classes then {Scenario} from the container";
 
         [GlobalSetup]
         public void Setup()
@@ -40,7 +40,7 @@ namespace DotNet.DependencyInjectionBenchmarks.Benchmarks.Registration
         }
 
         [Benchmark]
-        [BenchmarkCategory("Autofac")]
+        [BenchmarkCategory(nameof(Autofac))]
         public void Autofac()
         {
             var containerBuilder = new ContainerBuilder();
@@ -75,7 +75,7 @@ namespace DotNet.DependencyInjectionBenchmarks.Benchmarks.Registration
         }
 
         [Benchmark]
-        [BenchmarkCategory("DryIoc")]
+        [BenchmarkCategory(nameof(DryIoc))]
         public void DryIoc()
         {
             var container = new DryIoc.Container();
@@ -108,7 +108,7 @@ namespace DotNet.DependencyInjectionBenchmarks.Benchmarks.Registration
         }
 
         [Benchmark]
-        [BenchmarkCategory("Grace")]
+        [BenchmarkCategory(nameof(Grace))]
         public void Grace()
         {
             var container = new DependencyInjectionContainer(GraceDynamicMethod.Configuration());
@@ -145,7 +145,7 @@ namespace DotNet.DependencyInjectionBenchmarks.Benchmarks.Registration
         }
 
         [Benchmark]
-        [BenchmarkCategory("LightInject")]
+        [BenchmarkCategory(nameof(LightInject))]
         public void LightInject()
         {
             var container = new LightInject.ServiceContainer();
@@ -179,7 +179,7 @@ namespace DotNet.DependencyInjectionBenchmarks.Benchmarks.Registration
         }
 
         [Benchmark]
-        [BenchmarkCategory("MicrosoftDependencyInjection")]
+        [BenchmarkCategory(nameof(MicrosoftDependencyInjection))]
         public void MicrosoftDependencyInjection()
         {
             var serviceCollection = new ServiceCollection();
@@ -215,7 +215,7 @@ namespace DotNet.DependencyInjectionBenchmarks.Benchmarks.Registration
         }
 
         [Benchmark]
-        [BenchmarkCategory("NInject")]
+        [BenchmarkCategory(nameof(NInject))]
         public void NInject()
         {
             var configuration = new KernelConfiguration();
@@ -251,7 +251,7 @@ namespace DotNet.DependencyInjectionBenchmarks.Benchmarks.Registration
         }
 
         [Benchmark]
-        [BenchmarkCategory("SimpleInjector")]
+        [BenchmarkCategory(nameof(SimpleInjector))]
         public void SimpleInjector()
         {
             var container = new SimpleInjector.Container();
@@ -285,7 +285,7 @@ namespace DotNet.DependencyInjectionBenchmarks.Benchmarks.Registration
         }
 
         [Benchmark]
-        [BenchmarkCategory("StructureMap")]
+        [BenchmarkCategory(nameof(StructureMap))]
         public void StructureMap()
         {
             var container = new StructureMap.Container();

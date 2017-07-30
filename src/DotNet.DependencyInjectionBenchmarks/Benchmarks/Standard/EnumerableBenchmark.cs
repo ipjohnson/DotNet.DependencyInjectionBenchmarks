@@ -8,109 +8,28 @@ using DotNet.DependencyInjectionBenchmarks.Containers;
 namespace DotNet.DependencyInjectionBenchmarks.Benchmarks.Standard
 {
     [BenchmarkCategory("Standard")]
-    public class EnumerableBenchmark : BaseBenchmark
+    public class EnumerableBenchmark : StandardBenchmark
     {
-        [GlobalSetup]
-        public void Setup()
-        {
-            var definitions = Definitions().ToArray();
+        public static string Description =>
+            @"Resolves one object that depends on an enumerable containing 5 instances";
 
-            var warmup = new Action<IResolveScope>[]
+        protected override IEnumerable<RegistrationDefinition> Definitions
+        {
+            get
             {
-                scope => scope.Resolve<IImportEnumerableService>()
-            };
+                yield return new RegistrationDefinition { ExportType = typeof(IEnumerableService), ActivationType = typeof(EnumerableService1), RegistrationMode = RegistrationMode.Multiple };
+                yield return new RegistrationDefinition { ExportType = typeof(IEnumerableService), ActivationType = typeof(EnumerableService2), RegistrationMode = RegistrationMode.Multiple };
+                yield return new RegistrationDefinition { ExportType = typeof(IEnumerableService), ActivationType = typeof(EnumerableService3), RegistrationMode = RegistrationMode.Multiple };
+                yield return new RegistrationDefinition { ExportType = typeof(IEnumerableService), ActivationType = typeof(EnumerableService4), RegistrationMode = RegistrationMode.Multiple };
+                yield return new RegistrationDefinition { ExportType = typeof(IEnumerableService), ActivationType = typeof(EnumerableService5), RegistrationMode = RegistrationMode.Multiple };
+                yield return new RegistrationDefinition { ExportType = typeof(ISingletonService), ActivationType = typeof(SingletonService) };
+                yield return new RegistrationDefinition { ExportType = typeof(ITransientService), ActivationType = typeof(TransientService) };
 
-            SetupContainerForTest(CreateAutofacContainer(), definitions, warmup);
-            SetupContainerForTest(CreateCastleWindsorContainer(), definitions, warmup);
-            SetupContainerForTest(CreateDryIocContainer(), definitions, warmup);
-            SetupContainerForTest(CreateGraceContainer(), definitions, warmup);
-            SetupContainerForTest(CreateLightInjectContainer(), definitions, warmup);
-            SetupContainerForTest(CreateMicrosoftDependencyInjectionContainer(), definitions, warmup);
-            SetupContainerForTest(CreateNInjectContainer(), definitions, warmup);
-            SetupContainerForTest(CreateSimpleInjectorContainer(), definitions, warmup);
-            SetupContainerForTest(CreateStructureMapContainer(), definitions, warmup);
+                yield return new RegistrationDefinition { ExportType = typeof(IImportEnumerableService), ActivationType = typeof(ImportEnumerableService) };
+            }
         }
 
-        public static IEnumerable<RegistrationDefinition> Definitions()
-        {
-            yield return new RegistrationDefinition { ExportType = typeof(IEnumerableService), ActivationType = typeof(EnumerableService1), RegistrationMode = RegistrationMode.Multiple };
-            yield return new RegistrationDefinition { ExportType = typeof(IEnumerableService), ActivationType = typeof(EnumerableService2), RegistrationMode = RegistrationMode.Multiple };
-            yield return new RegistrationDefinition { ExportType = typeof(IEnumerableService), ActivationType = typeof(EnumerableService3), RegistrationMode = RegistrationMode.Multiple };
-            yield return new RegistrationDefinition { ExportType = typeof(IEnumerableService), ActivationType = typeof(EnumerableService4), RegistrationMode = RegistrationMode.Multiple };
-            yield return new RegistrationDefinition { ExportType = typeof(IEnumerableService), ActivationType = typeof(EnumerableService5), RegistrationMode = RegistrationMode.Multiple };
-            yield return new RegistrationDefinition { ExportType = typeof(ISingletonService), ActivationType = typeof(SingletonService) };
-            yield return new RegistrationDefinition { ExportType = typeof(ITransientService), ActivationType = typeof(TransientService) };
-
-            yield return new RegistrationDefinition { ExportType = typeof(IImportEnumerableService), ActivationType = typeof(ImportEnumerableService) };
-        }
-
-
-        #region Benchmarks
-
-        [Benchmark]
-        [BenchmarkCategory("Autofac")]
-        public void Autofac()
-        {
-            ExecuteBenchmark(AutofacContainer);
-        }
-
-        [Benchmark]
-        [BenchmarkCategory("CastleWindsor")]
-        public void CastleWindsor()
-        {
-            ExecuteBenchmark(CastleWindsorContainer);
-        }
-
-        [Benchmark]
-        [BenchmarkCategory("DryIoc")]
-        public void DryIoc()
-        {
-            ExecuteBenchmark(DryIocContainer);
-        }
-
-        [Benchmark]
-        [BenchmarkCategory("Grace")]
-        public void Grace()
-        {
-            ExecuteBenchmark(GraceContainer);
-        }
-
-        [Benchmark]
-        [BenchmarkCategory("LightInject")]
-        public void LightInject()
-        {
-            ExecuteBenchmark(LightInjectContainer);
-        }
-
-        [Benchmark]
-        [BenchmarkCategory("MicrosoftDependencyInjection")]
-        public void MicrosoftDependencyInjection()
-        {
-            ExecuteBenchmark(MicrosoftDependencyInjectionContainer);
-        }
-
-        [Benchmark]
-        [BenchmarkCategory("NInject")]
-        public void NInject()
-        {
-            ExecuteBenchmark(NInjectContainer);
-        }
-
-        [Benchmark]
-        [BenchmarkCategory("SimpleInjector")]
-        public void SimpleInjector()
-        {
-            ExecuteBenchmark(SimpleInjectorContainer);
-        }
-
-        [Benchmark]
-        [BenchmarkCategory("StructureMap")]
-        public void StructureMap()
-        {
-            ExecuteBenchmark(StructureMapContainer);
-        }
-
-        private void ExecuteBenchmark(IResolveScope scope)
+        protected override void ExecuteBenchmark(IResolveScope scope)
         {
             if (scope.Resolve<IImportEnumerableService>().Services.Count() != 5)
             {
@@ -118,7 +37,68 @@ namespace DotNet.DependencyInjectionBenchmarks.Benchmarks.Standard
             }
         }
 
-        #endregion
+        [Benchmark]
+        [BenchmarkCategory(nameof(Autofac))]
+        public void Autofac()
+        {
+            ExecuteBenchmark(AutofacContainer);
+        }
+
+        [Benchmark]
+        [BenchmarkCategory(nameof(CastleWindsor))]
+        public void CastleWindsor()
+        {
+            ExecuteBenchmark(CastleWindsorContainer);
+        }
+
+        [Benchmark]
+        [BenchmarkCategory(nameof(DryIoc))]
+        public void DryIoc()
+        {
+            ExecuteBenchmark(DryIocContainer);
+        }
+
+        [Benchmark]
+        [BenchmarkCategory(nameof(Grace))]
+        public void Grace()
+        {
+            ExecuteBenchmark(GraceContainer);
+        }
+
+        [Benchmark]
+        [BenchmarkCategory(nameof(LightInject))]
+        public void LightInject()
+        {
+            ExecuteBenchmark(LightInjectContainer);
+        }
+
+        [Benchmark]
+        [BenchmarkCategory(nameof(MicrosoftDependencyInjection))]
+        public void MicrosoftDependencyInjection()
+        {
+            ExecuteBenchmark(MicrosoftDependencyInjectionContainer);
+        }
+
+        [Benchmark]
+        [BenchmarkCategory(nameof(NInject))]
+        public void NInject()
+        {
+            ExecuteBenchmark(NInjectContainer);
+        }
+
+        [Benchmark]
+        [BenchmarkCategory(nameof(SimpleInjector))]
+        public void SimpleInjector()
+        {
+            ExecuteBenchmark(SimpleInjectorContainer);
+        }
+
+        [Benchmark]
+        [BenchmarkCategory(nameof(StructureMap))]
+        public void StructureMap()
+        {
+            ExecuteBenchmark(StructureMapContainer);
+        }
 
     }
 }

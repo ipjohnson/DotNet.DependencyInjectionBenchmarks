@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 using Grace.DependencyInjection;
 using Grace.Dynamic;
@@ -124,6 +125,13 @@ namespace DotNet.DependencyInjectionBenchmarks.Containers
                         {
                             export.WithMetadata(kvp.Key, kvp.Value);
                         }
+                    }
+
+                    if (definition.MemberInjectionList != null)
+                    {
+                        var memberList = definition.MemberInjectionList;
+
+                        export.ImportMembers(m => memberList.Any(mem => mem.MemberName == m.Name));
                     }
                 }
             });

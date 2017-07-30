@@ -1,27 +1,35 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using BenchmarkDotNet.Attributes;
-using DotNet.DependencyInjectionBenchmarks.Benchmarks.Standard;
 using DotNet.DependencyInjectionBenchmarks.Classes;
 using DotNet.DependencyInjectionBenchmarks.Containers;
 
-namespace DotNet.DependencyInjectionBenchmarks.Benchmarks.Lazy
+namespace DotNet.DependencyInjectionBenchmarks.Benchmarks.Standard
 {
-    [BenchmarkCategory("Lazy")]
-    public class LazyBenchmark : StandardBenchmark
+    [BenchmarkCategory("Standard")]
+    public class GenericObjectBenchmark : StandardBenchmark
     {
         public static string Description =>
-            "This benchmark registers a small object then resolves the object using Lazy(T).";
+            @"Registers a small object graph as well as one generic service and resolves it.";
+        
+        protected override IEnumerable<RegistrationDefinition> Definitions
+        {
+            get
+            {
+                foreach (var registrationDefinition in SmallObjectServices.Definitions())
+                {
+                    yield return registrationDefinition;
+                }
 
-        protected override IEnumerable<RegistrationDefinition> Definitions => SmallObjectServices.Definitions();
+                yield return new RegistrationDefinition { ExportType = typeof(IGenericObjectService<>), ActivationType = typeof(GenericObjectService<>) };
+            }
+        }
 
         protected override void ExecuteBenchmark(IResolveScope scope)
         {
-            if (scope.Resolve<Lazy<ISmallObjectService>>().Value == null)
-            {
-                throw new Exception("Null lazy value");
-            }
+            scope.Resolve(typeof(IGenericObjectService<ISmallObjectService>));
         }
 
         [Benchmark]
@@ -30,7 +38,7 @@ namespace DotNet.DependencyInjectionBenchmarks.Benchmarks.Lazy
         {
             ExecuteBenchmark(AutofacContainer);
         }
-        
+
         [Benchmark]
         [BenchmarkCategory(nameof(CastleWindsor))]
         public void CastleWindsor()
@@ -58,12 +66,19 @@ namespace DotNet.DependencyInjectionBenchmarks.Benchmarks.Lazy
         {
             ExecuteBenchmark(LightInjectContainer);
         }
+        
+        [Benchmark]
+        [BenchmarkCategory(nameof(NInject))]
+        public void NInject()
+        {
+            ExecuteBenchmark(NInjectContainer);
+        }
 
         [Benchmark]
         [BenchmarkCategory(nameof(SimpleInjector))]
         public void SimpleInjector()
         {
-            ExecuteBenchmark(LightInjectContainer);
+            ExecuteBenchmark(SimpleInjectorContainer);
         }
 
         [Benchmark]

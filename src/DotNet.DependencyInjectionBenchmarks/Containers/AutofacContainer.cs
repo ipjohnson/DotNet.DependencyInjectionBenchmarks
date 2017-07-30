@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Reflection;
 using Autofac;
+using Autofac.Builder;
 using Autofac.Core;
 
 namespace DotNet.DependencyInjectionBenchmarks.Containers
@@ -116,35 +117,80 @@ namespace DotNet.DependencyInjectionBenchmarks.Containers
         {
             foreach (var definition in definitions)
             {
-                var registration = _builder.RegisterType(definition.ActivationType);
-
-                if (definition.ExportKey == null)
+                if (!definition.ExportType.GetTypeInfo().IsGenericTypeDefinition)
                 {
-                    registration.As(definition.ExportType);
+                    ProcessNonGenericRegistration(definition);
                 }
                 else
                 {
-                    registration.Keyed(definition.ExportKey, definition.ExportType);
+                    ProcessOpenGenericRegistration(definition);
                 }
-                
-                switch (definition.RegistrationLifestyle)
-                {
-                    case RegistrationLifestyle.Singleton:
-                        registration.SingleInstance();
-                        break;
-                    case RegistrationLifestyle.SingletonPerScope:
-                        registration.InstancePerLifetimeScope();
-                        break;
-                    case RegistrationLifestyle.SingletonPerNamedScope:
-                        registration.InstancePerMatchingLifetimeScope(definition.LifestyleInformation);
-                        break;
-                }
+            }
+        }
 
-                if (definition.Metadata != null)
+        private void ProcessOpenGenericRegistration(RegistrationDefinition definition)
+        {
+            var registration = _builder.RegisterGeneric(definition.ActivationType);
+
+            ProcessRegistrationDefinition(definition, registration);
+        }
+
+        private void ProcessNonGenericRegistration(RegistrationDefinition definition)
+        {
+            var registration = _builder.RegisterType(definition.ActivationType);
+
+            ProcessRegistrationDefinition(definition, registration);
+        }
+
+        private void ProcessRegistrationDefinition<T1, T2, T3>(RegistrationDefinition definition,
+            IRegistrationBuilder<T1, T2, T3> registration)
+        {
+
+            if (definition.ExportKey == null)
+            {
+                registration.As(definition.ExportType);
+            }
+            else
+            {
+                registration.Keyed(definition.ExportKey, definition.ExportType);
+            }
+
+            switch (definition.RegistrationLifestyle)
+            {
+                case RegistrationLifestyle.Singleton:
+                    registration.SingleInstance();
+                    break;
+                case RegistrationLifestyle.SingletonPerScope:
+                    registration.InstancePerLifetimeScope();
+                    break;
+                case RegistrationLifestyle.SingletonPerNamedScope:
+                    registration.InstancePerMatchingLifetimeScope(definition.LifestyleInformation);
+                    break;
+            }
+
+            if (definition.Metadata != null)
+            {
+                foreach (var kvp in definition.Metadata)
                 {
-                    foreach (var kvp in definition.Metadata)
+                    registration.WithMetadata(kvp.Key.ToString(), kvp.Value);
+                }
+            }
+
+            if (definition.MemberInjectionList != null)
+            {
+                foreach (var injectionInfo in definition.MemberInjectionList)
+                {
+                    switch (injectionInfo.InjectionType)
                     {
-                        registration.WithMetadata(kvp.Key.ToString(), kvp.Value);
+                            case MemberInjectionType.Field:
+                                throw new Exception("Field injection is not supported out of the box for autofac");
+                            
+                            case MemberInjectionType.Method:
+                                throw new Exception("Method injection is not supported out of the box for autofac");
+                                
+                            case MemberInjectionType.Property:
+                                registration.PropertiesAutowired();
+                                break;
                     }
                 }
             }

@@ -26,9 +26,7 @@ namespace DotNet.DependencyInjectionBenchmarks.Containers
 		{
 			_container = new WindsorContainer();
 			_kernel = _container.Kernel;
-
-			//_container.Kernel.Resolver.AddSubResolver(new ArrayResolver(_container.Kernel, true));
-			//_container.Kernel.Resolver.AddSubResolver(new ListResolver(_container.Kernel, true));
+            
 			_kernel.Resolver.AddSubResolver(new CollectionResolver(_container.Kernel, true));
 			_container.Register(Component.For<ILazyComponentLoader>().ImplementedBy<LazyOfTComponentLoader>());
 		}

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using BenchmarkDotNet.Attributes;
 using DotNet.DependencyInjectionBenchmarks.Benchmarks.Standard;
@@ -8,58 +9,60 @@ using DotNet.DependencyInjectionBenchmarks.Containers;
 namespace DotNet.DependencyInjectionBenchmarks.Benchmarks.Lifestyles
 {
 	[BenchmarkCategory("Lifestyles")]
-	public class SingletonPerAncestorBenchmark : BaseBenchmark
+	public class SingletonPerAncestorBenchmark : StandardBenchmark
 	{
 		public static string Description =>
             @"This benchmark registers a small object as Singleton Per Ancestor then resolves it as part of a slightly larger object graph";
 
-        [GlobalSetup]
-		public void Setup()
-		{
-			var definitions = SmallObjectBenchmark.Definitions(RegistrationLifestyle.SingletonPerObjectGraph, typeof(IImportMultipleSmallObject)).ToList();
-            
-            definitions.Add(new RegistrationDefinition{ExportType = typeof(IImportMultipleSmallObject), ActivationType = typeof(ImportMultipleSmallObject) });
+	    protected override IEnumerable<RegistrationDefinition> Definitions
+	    {
+	        get
+	        {
+	            foreach (var definition in SmallObjectServices.Definitions(RegistrationLifestyle.SingletonPerAncestor, typeof(IImportMultipleSmallObject)))
+	            {
+	                yield return definition;
+	            }
 
-			var warmups = new Action<IResolveScope>[]
-			{
-			    scope =>
-			    {
-			        var instance = scope.Resolve<IImportMultipleSmallObject>();
+	            yield return new RegistrationDefinition
+	            {
+	                ExportType = typeof(IImportMultipleSmallObject),
+	                ActivationType = typeof(ImportMultipleSmallObject)
+	            };
+	        }
+	    }
 
-			        if (!ReferenceEquals(instance.SmallObject1, instance.SmallObject2))
-			        {
-			            throw new Exception("Not the same instance");
-			        }
-                }
-			};
+        protected override void Warmup(IResolveScope scope)
+	    {
+	        var instance = scope.Resolve<IImportMultipleSmallObject>();
 
-			SetupContainerForTest(CreateCastleWindsorContainer(), definitions, warmups);
-			SetupContainerForTest(CreateGraceContainer(), definitions, warmups);
-		}
+	        if (!ReferenceEquals(instance.SmallObject1, instance.SmallObject2))
+	        {
+	            throw new Exception("Not the same instance");
+	        }
+        }
 
-		#region Benchmarks
+	    protected override void ExecuteBenchmark(IResolveScope scope)
+	    {
+	        scope.Resolve<IImportMultipleSmallObject>();
+	    }
 
-		[Benchmark]
-		[BenchmarkCategory("CastleWindsor")]
+        #region Benchmarks
+
+        [Benchmark]
+		[BenchmarkCategory(nameof(CastleWindsor))]
 		public void CastleWindsor()
 		{
 			ExecuteBenchmark(CastleWindsorContainer);
 		}
 
 		[Benchmark]
-		[BenchmarkCategory("Grace")]
+		[BenchmarkCategory(nameof(Grace))]
 		public void Grace()
 		{
 			ExecuteBenchmark(GraceContainer);
 		}
         
-		private void ExecuteBenchmark(IResolveScope scope)
-		{
-		    scope.Resolve<IImportMultipleSmallObject>();
-		}
-
 		#endregion
 
 	}
-	//}
 }
